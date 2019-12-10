@@ -140,3 +140,6 @@ module.exports.postRegister = passport.authenticate('local-register', {
 module.exports.dashboard = function(req, res) {
 	res.render('./web/dashboard');
 };
+module.exports.productdetail = function(req, res) {
+	res.render('./web/productdetail');
+};
