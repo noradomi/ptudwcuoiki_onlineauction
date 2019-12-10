@@ -137,6 +137,13 @@ module.exports.postRegister = passport.authenticate('local-register', {
 	failureFlash: true
 });
 
+// FACEBOOK
+module.exports.authfb = passport.authenticate('facebook');
+module.exports.authfbcb = passport.authenticate('facebook', {
+	successRedirect: '/auth/dashboard',
+	failureRedirect: '/auth/login'
+});
+
 module.exports.dashboard = function(req, res) {
 	res.render('./web/dashboard');
 };

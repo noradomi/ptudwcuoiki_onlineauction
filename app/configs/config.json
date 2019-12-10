@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"development": {
 		"username": "root",
 
@@ -36,41 +35,3 @@
 		"dialect": "mysql"
 	}
 }
-=======
-    "development": {
-        "username": "root",
-
-        "password": "123456789",
-
-        "database": "onlineauction",
-
-        "host": "127.0.0.1",
-
-        "dialect": "mysql"
-    },
-
-    "test": {
-        "username": "",
-
-        "password": null,
-
-        "database": "",
-
-        "host": "",
-
-        "dialect": "mysql"
-    },
-
-    "production": {
-        "username": "",
-
-        "password": null,
-
-        "database": "",
-
-        "host": "127.0.0.1",
-
-        "dialect": "mysql"
-    }
-}
->>>>>>> 87c33c15580c187970fe7ca69dd76989a584a417

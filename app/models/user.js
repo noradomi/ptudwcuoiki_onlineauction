@@ -32,13 +32,21 @@ module.exports = function(sequelize, Sequelize) {
 		},
 
 		password: {
-			type: Sequelize.STRING,
-			allowNull: false
+			type: Sequelize.STRING
 		},
 
 		role: {
 			type: Sequelize.INTEGER,
 			defaultValue: 0
+		},
+
+		facebook_id: {
+			type: Sequelize.STRING
+		},
+
+		facebook_token: {
+			type: Sequelize.STRING,
+			default: ''
 		},
 
 		status: {
