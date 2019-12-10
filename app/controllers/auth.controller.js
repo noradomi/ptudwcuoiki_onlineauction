@@ -83,13 +83,20 @@ module.exports.validateRegister = (req, res, next) => {
 	var lastname = req.body.lastname;
 	var email = req.body.email;
 	var password = req.body.password;
+	var address = req.body.address;
+
+	console.log('address = ' + address);
 
 	//kiểm tra các  form values
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('firstname', 'Firstname is required').notEmpty();
 	req.checkBody('lastname', 'Lastname is required').notEmpty();
 	req.checkBody('email', 'Email is invalid').isEmail();
-	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('address', 'Address is required').notEmpty();
+	req.checkBody(
+		'password',
+		'Password must have minimum eight characters, at least one letter and one number.'
+	).matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/);
 	req.checkBody(
 		'password',
 		'Confirm password do not match. Try again!'
@@ -102,7 +109,8 @@ module.exports.validateRegister = (req, res, next) => {
 		firstname: firstname,
 		lastname: lastname,
 		email: email,
-		password: password
+		password: password,
+		address: address
 	};
 
 	if (errors) {

@@ -20,10 +20,6 @@ module.exports = function(sequelize, Sequelize) {
 			type: Sequelize.TEXT
 		},
 
-		about: {
-			type: Sequelize.TEXT
-		},
-
 		email: {
 			type: Sequelize.STRING,
 			validate: {
@@ -31,13 +27,18 @@ module.exports = function(sequelize, Sequelize) {
 			}
 		},
 
+		address: {
+			type: Sequelize.TEXT
+		},
+
 		password: {
 			type: Sequelize.STRING,
 			allowNull: false
 		},
 
-		last_login: {
-			type: Sequelize.DATE
+		role: {
+			type: Sequelize.INTEGER,
+			defaultValue: 0
 		},
 
 		status: {
