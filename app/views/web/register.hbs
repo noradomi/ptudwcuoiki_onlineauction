@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Login Page</title>
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -86,7 +87,9 @@
                     <input type="password" class="form-control input-lg" name="confirm_password"
                         placeholder="Confirm Password" required="required">
                 </div>
-
+                <div class="form-group">
+                    <div name="captcha" class="g-recaptcha" data-sitekey="6LfYK8cUAAAAAJQAA3u6dP0Qc28Ynzic8BxbdHoV"></div>
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sign Up</button>
                 </div>
@@ -99,5 +102,4 @@
     </div>
     <!-- =========================  CONTENT END// ========================= -->
 </body>
-
 </html>
