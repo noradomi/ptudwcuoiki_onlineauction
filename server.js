@@ -67,7 +67,7 @@ app.use(flash());
 //  Routes
 app.get('/', (req, res) => {
 	if (req.isAuthenticated()) {
-		res.render('web/homepage');
+		res.render('web/homepage', {});
 	} else {
 		res.redirect('auth/login');
 	}
