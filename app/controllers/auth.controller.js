@@ -1,4 +1,5 @@
 const passport = require('passport');
+const request = require('request');
 
 module.exports.login = (req, res) => {
 	// lấy các thông báo lỗi từ passport.js
@@ -74,6 +75,45 @@ module.exports.register = (req, res) => {
 		hasErrors: messages.length > 0,
 		dataForm: dataForm
 	});
+};
+
+module.exports.reCaptcha = (req,res,next) => {
+
+	var recaptcha = req.body['g-recaptcha-response']
+	console.log("recaptcha: "+ recaptcha);
+	if(recaptcha === undefined || recaptcha ==='' || recaptcha === null){
+		var messages = [];
+		messages.push("Please select captcha");
+		res.render('./web/register', {
+			layout: false,
+			messages: messages,
+			hasErrors: 1,
+			dataForm:"",
+		});
+	}
+	else
+	{
+		const secretKey = '6LfYK8cUAAAAABUIKmmkIjWkVVXpLZ9RfGsiqLOB';
+		const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
+		console.log(verifyURL);
+		request(verifyURL,(err,response,body) => {
+			//if not success
+			if(response.success !== undefined && !response.sucess){
+				var messages = [];
+				messages.push("Recaptcha failed");
+				res.render('./web/register', {
+					layout: false,
+					messages: messages,
+					hasErrors: 1,
+					dataForm:"",
+				});
+			}
+			else{
+				console.log("Recaptcha passed");
+				next();
+			}
+		});
+	}
 };
 
 module.exports.validateRegister = (req, res, next) => {
