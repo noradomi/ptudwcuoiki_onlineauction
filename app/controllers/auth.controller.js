@@ -184,9 +184,6 @@ module.exports.authfbcb = passport.authenticate('facebook', {
 module.exports.dashboard = function(req, res) {
     res.render('./web/dashboard');
 };
-module.exports.productdetail = function(req, res) {
-    res.render('./web/productdetail');
-};
 
 
 //Models
@@ -222,6 +219,38 @@ module.exports.product = function(req, res) {
         res.render('./web/product', {
             Pro4: Pro4,
             Cate: Cate,
+        });
+    } else {
+        res.redirect('auth/login');
+    }
+};
+module.exports.productdetail = function(req, res) {
+    if (req.isAuthenticated()) {
+        var categoryId = req.params.catId;
+        var id = req.params.id;
+        let Pro = [],
+            ProRelate = [];
+        Product.findAll({
+            where: {
+                categoryId: categoryId
+            }
+        }).then(function(pros) {
+            pros.forEach(c => {
+                ProRelate.push(c);
+            });
+        });
+        Product.findAll({
+            where: {
+                id: id
+            }
+        }).then(function(pros) {
+            pros.forEach(p => {
+                Pro.push(p);
+            });
+        });
+        res.render('./web/productdetail', {
+            Pro: Pro,
+            ProRelate: ProRelate,
         });
     } else {
         res.redirect('auth/login');
