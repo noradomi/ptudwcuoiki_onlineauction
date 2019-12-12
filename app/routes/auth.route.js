@@ -16,10 +16,10 @@ router.post('/login', authController.validateLogin, authController.postLogin);
 router.get('/register', authController.register);
 
 router.post(
-	'/register',
-	authController.validateRegister,
-	authController.reCaptcha,
-	authController.postRegister
+    '/register',
+    authController.validateRegister,
+    authController.reCaptcha,
+    authController.postRegister
 );
 
 router.get('/logout', function(req, res) {
@@ -46,7 +46,7 @@ router.get(
 );
 
 router.get('/dashboard', isLoggedIn, authController.dashboard);
-router.get('/productdetail', isLoggedIn, authController.productdetail);
+router.get('/productdetail/:catId/:id', isLoggedIn, authController.productdetail);
 router.get('/product', isLoggedIn, authController.product);
 
 module.exports = router;
