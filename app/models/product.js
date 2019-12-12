@@ -8,13 +8,11 @@ module.exports = function(sequelize, Sequelize) {
 
 		start_date: {
 			type: Sequelize.DATE,
-			allowNull: false,
 			defaultValue: Sequelize.NOW
 		},
 
 		expriry_date: {
-			type: Sequelize.STRING,
-			notEmpty: true
+			type: Sequelize.DATE
 		},
 
 		product_name: {
@@ -45,7 +43,7 @@ module.exports = function(sequelize, Sequelize) {
 
 		auto_extend: {
 			type: Sequelize.BOOLEAN, // có tự động gia hạn thêm thời gian đấu giá không ?
-			default: false
+			default: '0'
 		}
 	});
 
