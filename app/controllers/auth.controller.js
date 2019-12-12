@@ -77,43 +77,40 @@ module.exports.register = (req, res) => {
     });
 };
 
-module.exports.reCaptcha = (req,res,next) => {
+module.exports.reCaptcha = (req, res, next) => {
 
-	var recaptcha = req.body['g-recaptcha-response']
-	console.log("recaptcha: "+ recaptcha);
-	if(recaptcha === undefined || recaptcha ==='' || recaptcha === null){
-		var messages = [];
-		messages.push("Please select captcha");
-		res.render('./web/register', {
-			layout: false,
-			messages: messages,
-			hasErrors: 1,
-			dataForm:"",
-		});
-	}
-	else
-	{
-		const secretKey = '6LfYK8cUAAAAABUIKmmkIjWkVVXpLZ9RfGsiqLOB';
-		const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
-		console.log(verifyURL);
-		request(verifyURL,(err,response,body) => {
-			//if not success
-			if(response.success !== undefined && !response.sucess){
-				var messages = [];
-				messages.push("Recaptcha failed");
-				res.render('./web/register', {
-					layout: false,
-					messages: messages,
-					hasErrors: 1,
-					dataForm:"",
-				});
-			}
-			else{
-				console.log("Recaptcha passed");
-				next();
-			}
-		});
-	}
+    var recaptcha = req.body['g-recaptcha-response']
+    console.log("recaptcha: " + recaptcha);
+    if (recaptcha === undefined || recaptcha === '' || recaptcha === null) {
+        var messages = [];
+        messages.push("Please select captcha");
+        res.render('./web/register', {
+            layout: false,
+            messages: messages,
+            hasErrors: 1,
+            dataForm: "",
+        });
+    } else {
+        const secretKey = '6LfYK8cUAAAAABUIKmmkIjWkVVXpLZ9RfGsiqLOB';
+        const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
+        console.log(verifyURL);
+        request(verifyURL, (err, response, body) => {
+            //if not success
+            if (response.success !== undefined && !response.sucess) {
+                var messages = [];
+                messages.push("Recaptcha failed");
+                res.render('./web/register', {
+                    layout: false,
+                    messages: messages,
+                    hasErrors: 1,
+                    dataForm: "",
+                });
+            } else {
+                console.log("Recaptcha passed");
+                next();
+            }
+        });
+    }
 };
 
 module.exports.validateRegister = (req, res, next) => {
@@ -190,6 +187,43 @@ module.exports.dashboard = function(req, res) {
 module.exports.productdetail = function(req, res) {
     res.render('./web/productdetail');
 };
+
+
+//Models
+var models = require('../models');
+
+var Product = models.product;
+var Category = models.category;
+
+//  Routes
 module.exports.product = function(req, res) {
-    res.render('./web/product')
+    if (req.isAuthenticated()) {
+        let Pro4 = [],
+            Cate = [];
+        Category.findAll({
+            where: {
+                id: 6
+            }
+        }).then(function(cats) {
+            cats.forEach(c => {
+                Cate.push(c);
+            });
+        });
+        Product.findAll({
+            where: {
+                categoryId: 6
+            }
+        }).then(function(pros) {
+            pros.forEach(p => {
+                Pro4.push(p);
+            });
+        });
+
+        res.render('./web/product', {
+            Pro4: Pro4,
+            Cate: Cate,
+        });
+    } else {
+        res.redirect('auth/login');
+    }
 };
