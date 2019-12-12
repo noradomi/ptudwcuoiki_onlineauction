@@ -1,6 +1,8 @@
 {{#section 'style'}}
+<script src="/js/countdowntimer.js"></script>
 <link href="/css/card.css" rel="stylesheet" type="text/css">
 {{/section}}
+
 <div class="section">
 		<!-- container -->
 		<div class="container">
@@ -9,12 +11,14 @@
 				<!-- ASIDE -->
 				<div id="aside" class="col-md-3">
 					<!-- aside widget -->
+					{{#each Cate}}
 					<div class="aside">
-						<h3 class="aside-title">PRODUCT TYPE  :</h3>
+						<h3 class="aside-title">PRODUCT TYPE: {{cat_name}}</h3>
 						<div class="product-thumb">
 								<img src="https://images-na.ssl-images-amazon.com/images/I/51+vTuZ5IeL._AC_SL_QL70_.jpg" alt="">
 							</div>
 					</div>
+					{{/each}}
 					
 				</div>
 				<!-- /ASIDE -->
@@ -62,24 +66,30 @@
 					<div id="store">
 						<!-- row -->
 						<div class="row">
-							<!-- Product Single -->
+						{{#each Pro4}}
+						<!-- Product Single -->
 							<div class="col-md-4 col-sm-6 col-xs-6">
 								<div class="product product-single">
 									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
+										<div class="product-label" >
+											<span id= time{{id}} start_date={{start_date}}>
+												<script>
+													transferDateFormat(`{{start_date}}`, {{ id }});
+												</script>
+											</span>
 										</div>
 										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/giay_adidas/thumbs/300_crop_CM7736_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
+										<img src="/img/sp/{{id}}/main.jpg" alt="">
+										<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+											<script>
+												console.log(`{{ expriry_date }}`);
+												countDownTimer(`{{ expriry_date }}`, {{ id }});
+													// countDownTimer('Mon Nov 1 2018 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+											</script>
 										</ul>
 									</div>
 									<div class="product-body">
-										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<h3 class="product-price">${{initial_price}}</h3>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -87,13 +97,13 @@
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star-o empty"></i>
 										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+										<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 										<div class="">
 												<p>
 													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
 													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
 												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
+												<p>Buy now: <strong>{{imme_buy_price}}</strong></p>
 										</div>
 										<div class="product-btns">
 											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
@@ -104,366 +114,7 @@
 								</div>
 							</div>
 							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-											
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/giay_adidas/thumbs/300_crop_S80832_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50</h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<div class="clearfix visible-sm visible-xs"></div>
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-											
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/09_2017/thumbs/300_crop_BW0281_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<div class="clearfix visible-md visible-lg"></div>
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-											
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/09_2017/thumbs/300_crop_CG3129_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50</h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<div class="clearfix visible-sm visible-xs"></div>
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-											
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/09_2017/thumbs/300_crop_S80619_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50</h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/09_2017/thumbs/300_crop_BW1217_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<div class="clearfix visible-md visible-lg visible-sm visible-xs"></div>
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/09_2017/thumbs/300_crop_BA8895_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-											
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/thumbs/300_crop_metcon-repper-dsx-training-shoe_2.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50</h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
-
-							<div class="clearfix visible-sm visible-xs"></div>
-
-							<!-- Product Single -->
-							<div class="col-md-4 col-sm-6 col-xs-6">
-								<div class="product product-single">
-									<div class="product-thumb">
-										<div class="product-label">
-											<span>06/09/2019</span>
-											
-										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="https://www.kingsport.vn/vnt_upload/product/09_2017/thumbs/300_crop_CG4134_01_standard.jpg" alt="">
-										<ul class="product-countdown">
-											<li><span>00 D</span></li>
-											<li><span>00 H</span></li>
-											<li><span>00 M</span></li>
-											<li><span>00 S</span></li>
-										</ul>
-									</div>
-									<div class="product-body">
-										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o empty"></i>
-										</div>
-										<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-										<div class="">
-												<p>
-													<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-													<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-												</p>
-												<p>Buy now: <strong>$40.50</strong></p>
-										</div>
-										<div class="product-btns">
-											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Product Single -->
+						{{/each}}
 						</div>
 						<!-- /row -->
 					</div>
