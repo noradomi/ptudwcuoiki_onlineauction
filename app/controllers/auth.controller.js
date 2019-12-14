@@ -1,5 +1,6 @@
 const passport = require('passport');
 const request = require('request');
+const Swal = require('sweetalert2');
 
 module.exports.login = (req, res) => {
     // lấy các thông báo lỗi từ passport.js
@@ -51,6 +52,7 @@ module.exports.validateLogin = (req, res, next) => {
     } else {
         console.log('Qua buoc validation.');
         next();
+        
     }
 };
 
@@ -79,23 +81,39 @@ module.exports.register = (req, res) => {
 
 module.exports.reCaptcha = (req,res,next) => {
 
-	var recaptcha = req.body['g-recaptcha-response']
-	console.log("recaptcha: "+ recaptcha);
+    var recaptcha = req.body['g-recaptcha-response']
+    
+    //Because these values have been validated so we don't need validate them here
+    var username = req.body.username;
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var email = req.body.email;
+    var password = req.body.password;
+    var address = req.body.address;
+    
+    //use to auto fill others field when recaptcha failed
+    dataForm = {
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        address: address
+    };
 	if(recaptcha === undefined || recaptcha ==='' || recaptcha === null){
 		var messages = [];
 		messages.push("Please select captcha");
 		res.render('./web/register', {
 			layout: false,
 			messages: messages,
-			hasErrors: 1,
-			dataForm:"",
+            hasErrors: 1,
+            dataForm: dataForm,
 		});
 	}
 	else
 	{
 		const secretKey = '6LfYK8cUAAAAABUIKmmkIjWkVVXpLZ9RfGsiqLOB';
 		const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptcha}&remoteip=${req.connection.remoteAddress}`;
-		console.log(verifyURL);
 		request(verifyURL,(err,response,body) => {
 			//if not success
 			if(response.success !== undefined && !response.sucess){
@@ -104,13 +122,16 @@ module.exports.reCaptcha = (req,res,next) => {
 				res.render('./web/register', {
 					layout: false,
 					messages: messages,
-					hasErrors: 1,
-					dataForm:"",
+                    hasErrors: 1,
+                    dataForm: dataForm,
 				});
 			}
 			else{
-				console.log("Recaptcha passed");
-				next();
+				res.render('./web/register',{
+                    layout: false,
+                    showMailOTP: true,
+                })
+                next();
 			}
 		});
 	}

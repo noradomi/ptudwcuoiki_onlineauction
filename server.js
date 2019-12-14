@@ -75,6 +75,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRoute);
 
+
 //Models
 var models = require('./app/models');
 

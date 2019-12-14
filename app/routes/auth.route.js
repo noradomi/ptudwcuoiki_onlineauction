@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const authController = require('../controllers/auth.controller');
+const mailOTP = require('../controllers/mailOTP.controller');
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
@@ -16,10 +17,16 @@ router.post('/login', authController.validateLogin, authController.postLogin);
 router.get('/register', authController.register);
 
 router.post(
-	'/register',
-	authController.validateRegister,
-	authController.reCaptcha,
-	authController.postRegister
+    '/register',
+    authController.validateRegister,
+    authController.reCaptcha,
+    mailOTP.MailOTP,
+);
+
+router.post(
+    '/mailotp',
+    mailOTP.Validate,
+    authController.postRegister
 );
 
 router.get('/logout', function(req, res) {
