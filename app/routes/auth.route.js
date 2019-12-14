@@ -53,7 +53,7 @@ router.get(
 );
 
 router.get('/dashboard', isLoggedIn, authController.dashboard);
-router.get('/productdetail', isLoggedIn, authController.productdetail);
+router.get('/productdetail/:catId/:id', isLoggedIn, authController.productdetail);
 router.get('/product', isLoggedIn, authController.product);
 
 module.exports = router;

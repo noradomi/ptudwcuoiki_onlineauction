@@ -28,6 +28,22 @@ Object.keys(db).forEach(function(modelName) {
 	}
 });
 
+// Associations
+
+// Product
+db.product.hasMany(db.bid_details);
+db.product.belongsTo(db.category);
+
+// Category
+db.category.hasMany(db.product);
+
+// User
+db.user.hasMany(db.bid_details);
+
+// BidDetails
+db.bid_details.belongsTo(db.product);
+db.bid_details.belongsTo(db.user);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

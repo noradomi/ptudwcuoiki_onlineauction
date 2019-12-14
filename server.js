@@ -64,10 +64,54 @@ app.use(Passport.session());
 app.use(validator());
 app.use(flash());
 
+app.use('/auth', authRoute);
+
+//Models
+var models = require('./app/models');
+
+var Product = models.product;
+
 //  Routes
 app.get('/', (req, res) => {
 	if (req.isAuthenticated()) {
-		res.render('web/homepage');
+		let Pro2 = [],
+			Pro4 = [],
+			Pro6 = [];
+		Product.findAll({
+			where: {
+				categoryId: 2
+			}
+		}).then(function(pros) {
+			pros.forEach(p => {
+				Pro2.push(p);
+			});
+		});
+
+		Product.findAll({
+			where: {
+				categoryId: 4
+			}
+		}).then(function(pros) {
+			pros.forEach(p => {
+				Pro4.push(p);
+			});
+		});
+
+		Product.findAll({
+			where: {
+				categoryId: 6
+			}
+		}).then(function(pros) {
+			pros.forEach(p => {
+				Pro6.push(p);
+			});
+		});
+
+		res.render('web/homepage', {
+			Pro2: Pro2,
+			Pro4: Pro4,
+			Pro6: Pro6
+		});
 	} else {
 		res.redirect('auth/login');
 	}
@@ -91,5 +135,22 @@ models.sequelize
 	.catch(function(err) {
 		console.log(err, 'Something went wrong with the Database Update!');
 	});
+
+// Product.findOne({
+// 	where: {
+// 		id: 1
+// 	}
+// }).then(function(pro) {
+// 	if (pro) {
+// 		console.log('Ngay bat dau: ' + pro.start_date);
+// 		console.log(typeof pro.start_date);
+// 		var date = new Date('October 13, 2014 11:13:00');
+// 		var month = date.getSeconds();
+// 		console.log('Ngay het han: ' + month);
+// 		console.log(typeof new Date(pro.expriry_date));
+// 	} else {
+// 		console.log('Loi product');
+// 	}
+// });
 
 app.listen(port, () => console.log(`Server listen on port ${port}!`));

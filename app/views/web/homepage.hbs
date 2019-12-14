@@ -1,5 +1,5 @@
 {{#section 'style'}}
-<link href="/css/card.css" rel="stylesheet" type="text/css">
+<script src="/js/countdowntimer.js"></script>
 {{/section}}
 
 
@@ -119,6 +119,7 @@
 				<div class="row">
 					<div id="product-slick-1" class="product-slick">
 
+						{{#each Pro2}}
 						<!-- Product Single -->
 						<div class="product product-single">
 							<div class="product-thumb">
@@ -126,14 +127,16 @@
 									<span>06/09/2019</span>
 									<span class="sale text-center">New</span>
 								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
+								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+									<script>
+										console.log(`{{ expriry_date }}`);
+										countDownTimer(`{{ expriry_date }}`, {{ id }});
+											// countDownTimer('Mon Nov 11 2019 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+									</script>
 								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product01.jpg" alt="">
+
+								<a href="/auth/productdetail/{{categoryId}}/{{id}}" class=" main-btn quick-view">Detail</a>
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-body">
 
@@ -141,7 +144,7 @@
 									Current Price:
 								</p>
 
-								<h3 class="product-price">$32.50</h3>
+								<h3 class="product-price">${{initial_price}}</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -149,13 +152,13 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o empty"></i>
 								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
 										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
 										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
 									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
+									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
 								</div>
 								<div class="product-btns">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
@@ -165,190 +168,9 @@
 							</div>
 						</div>
 						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product07.jpg" alt="">
-							</div>
-							<div class="product-body">
+						{{/each}}
 
-								<p class="align-self-end ">
-									Current Price:
-								</p>
 
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product02.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product04.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product03.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
 					</div>
 				</div>
 			</div>
@@ -372,6 +194,7 @@
 			<div class="col-md-12 col-sm-6 col-xs-6">
 				<div class="row">
 					<div id="product-slick-2" class="product-slick">
+						{{#each Pro4}}
 						<!-- Product Single -->
 						<div class="product product-single">
 							<div class="product-thumb">
@@ -379,14 +202,16 @@
 									<span>06/09/2019</span>
 									<span class="sale text-center">New</span>
 								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
+								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+									<script>
+										console.log(`{{ expriry_date }}`);
+										countDownTimer(`{{ expriry_date }}`, {{ id }});
+											// countDownTimer('Mon Nov 11 2019 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+									</script>
 								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product01.jpg" alt="">
+
+								<a href="/auth/productdetail/{{categoryId}}/{{id}}" class=" main-btn quick-view">Detail</a>
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-body">
 
@@ -394,7 +219,7 @@
 									Current Price:
 								</p>
 
-								<h3 class="product-price">$32.50</h3>
+								<h3 class="product-price">${{initial_price}}</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -402,13 +227,13 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o empty"></i>
 								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
 										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
 										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
 									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
+									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
 								</div>
 								<div class="product-btns">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
@@ -418,190 +243,7 @@
 							</div>
 						</div>
 						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product07.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product02.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product04.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product03.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
+						{{/each}}
 
 					</div>
 				</div>
@@ -626,6 +268,7 @@
 			<div class="col-md-12 col-sm-6 col-xs-6">
 				<div class="row">
 					<div id="product-slick-3" class="product-slick">
+						{{#each Pro6}}
 						<!-- Product Single -->
 						<div class="product product-single">
 							<div class="product-thumb">
@@ -633,14 +276,16 @@
 									<span>06/09/2019</span>
 									<span class="sale text-center">New</span>
 								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
+								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+									<script>
+										console.log(`{{ expriry_date }}`);
+										countDownTimer(`{{ expriry_date }}`, {{ id }});
+											// countDownTimer('Mon Nov 11 2019 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+									</script>
 								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product01.jpg" alt="">
+
+								<a href="/auth/productdetail/{{categoryId}}/{{id}}" class=" main-btn quick-view">Detail</a>
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-body">
 
@@ -648,7 +293,7 @@
 									Current Price:
 								</p>
 
-								<h3 class="product-price">$32.50</h3>
+								<h3 class="product-price">${{initial_price}}</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -656,13 +301,13 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o empty"></i>
 								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
 										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
 										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
 									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
+									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
 								</div>
 								<div class="product-btns">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
@@ -672,190 +317,7 @@
 							</div>
 						</div>
 						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product07.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product02.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product04.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<div class="product-label">
-									<span>06/09/2019</span>
-									<span class="sale text-center">New</span>
-								</div>
-								<ul class="product-countdown">
-									<li><span>00 D</span></li>
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="./img/product03.jpg" alt="">
-							</div>
-							<div class="product-body">
-
-								<p class="align-self-end ">
-									Current Price:
-								</p>
-
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="">
-									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
-									</p>
-									<p>Buy now: <strong>$32.50</strong></p>
-								</div>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
-										now</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
+						{{/each}}
 					</div>
 				</div>
 			</div>
