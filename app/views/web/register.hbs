@@ -19,11 +19,14 @@
 
     <!-- Font awesome 4 -->
     <link rel="stylesheet" href="/vendors/css/font-awesome.min.css">
-    <link href="/css/register/register.css" rel="stylesheet" type="text/css">
+    <link href="/css/register/register.css" rel="stylesheet" type="text/css"/>
 
     <!-- jQuery Plugins -->
     <script src="/vendors/js/jquery.min.js"></script>
     <script src="/vendors/js/bootstrap.min.js"></script>
+
+    <!-- SweetAlert2-->
+    <script src="/js/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -100,6 +103,61 @@
             </div>
         </div>
     </div>
+
+    {{#if showMailOTP}}
+    <script>
+        (async () => {
+        const {value: otp} = await Swal.fire({
+            title: 'Check your mail and enter an OTP here to activate your account',
+            html: `<form action = "/auth/mailotp" method = "post">
+                    {{#if OTPFailed}}
+                    <div class="alert alert-danger alert-dismissible  show rounded-pill" role="alert">
+                        <strong>Wrong OTP</strong>
+                    </div>
+                    {{/if}}
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="otp"
+                            placeholder="OTP" required="required">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">OK</button>
+                    </div>
+                    </form>`,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to write something!'
+                }
+            }         
+        })
+        
+        })()
+    </script>
+    {{/if}}
+
+
+    {{#if registerSuccess}}
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Register successfully'
+        })
+    </script>
+    {{/if}}
     <!-- =========================  CONTENT END// ========================= -->
 </body>
 </html>
