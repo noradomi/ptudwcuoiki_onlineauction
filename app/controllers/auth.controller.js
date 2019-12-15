@@ -56,7 +56,7 @@ module.exports.validateLogin = (req, res, next) => {
 };
 
 module.exports.postLogin = passport.authenticate('local-signin', {
-	successRedirect: '/auth/dashboard',
+	successRedirect: '/',
 	failureRedirect: '/auth/login'
 });
 
@@ -196,7 +196,7 @@ module.exports.postRegister = passport.authenticate('local-register', {
 // FACEBOOK
 module.exports.authfb = passport.authenticate('facebook');
 module.exports.authfbcb = passport.authenticate('facebook', {
-	successRedirect: '/auth/dashboard',
+	successRedirect: '/',
 	failureRedirect: '/auth/login'
 });
 
