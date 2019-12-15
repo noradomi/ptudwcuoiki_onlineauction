@@ -47,5 +47,47 @@ module.exports = function(sequelize, Sequelize) {
 		}
 	});
 
+	// Hàm tìm kiếm bằng Full-Text Search
+	Product.searchAllByFTS = async function(query, ptId) {
+		let sql = `SELECT * FROM products WHERE MATCH(product_name) AGAINST ('${query}')`;
+		if (parseInt(ptId) !== 0) {
+			sql += ` AND productTypeId = ${ptId}`;
+		}
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+	};
+
+	Product.isNewProduct = function(sd, N) {
+		let startday =
+			new Date(`${sd}`).getTime() +
+			new Date(`${sd}`).getTimezoneOffset() * 60 * 1000;
+		let currdate = new Date().getTime();
+
+		let miliseconds_left = currdate - startday;
+		if (miliseconds_left <= N * 60 * 1000) return true;
+		else return false;
+	};
+
+	Product.isExprired = function(exd) {
+		let exprirydate =
+			new Date(`${exd}`).getTime() +
+			new Date(`${exd}`).getTimezoneOffset() * 60 * 1000;
+		let currdate = new Date().getTime();
+
+		return exprirydate <= currdate;
+	};
+
+	Product.top5PricingProducts = function() {
+		return Product.findAll({
+			limit: 5,
+			order: [[sequelize.col('initial_price'), 'DESC']]
+		});
+	};
+
+	Product.findByProductTypeId = function(id) {
+		return Product.findAll({ where: { productTypeId: id } });
+	};
+
 	return Product;
 };
