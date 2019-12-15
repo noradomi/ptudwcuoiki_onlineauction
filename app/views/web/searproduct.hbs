@@ -1,0 +1,285 @@
+{{!-- <!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section-title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">Searching for "{{query}}"</h2>
+                    <div class="pull-right">
+                        <div class="product-slick-dots-1 custom-dots"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /section-title -->
+            <!-- Product Slick -->
+            <div class="col-md-12 col-sm-6 col-xs-6">
+                <div class="row">
+                    {{#if countPros}}
+                    <div id="product-slick-1" class="product-slick">
+
+                        {{#each pros}}
+                        <!-- Product Single -->
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <div class="product-label">
+                                    <span>06/09/2019</span>
+                                    <span class="sale text-center">New</span>
+                                </div>
+                                <ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+                                    <script>
+                                        console.log(`{{ expriry_date }}`);
+                                        countDownTimer(`{{ expriry_date }}`, {{ id }});
+											// countDownTimer('Mon Nov 11 2019 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+                                    </script>
+                                </ul>
+
+                                <a href="/auth/productdetail" class=" main-btn quick-view">Detail</a>
+                                <img src="/img/sp/{{id}}/main.jpg" alt="">
+                            </div>
+                            <div class="product-body">
+
+                                <p class="align-self-end ">
+                                    Current Price:
+                                </p>
+
+                                <h3 class="product-price">${{initial_price}}</h3>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o empty"></i>
+                                </div>
+                                <h2 class="product-name"><a href="#">{{product_name}}</a></h2>
+                                <div class="">
+                                    <p>
+                                        <i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
+                                        <i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+                                    </p>
+                                    <p>Buy now: <strong>${{imme_buy_price}}</strong></p>
+                                </div>
+                                <div class="product-btns">
+                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
+                                        now</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Product Single -->
+                        {{/each}}
+
+                    </div>
+                    {{else}}
+                    <!-- Product Single -->
+                    <div style="padding-left: 20px;">
+                        <h3 class="title">No products match.</h3>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            <!-- /Product Slick -->
+        </div>
+        <!-- /row -->
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section --> --}}
+
+{{#section 'style'}}
+<script src="/js/util.js"></script>
+<link href="/css/card.css" rel="stylesheet" type="text/css">
+{{/section}}
+
+
+<!-- HOME -->
+<div id="home">
+    <!-- container -->
+    <div class="container">
+        <!-- home wrap -->
+        <div class="home-wrap">
+            <!-- home slick -->
+            <div id="home-slick">
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="/img/banner01.jpg" alt="">
+                    <div class="banner-caption text-center">
+                        <h1>Bags sale</h1>
+                        <h3 class="white-color font-weak">Up to 50% Discount</h3>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="/img/banner02.jpg" alt="">
+                    <div class="banner-caption">
+                        <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span>
+                        </h1>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="/img/banner03.jpg" alt="">
+                    <div class="banner-caption">
+                        <h1 class="white-color">New Product <span>Collection</span></h1>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+            </div>
+            <!-- /home slick -->
+        </div>
+        <!-- /home wrap -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /HOME -->
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- aside widget -->
+
+                <div class="aside">
+                    <h3 class="aside-title ">SEARCHING FOR : {{query}}</h3>
+                    <div class="product-thumb">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/51+vTuZ5IeL._AC_SL_QL70_.jpg" alt="">
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /ASIDE -->
+
+            <!-- MAIN -->
+            <div id="main" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="pull-left">
+                        <div class="row-filter">
+                            <a href="#"><i class="fa fa-th-large"></i></a>
+                            <a href="#" class="active"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <div class="sort-filter">
+                            <form action="/product/search" method="get">
+                                <span class="text-uppercase">Sort By:</span>
+                                <select class="input" name="selsort">
+                                    <option value="0">Exprire Date ASC</option>
+                                    <option value="1">Price ASC</option>
+                                </select>
+                                <button class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <div class="page-filter">
+                            <span class="text-uppercase">Show:</span>
+                            <select class="input">
+                                <option value="0">10</option>
+                                <option value="1">20</option>
+                                <option value="2">30</option>
+                            </select>
+                        </div>
+                        <ul class="store-pages">
+                            <li><span class="text-uppercase">Page:</span></li>
+                            {{!-- <li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#"><i class="fa fa-caret-right"></i></a></li> --}}
+                        </ul>
+                    </div>
+                </div>
+                <!-- /store top filter -->
+
+                <!-- STORE -->
+                <div id="store">
+                    <!-- row -->
+                    <div class="row">
+                        {{#if countPros}}
+                        {{#each pros}}
+                        <!-- Product Single -->
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <div class="product product-single">
+                                <div class="product-thumb">
+                                    <div class="product-label">
+                                        <span id=time{{id}} start_date={{start_date}}>
+                                            <script>
+                                                transferDateFormat(`{{start_date}}`, {{ id }});
+                                            </script>
+                                        </span>
+                                        {{#if isNew}}
+                                        <span class="sale text-center">New</span>
+                                        {{/if}}
+
+                                    </div>
+                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick
+                                        view</button>
+                                    <img src="/img/sp/{{id}}/main.jpg" alt="">
+                                    <ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+                                        <script>
+                                            console.log(`Gio het han : {{ expriry_date }}`);
+                                            countDownTimer(`{{ expriry_date }}`, {{ id }});
+
+                                        </script>
+                                    </ul>
+                                </div>
+                                <div class="product-body">
+                                    <h3 class="product-price">${{initial_price}}</h3>
+                                    <div class="product-rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                    </div>
+                                    <h2 class="product-name"><a href="#">{{product_name}}</a></h2>
+                                    <div class="">
+                                        <p>
+                                            <i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
+                                            <i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+                                        </p>
+                                        <p>Buy now: <strong>{{imme_buy_price}}</strong></p>
+                                    </div>
+                                    <div class="product-btns">
+                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                        <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>BID
+                                            NOW</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Product Single -->
+                        {{/each}}
+                        {{else}}
+                        <!-- Product Single -->
+                        <div style="padding-left: 20px;">
+                            <h3 class="title">No products match.</h3>
+                        </div>
+                        {{/if}}
+
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /STORE -->
+
+            </div>
+            <!-- /MAIN -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
