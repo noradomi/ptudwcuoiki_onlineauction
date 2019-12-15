@@ -1,4 +1,5 @@
 {{#section 'style'}}
+<script src="/js/countdowntimer.js"></script>
 <link href="/css/card.css" rel="stylesheet" type="text/css">
 {{/section}}
 
@@ -11,33 +12,34 @@
 			<div class="row">
 				<!--  Product Details -->
 				<div class="product product-details clearfix">
+					{{#each Pro}}
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/Untitled-1.jpg" alt="">
+							<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nu/thumbs/300_crop_921668-600_02.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nu/thumbs/300_crop_0000199364273_nike-833662_010_anp_05.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/Untitled-1.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 						</div>
 						<div id="product-view">
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/Untitled-1.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nu/thumbs/300_crop_921668-600_02.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nu/thumbs/300_crop_0000199364273_nike-833662_010_anp_05.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/Untitled-1.jpg" alt="">
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 						</div>
 					</div>
@@ -47,8 +49,8 @@
 								<span>New</span>
 								<span class="sale">-20%</span>
 							</div>
-							<h2 class="product-name">Product Name Goes Here</h2>
-							<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+							<h2 class="product-name">{{product_name}}</h2>
+							<h3 class="product-price">{{initial_price}}</h3>
 							<div>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
@@ -61,32 +63,22 @@
 							</div>
 							<p><strong>Availability:</strong>Bidding</p>
 							<p><strong>Seller:</strong> Ten Nguoi ban goes here !! </p>
-                            <p><strong>Buy now for:</strong> $40.50 </p>
+                            <p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
                             <p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></p>
                             <p><strong>Time End_  :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></p>
-							<p>Noi Dung Mo Ta San Pham Goes Here, Viet Mo Ta San Pham</p>
+							<p>{{description}}</p>
 
 							<div class="product-options">
 								<div class="col-lg-4">
                                         <div class="card mb-5 mb-lg-0">
                                             <div class="card-body ">
-                                                <div class="timer d-flex justify-content-center">
-                                                    <div>
-                                                        <span class="num">04</span>
-                                                        <small>Days</small>
-                                                    </div>
-                                                    <div>
-                                                        <span class="num">12</span>
-                                                        <small>Hours</small>
-                                                    </div>
-                                                    <div>
-                                                        <span class="num">58</span>
-                                                        <small>Min</small>
-                                                    </div>
-                                                    <div>
-                                                        <span class="num">02</span>
-                                                        <small>Sec</small>
-                                                    </div>
+                                                <div class="timer d-flex justify-content-center" id=time{{id}} expriry_date={{expriry_date}}>
+													<script>
+														console.log(`{{ expriry_date }}`);
+														countDownTimer1(`{{ expriry_date }}`, {{ id }});
+													</script>
+													
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -104,6 +96,8 @@
 							</div>
 						</div>
 					</div>
+
+
 					<div class="col-md-12">
 						<div class="product-tab">
 							<ul class="tab-nav">
@@ -194,6 +188,8 @@
 
 				</div>
 				<!-- /Product Details -->
+				{{/each}}
+			
 			</div>
 			<!-- /row -->
 		</div>
@@ -214,142 +210,32 @@
 				</div>
 			<div class="row">
 					<div id="product-slick-1" class="product-slick">
+						{{#each ProRelate}}
 						<!-- Product Single -->
 						<div class="product product-single">
 							<div class="product-thumb">
-								<ul class="product-countdown">
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
+								<div class="product-label">
+									<span>06/09/2019</span>
+									<span class="sale text-center">New</span>
+								</div>
+								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+									<script>
+										console.log(`{{ expriry_date }}`);
+										countDownTimer(`{{ expriry_date }}`, {{ id }});
+											// countDownTimer('Mon Nov 11 2019 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+									</script>
 								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nu/thumbs/300_crop_916792-100_02.jpg" alt="">
-							</div>
-							<div class="product-body">
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to
-										Cart</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
 
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<ul class="product-countdown">
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nu/thumbs/300_crop_NIKE.png" alt="">
+								<a href="/auth/productdetail/{{categoryId}}/{{id}}" class=" main-btn quick-view">Detail</a>
+								<img src="/img/sp/{{id}}/main.jpg" alt="">
 							</div>
 							<div class="product-body">
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to
-										Cart</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
 
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<ul class="product-countdown">
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/thumbs/300_crop_jordan-express-shoe.jpg" alt="">
-							</div>
-							<div class="product-body">
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to
-										Cart</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<ul class="product-countdown">
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/thumbs/300_crop_jordan-trunner-lx-shoe.jpg" alt="">
-							</div>
-							<div class="product-body">
-								<h3 class="product-price">$32.50</h3>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
-								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-								<div class="product-btns">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to
-										Cart</button>
-								</div>
-							</div>
-						</div>
-						<!-- /Product Single -->
+								<p class="align-self-end ">
+									Current Price:
+								</p>
 
-						<!-- Product Single -->
-						<div class="product product-single">
-							<div class="product-thumb">
-								<ul class="product-countdown">
-									<li><span>00 H</span></li>
-									<li><span>00 M</span></li>
-									<li><span>00 S</span></li>
-								</ul>
-								<button class="main-btn quick-view">Detail</button>
-								<img src="https://www.kingsport.vn/vnt_upload/product/giay_nike_nam/thumbs/300_crop_jordan-formula-23-shoe.jpg" alt="">
-							</div>
-							<div class="product-body">
-								<h3 class="product-price">$32.50</h3>
+								<h3 class="product-price">${{initial_price}}</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -357,15 +243,23 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o empty"></i>
 								</div>
-								<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
+								<div class="">
+									<p>
+										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
+										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+									</p>
+									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
+								</div>
 								<div class="product-btns">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW</button>
+									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Bid
+										now</button>
 								</div>
 							</div>
 						</div>
 						<!-- /Product Single -->
+						{{/each}}
 					</div>
 				</div>
 			</div>

@@ -175,7 +175,7 @@
     // =========PAGINATION FOR PRODUCT PAGE==========//
     var numberOfProducts = $('.col-md-4 .product-single').length;
     //SO LUONG ITEM CUA SAN PHAM TRONG 1 TRANG NEN DE LA 3 6 Hoac 9
-    var limitPerPageProduct = 3;
+    var limitPerPageProduct = 6;
     $(".col-md-4 .product-single:gt(" + (limitPerPageProduct - 1) + ")").hide();
     var totalPagesProduct = Math.ceil(numberOfProducts / limitPerPageProduct);
 
@@ -191,5 +191,58 @@
             $(".col-md-4 .product-single:eq(" + i + ")").show();
         }
     })
+
+    //// SORTTINGGG /////
+
+    $("#buttonorder").on("click", function() {
+        var test = $("#inputsort option:selected").val();
+        console.log(test);
+        if (test == 1) {
+            var $sorted_items,
+                getSorted = function(selector, attrName) {
+                    return $(
+                        $(selector).toArray().sort(function(a, b) {
+                            var aVal = parseInt(a.getAttribute(attrName)),
+                                bVal = parseInt(b.getAttribute(attrName));
+                            return aVal - bVal;
+                        })
+                    );
+                };
+            $sorted_items = getSorted('#rowproduct .col-md-4', 'data-price');
+            $('#rowproduct').html($sorted_items);
+            var currentPage = 1;
+            $(".col-md-4 .product-single").hide();
+            var grandTotal = limitPerPageProduct * currentPage;
+            for (var i = grandTotal - limitPerPageProduct; i < grandTotal; i++) {
+                $(".col-md-4 .product-single:eq(" + i + ")").show();
+            }
+
+        } else {
+            var $sorted_items,
+                getSorted = function(selector, attrName) {
+                    return $(
+                        $(selector).toArray().sort(function(a, b) {
+                            var aVal1 = a.getAttribute(attrName),
+                                bVal1 = b.getAttribute(attrName);
+                            console.log(aVal1);
+                            var aVal = new Date(aVal1).getTime();
+                            console.log(aVal);
+                            var bVal = new Date(bVal1).getTime();
+                            return bVal - aVal;
+                        })
+                    );
+                };
+            $sorted_items = getSorted('#rowproduct .col-md-4', 'data-endate');
+            $('#rowproduct').html($sorted_items);
+            var currentPage = 1;
+            $(".col-md-4 .product-single").hide();
+            var grandTotal = limitPerPageProduct * currentPage;
+            for (var i = grandTotal - limitPerPageProduct; i < grandTotal; i++) {
+                $(".col-md-4 .product-single:eq(" + i + ")").show();
+            }
+
+        }
+    })
+
 
 })(jQuery);
