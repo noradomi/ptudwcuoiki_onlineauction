@@ -32,6 +32,7 @@ Object.keys(db).forEach(function(modelName) {
 
 // Product
 db.product.hasMany(db.bid_details);
+db.product.hasMany(db.watchlist);
 db.product.belongsTo(db.product_type);
 
 // Category
@@ -43,15 +44,17 @@ db.product_type.hasMany(db.product);
 
 // User
 db.user.hasMany(db.bid_details);
+db.user.hasMany(db.watchlist);
 
 // BidDetails
 db.bid_details.belongsTo(db.product);
 db.bid_details.belongsTo(db.user);
 
+// WatchList
+db.watchlist.belongsTo(db.product);
+db.watchlist.belongsTo(db.user);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-// Tạo FUllText Index bảng Product cho FUll Text Search
-db.sequelize.query('ALTER TABLE PRODUCTS ADD FULLTEXT(product_name)');
 
 module.exports = db;

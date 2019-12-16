@@ -226,7 +226,7 @@ module.exports.product = function(req, res) {
 		});
 		Product.findAll({
 			where: {
-				categoryId: 6
+				productTypeId: 6
 			}
 		}).then(function(pros) {
 			pros.forEach(p => {
@@ -242,30 +242,28 @@ module.exports.product = function(req, res) {
 		res.redirect('auth/login');
 	}
 };
-module.exports.productdetail = function(req, res) {
+module.exports.productdetail = async function(req, res) {
 	if (req.isAuthenticated()) {
 		var categoryId = req.params.catId;
 		var id = req.params.id;
-		let Pro = [],
-			ProRelate = [];
-		Product.findAll({
-			where: {
-				categoryId: categoryId
-			}
-		}).then(function(pros) {
-			pros.forEach(c => {
-				ProRelate.push(c);
-			});
-		});
-		Product.findAll({
+
+		let Pro = await Product.findAll({
 			where: {
 				id: id
 			}
-		}).then(function(pros) {
-			pros.forEach(p => {
-				Pro.push(p);
-			});
 		});
+
+		console.log('>>>>>>>>>>>>>> ' + typeof Pro);
+
+		let productTypeId = Pro.productTypeId;
+		console.log('Product Type : ' + productTypeId);
+
+		let ProRelate = await Product.findAll({
+			where: {
+				productTypeId: productTypeId
+			}
+		});
+
 		res.render('./web/productdetail', {
 			Pro: Pro,
 			ProRelate: ProRelate

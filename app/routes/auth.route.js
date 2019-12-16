@@ -17,17 +17,13 @@ router.post('/login', authController.validateLogin, authController.postLogin);
 router.get('/register', authController.register);
 
 router.post(
-    '/register',
-    authController.validateRegister,
-    authController.reCaptcha,
-    mailOTP.MailOTP,
+	'/register',
+	authController.validateRegister,
+	authController.reCaptcha,
+	mailOTP.MailOTP
 );
 
-router.post(
-    '/mailotp',
-    mailOTP.Validate,
-    authController.postRegister
-);
+router.post('/mailotp', mailOTP.Validate, authController.postRegister);
 
 router.get('/logout', function(req, res) {
 	req.logout();
@@ -49,7 +45,7 @@ router.get('/fb/callback', authController.authfbcb, (req, res, next) => {
 });
 
 router.get('/dashboard', isLoggedIn, authController.dashboard);
-router.get('/productdetail/:catId/:id', isLoggedIn, authController.productdetail);
+router.get('/productdetail/:id', isLoggedIn, authController.productdetail);
 router.get('/product', isLoggedIn, authController.product);
 
 module.exports = router;
