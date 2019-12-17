@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `bid_details`
+-- Dumping data for table `watchlists`
 --
 
-LOCK TABLES `bid_details` WRITE;
-/*!40000 ALTER TABLE `bid_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bid_details` ENABLE KEYS */;
+LOCK TABLES `watchlists` WRITE;
+/*!40000 ALTER TABLE `watchlists` DISABLE KEYS */;
+/*!40000 ALTER TABLE `watchlists` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -16,12 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `bid_details`
+-- Dumping data for table `product_types`
 --
 
-LOCK TABLES `bid_details` WRITE;
-/*!40000 ALTER TABLE `bid_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bid_details` ENABLE KEYS */;
+LOCK TABLES `product_types` WRITE;
+/*!40000 ALTER TABLE `product_types` DISABLE KEYS */;
+INSERT INTO `product_types` VALUES (1,'Tivi','2019-11-11 08:59:59','2019-11-11 08:59:59',1),(2,'Loa, tai nghe','2019-11-11 08:59:59','2019-11-11 08:59:59',1),(3,'Máy lạnh','2019-11-11 08:59:59','2019-11-11 08:59:59',1),(4,'Máy giặt','2019-11-11 08:59:59','2019-11-11 08:59:59',1),(5,'Ô tô, xe máy','2019-11-11 08:59:59','2019-11-11 08:59:59',NULL),(6,'Quần áo','2019-11-11 08:59:59','2019-11-11 08:59:59',2),(7,'Giày','2019-11-11 08:59:59','2019-11-11 08:59:59',2),(8,'Phụ kiện','2019-11-11 08:59:59','2019-11-11 08:59:59',2),(9,'Sản phẩm nghệ thuật','2019-11-11 08:59:59','2019-11-11 08:59:59',NULL),(10,'Điện thoại','2019-11-11 08:59:59','2019-11-11 08:59:59',3),(11,'Máy tính','2019-11-11 08:59:59','2019-11-11 08:59:59',3),(12,'Máy ảnh','2019-11-11 08:59:59','2019-11-11 08:59:59',3),(13,'Khác','2019-11-11 08:59:59','2019-11-11 08:59:59',NULL);
+/*!40000 ALTER TABLE `product_types` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
