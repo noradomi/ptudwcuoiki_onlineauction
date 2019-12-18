@@ -11,13 +11,6 @@ module.exports = function(sequelize, Sequelize) {
 		}
 	});
 
-	// WatchList.addToWatchList = function(userId, proId) {
-	// 	WatchList.create({
-	// 		productId: proId,
-	// 		userId: userId
-	// 	});
-	// };
-
 	WatchList.actWatchList = async function(userId, proId) {
 		let record = await WatchList.findOne({
 			where: { productId: proId, userId: userId }

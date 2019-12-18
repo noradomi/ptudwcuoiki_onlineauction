@@ -354,7 +354,7 @@ textarea.input {
 }
 
 .dropdown-toggle::after {
-    display:none;
+	display: none;
 }
 
 /*----------------------------*\
@@ -1789,3 +1789,13 @@ textarea.input {
 .product.product-single:hover .product-countdown {
     opacity: 1.0;
 } */
+
+/* Modal thông báo/ xác nhận */
+.modal-dialog {
+	margin-top: 200px;
+}
+
+.modal-content {
+	margin: auto;
+	width: 500px;
+}
