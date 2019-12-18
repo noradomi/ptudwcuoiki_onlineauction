@@ -353,6 +353,10 @@ textarea.input {
 	text-transform: uppercase;
 }
 
+.dropdown-toggle::after {
+    display:none;
+}
+
 /*----------------------------*\
 	logo
 \*----------------------------*/

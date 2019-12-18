@@ -76,6 +76,7 @@ var Category = models.category;
 
 //  Routes
 app.get('/', require('./app/controllers/homepage.controller'));
+app.use('/bidders', require('./app/routes/bidder.route'));
 
 //load passport strategies
 require('./app/configs/passport.js')(Passport, models.user);

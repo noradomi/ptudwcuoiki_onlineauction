@@ -14,10 +14,8 @@ function countDownTimer(expriry_date, id) {
 		1000;
 
 	// 	Het han
-	console.log('Giay con lai : ' + seconds_left);
-	if (seconds_left < 0) {
-		console.log('Het han');
 
+	if (seconds_left < 0) {
 		countdown.innerHTML = `<h3>		
 		<span class="label label-success">FINISHED</span>
 	</h3>`;
@@ -71,4 +69,40 @@ function transferDateFormat(start_date, id) {
 		// format countdown string + set tag value
 		time.innerHTML = `${Day}/${Month}/${Year}`;
 	}
+}
+
+// Thêm/Xóa thích sản phẩm trong Watch List
+function actOnPro(event) {
+	let proId = event.target.dataset.proId;
+
+	console.log(event.target.dataset.islike);
+
+	let islike = event.target.dataset.islike;
+
+	if (islike === 'false') {
+		console.log('vao set css');
+		$(`[data-pro-id=${proId}]`).css({
+			color: '#f8694a',
+			'-webkit-box-shadow':
+				'0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a',
+			'box-shadow':
+				'0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a'
+		});
+		event.target.dataset.islike = 'true';
+	} else {
+		console.log('vao xóa css');
+		$(`[data-pro-id=${proId}]`).css({
+			color: '#30323a',
+			'background-color': '#fff',
+			'-webkit-box-shadow':
+				'0px 0px 0px 1px #dadada inset 0px 0px 0px 6px transparent',
+			'box-shadow':
+				'0px 0px 0px 1px #dadada inset, 0px 0px 0px 6px transparent'
+		});
+		event.target.dataset.islike = 'false';
+	}
+
+	console.log('Vao ham voi proid : ' + proId);
+
+	axios.post('/bidders/watchlist/' + proId);
 }

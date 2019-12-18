@@ -46,10 +46,6 @@ module.exports = function(sequelize, Sequelize) {
 			auto_extend: {
 				type: Sequelize.BOOLEAN, // có tự động gia hạn thêm thời gian đấu giá không ?
 				default: '0'
-			},
-			status: {
-				type: Sequelize.ENUM('active', 'inactive'),
-				defaultValue: 'active'
 			}
 		},
 		{

@@ -5,7 +5,7 @@ module.exports.search = async (req, res) => {
 	const query = req.query.q;
 	const ptId = req.query.selcat;
 
-	console.log('Ket qua query : ' + req.query.selsort);
+	console.log('Thông tin user trong session: ' + req.user);
 
 	let results = await db.product.searchAllByFTS(query, ptId);
 
