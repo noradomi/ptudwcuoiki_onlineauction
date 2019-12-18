@@ -114,5 +114,34 @@ module.exports = function(sequelize, Sequelize) {
 		return Product.findAll({ where: { productTypeId: id } });
 	};
 
+	Product.findRelatedProduct = function(id, id1) {
+		let sql = `SELECT * FROM products WHERE  productTypeId = ${id} AND id!= ${id1}`;
+
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+	};
+	Product.findProductTypeIdById = function(id) {
+		return Product.findOne({
+			where: {
+				id: id
+			}
+		}).then(function(result) {
+			if (result) {
+				var ProTId = result.productTypeId;
+				return ProTId;
+			} else {
+				console.log('Could Not Find ID');
+			}
+		});
+	};
+
+	Product.findProductTypeIdNameByID = function(id) {
+		let sql = `SELECT * FROM product_types pt,products p WHERE  p.productTypeId = ${id} AND p.productTypeId= pt.id`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+	};
+
 	return Product;
 };

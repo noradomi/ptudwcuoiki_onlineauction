@@ -1,5 +1,5 @@
 {{#section 'style'}}
-<script src="/js/countdowntimer.js"></script>
+<script src="/js/util.js"></script>
 <link href="/css/card.css" rel="stylesheet" type="text/css">
 {{/section}}
 
@@ -16,30 +16,30 @@
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-							<img src="/img/sp/{{id}}/main.jpg" alt="">
+							<img src="/img/sp/{{id}}.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}-1.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}-2.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}-3.jpg" alt="">
 							</div>
 						</div>
 						<div id="product-view">
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}-1.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}-2.jpg" alt="">
 							</div>
 							<div class="product-view">
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<img src="/img/sp/{{id}}-3.jpg" alt="">
 							</div>
 						</div>
 					</div>
@@ -66,18 +66,15 @@
                             <p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
                             <p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></p>
                             <p><strong>Time End_  :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></p>
-							<p>{{description}}</p>
+							
 
 							<div class="product-options">
 								<div class="col-lg-4">
                                         <div class="card mb-5 mb-lg-0">
                                             <div class="card-body ">
                                                 <div class="timer d-flex justify-content-center" id=time{{id}} expriry_date={{expriry_date}}>
-													<script>
-														console.log(`{{ expriry_date }}`);
-														countDownTimer1(`{{ expriry_date }}`, {{ id }});
-													</script>
 													
+							
                                                     
                                                 </div>
                                             </div>
@@ -86,17 +83,16 @@
 								
 							</div>
 
-							<div class="product-btns">
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> BID NOW! </button>
-								<div class="pull-right">
-									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-									<button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
-								</div>
+							<div class="product-btns" id="buttonbid" >
+								
+								<script>
+										console.log(`{{ expriry_date }}`);
+										countDownTimer1(`{{ expriry_date }}`, {{ id }});
+								</script>
 							</div>
 						</div>
 					</div>
-
+					{{/each}}
 
 					<div class="col-md-12">
 						<div class="product-tab">
@@ -105,6 +101,7 @@
 								<li><a data-toggle="tab" href="#tab2">Highest Bidder</a></li>
 								<li><a data-toggle="tab" href="#tab3">Send Feedback</a></li>
                                 <li><a data-toggle="tab" href="#tab4">Detail Product</a></li>
+								<li><a data-toggle="tab" href="#tab5">HISTORY BID</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">
@@ -128,10 +125,12 @@
 
 								</div>
                                 <div id="tab2" class="tab-pane fade in">
+									{{#each HiggestBidder}}
 										<div class="single-review">
 													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> Highest BIDDER</a></div>
+														<div><a href="#"><i class="fa fa-user-o"></i> {{lastname}}</a></div>
 														<div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
+														<div><a href="#"><i class="fa fa-clock-o"></i> {{price}}</a></div>
 														<div class="review-rating pull-right">
 															<i class="fa fa-star"></i>
 															<i class="fa fa-star"></i>
@@ -141,10 +140,11 @@
 														</div>
 													</div>
 													<div class="review-body">
-														<p>THONG TIN NGUOI DAT GIA CAO NHAT DAT O DAY !!!!!!!!!!!!!!!!</p>
+														<p>GIA CAO NHAT  :{{price}} </p>
                                                         <p><strong>Point: </strong> 9 </p>
 													</div>
 												</div>
+									{{/each}}
 								</div>
 								<div id="tab3" class="tab-pane fade in">
                                     <div class="col-md-6">
@@ -176,11 +176,29 @@
 											</form>
 										</div>
 
-
-
 								</div>
                                 <div id="tab4" class="tab-pane fade in">
-                                    <p>THONG TIN CHI TIET SAN PHAM DAT O DAY!!!!!</p>
+                                    <p>{{description}}</p>
+                                </div>
+								<div id="tab5" class="tab-pane fade in">
+                                    <table class="table">
+										<thead>
+										<tr>
+											<th>Time</th>
+											<th>Buyer</th>
+											<th>Price</th>
+										</tr>
+										</thead>
+										{{#each HistoryBid}}
+										<tbody>
+											
+													<td>{{time}}</td>
+													<td> ******{{lastname}}</td>
+													<td>{{price}}</td>
+											
+										</tbody>
+										{{/each}}	
+									</table>
                                 </div>
 							</div>
 						</div>
@@ -188,7 +206,7 @@
 
 				</div>
 				<!-- /Product Details -->
-				{{/each}}
+				
 			
 			</div>
 			<!-- /row -->
@@ -215,7 +233,11 @@
 						<div class="product product-single">
 							<div class="product-thumb">
 								<div class="product-label">
-									<span>06/09/2019</span>
+									<span id= time{{id}} start_date={{start_date}}>
+												<script>
+													transferDateFormat(`{{start_date}}`, {{ id }});
+												</script>
+									</span>
 									<span class="sale text-center">New</span>
 								</div>
 								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
@@ -226,8 +248,8 @@
 									</script>
 								</ul>
 
-								<a href="/auth/productdetail/{{categoryId}}/{{id}}" class=" main-btn quick-view">Detail</a>
-								<img src="/img/sp/{{id}}/main.jpg" alt="">
+								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
+								<img src="/img/sp/{{id}}.jpg" alt="">
 							</div>
 							<div class="product-body">
 
