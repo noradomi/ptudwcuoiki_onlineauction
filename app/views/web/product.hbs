@@ -1,5 +1,5 @@
 {{#section 'style'}}
-<script src="/js/countdowntimer.js"></script>
+<script src="/js/util.js"></script>
 <link href="/css/card.css" rel="stylesheet" type="text/css">
 {{/section}}
 
@@ -11,14 +11,15 @@
 				<!-- ASIDE -->
 				<div id="aside" class="col-md-3">
 					<!-- aside widget -->
-					{{#each Cate}}
+					{{#each ProTName}}
 					<div class="aside">
-						<h3 class="aside-title">PRODUCT TYPE: {{cat_name}}</h3>
+						<h3 class="aside-title">PRODUCT TYPE:<i>{{protype_name}}</i></h3>
 						<div class="product-thumb">
 								<img src="https://images-na.ssl-images-amazon.com/images/I/51+vTuZ5IeL._AC_SL_QL70_.jpg" alt="">
 							</div>
 					</div>
 					{{/each}}
+			
 					
 				</div>
 				<!-- /ASIDE -->
@@ -77,8 +78,8 @@
 												</script>
 											</span>
 										</div>
-										<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-										<img src="/img/sp/{{id}}/main.jpg" alt="">
+										<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
+										<img src="/img/sp/{{id}}.jpg" alt="">
 										<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
 											<script>
 												console.log(`{{ expriry_date }}`);

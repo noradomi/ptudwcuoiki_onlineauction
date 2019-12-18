@@ -1,108 +1,156 @@
 function countDownTimer(expriry_date, id) {
-	let current_date = new Date().getTime();
+    let current_date = new Date().getTime();
 
-	let ex_date = new Date(expriry_date);
+    let ex_date = new Date(expriry_date);
 
-	let days, hours, minutes, seconds; // variables for time units
+    let days, hours, minutes, seconds; // variables for time units
 
-	let countdown = document.getElementById(id); // get tag element
+    let countdown = document.getElementById(id); // get tag element
 
-	let seconds_left =
-		(ex_date.getTime() +
-			ex_date.getTimezoneOffset() * 60 * 1000 -
-			current_date) /
-		1000;
+    let seconds_left =
+        (ex_date.getTime() +
+            ex_date.getTimezoneOffset() * 60 * 1000 -
+            current_date) /
+        1000;
 
-	// 	Het han
+    // 	Het han
+    console.log('Giay con lai : ' + seconds_left);
+    if (seconds_left < 0) {
+        console.log('Het han');
 
-	if (seconds_left < 0) {
-		countdown.innerHTML = `<h3>		
+        countdown.innerHTML = `<h3>		
 		<span class="label label-success">FINISHED</span>
-	</h3>`;
-		return;
-	}
+    </h3>`;
+        return;
+    }
 
-	let a = setInterval(function() {
-		getCountdown(ex_date);
-	}, 1000);
+    let a = setInterval(function() {
+        getCountdown(ex_date);
+    }, 1000);
 
-	function getCountdown(ex_date) {
-		current_date = new Date().getTime();
+    function getCountdown(ex_date) {
+        current_date = new Date().getTime();
 
-		seconds_left =
-			(ex_date.getTime() +
-				ex_date.getTimezoneOffset() * 60 * 1000 -
-				current_date) /
-			1000;
+        seconds_left =
+            (ex_date.getTime() +
+                ex_date.getTimezoneOffset() * 60 * 1000 -
+                current_date) /
+            1000;
 
-		days = pad(parseInt(seconds_left / 86400));
-		seconds_left = seconds_left % 86400;
+        days = pad(parseInt(seconds_left / 86400));
+        seconds_left = seconds_left % 86400;
 
-		hours = pad(parseInt(seconds_left / 3600));
-		seconds_left = seconds_left % 3600;
+        hours = pad(parseInt(seconds_left / 3600));
+        seconds_left = seconds_left % 3600;
 
-		minutes = pad(parseInt(seconds_left / 60));
-		seconds = pad(parseInt(seconds_left % 60));
+        minutes = pad(parseInt(seconds_left / 60));
+        seconds = pad(parseInt(seconds_left % 60));
 
-		// format countdown string + set tag value
-		countdown.innerHTML = `<li><span>${days} D</span></li>
+        // format countdown string + set tag value
+        countdown.innerHTML = `<li><span>${days} D</span></li>
                 <li><span>${hours} H</span></li>
                 <li><span>${minutes} M</span></li>
                 <li><span>${seconds} S</span></li>`;
-	}
+    }
 
-	function pad(n) {
-		return (n < 10 ? '0' : '') + n;
-	}
+    function pad(n) {
+        return (n < 10 ? '0' : '') + n;
+    }
 }
 
-// CAN SUA LAI
+// 
 function transferDateFormat(start_date, id) {
-	var time = document.getElementById('time' + id); // get tag element
-	getTime(start_date);
+    var time = document.getElementById('time' + id); // get tag element
+    getTime(start_date);
 
-	function getTime(start_date) {
-		// find the amount of "seconds" between now and target
-		var Day = new Date(start_date).getDate();
-		var Month = new Date(start_date).getMonth() + 1;
-		var Year = new Date(start_date).getYear() + 1900;
-		// format countdown string + set tag value
-		time.innerHTML = `${Day}/${Month}/${Year}`;
-	}
+    function getTime(start_date) {
+        // find the amount of "seconds" between now and target
+        var Day = new Date(start_date).getDate();
+        var Month = new Date(start_date).getMonth() + 1;
+        var Year = new Date(start_date).getYear() + 1900;
+        // format countdown string + set tag value
+        time.innerHTML = `${Day}/${Month}/${Year}`;
+    }
 }
 
-// Thêm/Xóa thích sản phẩm trong Watch List
-function actOnPro(event) {
-	let proId = event.target.dataset.proId;
+// HAM TINH THOI GIAN CHO PRODUCTDETAIL
 
-	console.log(event.target.dataset.islike);
+function countDownTimer1(expriry_date, id) {
+    var days, hours, minutes, seconds; // variables for time units
 
-	let islike = event.target.dataset.islike;
+    let current_date = new Date().getTime();
+    var countdown = document.getElementById("time" + id); // get tag element
+    console.log("tag :" + countdown);
+    var buttonbid = document.getElementById("buttonbid");
+    console.log("tag :" + buttonbid);
+    let ex_date = new Date(expriry_date);
+    let check = 1;
 
-	if (islike === 'false') {
-		console.log('vao set css');
-		$(`[data-pro-id=${proId}]`).css({
-			color: '#f8694a',
-			'-webkit-box-shadow':
-				'0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a',
-			'box-shadow':
-				'0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a'
-		});
-		event.target.dataset.islike = 'true';
-	} else {
-		console.log('vao xóa css');
-		$(`[data-pro-id=${proId}]`).css({
-			color: '#30323a',
-			'background-color': '#fff',
-			'-webkit-box-shadow':
-				'0px 0px 0px 1px #dadada inset 0px 0px 0px 6px transparent',
-			'box-shadow':
-				'0px 0px 0px 1px #dadada inset, 0px 0px 0px 6px transparent'
-		});
-		event.target.dataset.islike = 'false';
-	}
+    let seconds_left =
+        (ex_date.getTime() +
+            ex_date.getTimezoneOffset() * 60 * 1000 -
+            current_date) /
+        1000;
 
-	console.log('Vao ham voi proid : ' + proId);
+    // 	Het han
+    console.log('Giay con lai : ' + seconds_left);
+    if (seconds_left < 0) {
+        check = 0;
+        console.log('Het han');
+        countdown.innerHTML = `<h3>		
+            <span class="label label-success">FINISHED</span>
+        </h3>`;
+        buttonbid.innerHTML = '';
+        return;
 
-	axios.post('/bidders/watchlist/' + proId);
+    }
+
+    let a = setInterval(function() {
+        getCountdown(ex_date);
+
+    }, 1000);
+
+    function getCountdown(expriry_date) {
+        // find the amount of "seconds" between now and target
+        const check2 = 1;
+        var current_date = new Date().getTime();
+        var seconds_left =
+            (new Date(expriry_date).getTime() - current_date) / 1000;
+
+        days = pad(parseInt(seconds_left / 86400));
+        seconds_left = seconds_left % 86400;
+
+        hours = pad(parseInt(seconds_left / 3600));
+        seconds_left = seconds_left % 3600;
+
+        minutes = pad(parseInt(seconds_left / 60));
+        seconds = pad(parseInt(seconds_left % 60));
+
+        // format countdown string + set tag value
+        countdown.innerHTML = `<div>
+                    <span class="num">${days}</span>
+                    <small>Days</small>
+                </div>
+                <div>
+                    <span class="num">${hours}</span>
+                    <small>Hours</small>
+                </div>
+                <div>
+                    <span class="num">${minutes}</span>
+                    <small>Min</small>
+                </div>
+                <div>
+                    <span class="num">${seconds}</span>
+                    <small>Sec</small>
+                </div>`;
+
+        buttonbid.innerHTML = `<div class="pull-right">
+        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+    </div>
+    <button class="primary-btn add-to-cart"  ><i class="fa fa-shopping-cart"></i> BID NOW! </button>`;
+    }
+
+    function pad(n) {
+        return (n < 10 ? '0' : '') + n;
+    }
 }
