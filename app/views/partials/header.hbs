@@ -65,17 +65,26 @@
                 <!-- /Search -->
             </div>
             <div class="pull-right">
+
+                <!-- Account -->
+                {{#each user}}
+                {{#if isloggedin}}
+
                 <ul class="header-btns">
-                    <!-- Account -->
+
                     <li class="header-account dropdown default-dropdown">
                         <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+
                             <div class="header-btns-icon">
                                 <i class="fa fa-user-o"></i>
                             </div>
-                            <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                            <strong class="text-uppercase">Welcome, <i class="fa fa-caret-down"></i></strong>
+                            <div>
+                                <span>{{userInfo.firstname}}</span>
+                            </div>
+
                         </div>
-                        <a href="/auth/login" class="text-uppercase">Login</a> / <a href="/auth/register"
-                            class="text-uppercase">Join</a>
+
                         <ul class="custom-menu">
                             <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
                             <li><a href="#"><i class="fa fa-heart-o"></i> My Watchlist</a></li>
@@ -84,51 +93,63 @@
                             <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                         </ul>
                     </li>
+
+                    {{else}}
+                    <li class="mt-4" style="list-style-type: none;">
+                        <div>
+                            <a href="/auth/register" class="btn btn-outline-secondary border">Signup</a>
+
+                            <a href="/auth/login" class="btn btn-info">Login</a>
+                        </div>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+
                     <!-- /Account -->
 
                     <!-- Cart -->
-                    <li class="header-cart dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="qty">3</span>
-                            </div>
-                            <strong class="text-uppercase">My Cart:</strong>
-                            <br>
-                            <span>35.20$</span>
-                        </a>
-                        <div class="custom-menu">
-                            <div id="shopping-cart">
-                                <div class="shopping-cart-list">
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="/img/thumb-product01.jpg" alt="">
+                    {{!-- <li class="header-cart dropdown default-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span class="qty">3</span>
+                                </div>
+                                <strong class="text-uppercase">My Cart:</strong>
+                                <br>
+                                <span>35.20$</span>
+                            </a>
+                            <div class="custom-menu">
+                                <div id="shopping-cart">
+                                    <div class="shopping-cart-list">
+                                        <div class="product product-widget">
+                                            <div class="product-thumb">
+                                                <img src="/img/thumb-product01.jpg" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                            <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                        <div class="product product-widget">
+                                            <div class="product-thumb">
+                                                <img src="/img/thumb-product01.jpg" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
                                         </div>
-                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
                                     </div>
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="/img/thumb-product01.jpg" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                            <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        </div>
-                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                    <div class="shopping-cart-btns">
+                                        <button class="main-btn">View Cart</button>
+                                        <button class="primary-btn">Checkout <i
+                                                class="fa fa-arrow-circle-right"></i></button>
                                     </div>
                                 </div>
-                                <div class="shopping-cart-btns">
-                                    <button class="main-btn">View Cart</button>
-                                    <button class="primary-btn">Checkout <i
-                                            class="fa fa-arrow-circle-right"></i></button>
-                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li> --}}
                     <!-- /Cart -->
 
                     <!-- Mobile nav toggle-->
