@@ -51,14 +51,7 @@ module.exports = function(sequelize, Sequelize) {
 				type: Sequelize.INTEGER,
 				defaultValue: 0
 			},
-			like_count: {
-				type: Sequelize.INTEGER,
-				defaultValue: 0
-			},
-			report_count: {
-				type: Sequelize.INTEGER,
-				defaultValue: 0
-			},
+
 			status: {
 				type: Sequelize.ENUM('active', 'inactive'),
 				defaultValue: 'active'

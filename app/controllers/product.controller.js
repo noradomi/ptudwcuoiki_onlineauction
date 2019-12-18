@@ -36,6 +36,13 @@ module.exports.productdetail = async (req, res) => {
 	let Bid = [];
 	let ProRelate = await db.product.findRelatedProduct(ProTId, id);
 	let HistoryBid = await db.bid_details.findAllHistory(id);
+
+	if (HistoryBid.length > 0) {
+		// Gắn cờ cho người đang đấu giá cao nhất
+		HistoryBid.forEach(h => (h.isTop = false));
+		HistoryBid[0].isTop = true;
+	}
+
 	let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
 	Product.findAll({
 		where: {
