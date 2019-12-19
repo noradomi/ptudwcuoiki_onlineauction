@@ -1,55 +1,73 @@
 module.exports = function(sequelize, Sequelize) {
-	var Product = sequelize.define('product', {
-		id: {
-			autoIncrement: true,
-			primaryKey: true,
-			type: Sequelize.INTEGER
-		},
+	var Product = sequelize.define(
+		'product',
+		{
+			id: {
+				autoIncrement: true,
+				primaryKey: true,
+				type: Sequelize.INTEGER
+			},
 
-		start_date: {
-			type: Sequelize.DATE,
-			defaultValue: Sequelize.NOW
-		},
+			start_date: {
+				type: Sequelize.DATE,
+				defaultValue: Sequelize.NOW
+			},
 
-		expriry_date: {
-			type: Sequelize.DATE
-		},
+			expriry_date: {
+				type: Sequelize.DATE
+			},
 
-		product_name: {
-			type: Sequelize.STRING,
-			notEmpty: true
-		},
+			product_name: {
+				type: Sequelize.STRING,
+				notEmpty: true
+			},
 
-		initial_price: {
-			// giá khởi điểm
-			type: Sequelize.INTEGER,
-			notEmpty: true
-		},
+			initial_price: {
+				// giá khởi điểm
+				type: Sequelize.INTEGER,
+				notEmpty: true
+			},
 
-		description: {
-			type: Sequelize.TEXT
-		},
+			description: {
+				type: Sequelize.TEXT
+			},
 
-		imme_buy_price: {
-			// giá mua ngay
-			type: Sequelize.INTEGER
-		},
+			imme_buy_price: {
+				// giá mua ngay
+				type: Sequelize.INTEGER
+			},
 
-		step_cost: {
-			// bước giá
-			type: Sequelize.INTEGER,
-			defaultValue: 0
-		},
+			step_cost: {
+				// bước giá
+				type: Sequelize.INTEGER,
+				defaultValue: 0
+			},
 
-		auto_extend: {
-			type: Sequelize.BOOLEAN, // có tự động gia hạn thêm thời gian đấu giá không ?
-			default: '0'
+			auto_extend: {
+				type: Sequelize.BOOLEAN, // có tự động gia hạn thêm thời gian đấu giá không ?
+				default: '0'
+			},
+			curr_price: {
+				type: Sequelize.INTEGER,
+				defaultValue: 0
+			},
+
+			status: {
+				type: Sequelize.ENUM('active', 'inactive'),
+				defaultValue: 'active'
+			}
+		},
+		{
+			indexes: [
+				// add a FULLTEXT index
+				{ type: 'FULLTEXT', name: 'text_idx', fields: ['product_name'] }
+			]
 		}
-	});
+	);
 
 	// Hàm tìm kiếm bằng Full-Text Search
 	Product.searchAllByFTS = async function(query, ptId) {
-		let sql = `SELECT * FROM products WHERE MATCH(product_name) AGAINST ('${query}')`;
+		let sql = `SELECT * FROM products WHERE MATCH(product_name) AGAINST ('${query}*' IN BOOLEAN MODE)`;
 		if (parseInt(ptId) !== 0) {
 			sql += ` AND productTypeId = ${ptId}`;
 		}
@@ -87,6 +105,35 @@ module.exports = function(sequelize, Sequelize) {
 
 	Product.findByProductTypeId = function(id) {
 		return Product.findAll({ where: { productTypeId: id } });
+	};
+
+	Product.findRelatedProduct = function(id, id1) {
+		let sql = `SELECT * FROM products WHERE  productTypeId = ${id} AND id!= ${id1}`;
+
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+	};
+	Product.findProductTypeIdById = function(id) {
+		return Product.findOne({
+			where: {
+				id: id
+			}
+		}).then(function(result) {
+			if (result) {
+				var ProTId = result.productTypeId;
+				return ProTId;
+			} else {
+				console.log('Could Not Find ID');
+			}
+		});
+	};
+
+	Product.findProductTypeIdNameByID = function(id) {
+		let sql = `SELECT * FROM product_types pt,products p WHERE  p.productTypeId = ${id} AND p.productTypeId= pt.id`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
 	};
 
 	return Product;

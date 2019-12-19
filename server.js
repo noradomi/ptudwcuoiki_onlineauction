@@ -65,9 +65,6 @@ app.use(Passport.session());
 app.use(validator());
 app.use(flash());
 
-app.use('/auth', authRoute);
-app.use('/product', productRoute);
-
 //Models
 var models = require('./app/models');
 
@@ -76,6 +73,9 @@ var Category = models.category;
 
 //  Routes
 app.get('/', require('./app/controllers/homepage.controller'));
+app.use('/auth', authRoute);
+app.use('/product', productRoute);
+app.use('/bidders', require('./app/routes/bidder.route'));
 
 //load passport strategies
 require('./app/configs/passport.js')(Passport, models.user);
