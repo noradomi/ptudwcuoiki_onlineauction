@@ -30,7 +30,6 @@ module.exports.MailOTP = async (req,res,next) => {
 }
 
 module.exports.Validate = (req,res,next) =>{
-    console.log(req.body.otp);
     if(parseInt(req.body.otp) == randomNumber ){
         res.render('./web/register', {
             layout: false,

@@ -47,7 +47,9 @@ module.exports = function(passport, user) {
 
 						firstname: req.body.firstname,
 
-						lastname: req.body.lastname
+						lastname: req.body.lastname,
+
+						status: 'inactive',
 					};
 
 					if (user) {

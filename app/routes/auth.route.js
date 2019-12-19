@@ -19,14 +19,14 @@ router.get('/register', authController.register);
 router.post(
     '/register',
     authController.validateRegister,
-    authController.reCaptcha,
+	authController.reCaptcha,
+	authController.postRegister,
     mailOTP.MailOTP,
 );
 
 router.post(
     '/mailotp',
     mailOTP.Validate,
-    authController.postRegister
 );
 
 router.get('/logout', function(req, res) {
