@@ -194,6 +194,59 @@
             }
         });
     </script>
+     <script>
+        $('#buttonaddproduct').on('click', function (e) {
+           // let currBidPrice = parseInt(input.val());
+            let productname  = $('#productname').val();
+            let product_typeID = $('#product_type').val();
+            let product_price = $('#product_price').val();
+            let product_stepcost = $('#product_stepcost').val();
+            let product_buynowprice = $('#product_buynowprice').val();
+            let product_startdate = $('#datetimepicker1').val();
+            let product_enddate = $('#datetimepicker2').val();
+            let product_description = $('#product_description').val();
+            console.log('TEN SAN PHAM :' + productname);
+            console.log('LOAI SAN PHAM ID:' + product_typeID);
+            console.log('GIA :' + product_price);
+            console.log('STEPCOST :' + product_stepcost);
+            console.log('BUYNOW :' + product_buynowprice);
+            console.log('Startdate :' + product_startdate);
+            console.log('Enddate :' + product_enddate);
+            console.log('DESCRIPTION :' + product_description);
+            bootbox.dialog({
+                title: 'XÁC NHẬN',
+                message: "<p>Bạn thực sự muốn đấu giá ?</p>",
+                size: 'large',
+                buttons: {
+                    cancel: {
+                        label: "I'm a cancel button!",
+                        className: 'btn-danger',
+                        callback: function () {
+                            console.log('Custom cancel clicked');
+                        }
+                    },
+                    ok: {
+                        label: "I'm an OK button!",
+                        className: 'btn-info',
+                        callback: function () {
+                            console.log('Custom OK clicked ');
+                            axios.post('/seller/add/', { 
+                                productname: productname,
+                                product_typeID: product_typeID,
+                                product_price: product_price,
+                                product_stepcost: product_stepcost,
+                                product_buynowprice: product_buynowprice,
+                                product_startdate: product_startdate,
+                                product_enddate: product_enddate,
+                                product_description: product_description});
+                            setTimeout(function () { bootbox.alert("THEM THANH CONG"); }, 900);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
