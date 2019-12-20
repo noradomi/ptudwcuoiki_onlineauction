@@ -21,7 +21,6 @@ module.exports = function(passport, user) {
 
 				passReqToCallback: true // cho phép chuyển toàn bộ yêu cầu đến callback, đặc biệt hữu ích khi đăng ký.
 			},
-
 			function(req, email, password, done) {
 				var generateHash = function(password) {
 					return bCrypt.hashSync(
@@ -54,13 +53,15 @@ module.exports = function(passport, user) {
 
 					if (user) {
 						req.flash('dataForm', data);
+						console.log('email da ton tai');
 						return done(
 							null,
 							false,
 							req.flash('errors', 'That email is already taken.'),
 							req.flash('dataForm', data)
 						);
-					} else {
+					} 
+					else {
 						var userPassword = generateHash(password);
 
 						data.password = userPassword;
@@ -74,7 +75,10 @@ module.exports = function(passport, user) {
 								return done(null, newUser);
 							}
 						});
+						console.log('register');
+						return;
 					}
+					
 				});
 			}
 		)
@@ -107,7 +111,7 @@ module.exports = function(passport, user) {
 					.then(function(user) {
 						dataForm = {
 							username: username,
-							password: password
+							password: password,
 						};
 						if (!user) {
 							return done(
@@ -126,6 +130,15 @@ module.exports = function(passport, user) {
 								req.flash('dataForm', dataForm)
 							);
 						}
+						if(user.status == 'inactive'){
+							return done(
+								null,
+								false,
+								req.flash('errors','Account is not active'),
+								req.flash('dataForm',dataForm),
+							);
+						}
+						
 
 						var userinfo = user.get();
 						return done(null, userinfo);

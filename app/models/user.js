@@ -89,12 +89,12 @@ module.exports = function(sequelize, Sequelize) {
 		  });
 	}
 
-	User.Activate = function(user){
+	User.Activate = function(email){
 		return User.update({
 			status: 'active',
 		},{
 			where: {
-				id: user.id,
+				email: email,
 			}
 		});
 	}
