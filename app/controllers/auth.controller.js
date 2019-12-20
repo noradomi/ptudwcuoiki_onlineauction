@@ -201,7 +201,8 @@ module.exports.authfbcb = passport.authenticate('facebook', {
 });
 
 module.exports.dashboard = function(req, res) {
-    res.render('./web/dashboard');
+
+    res.render('./web/sellerproduct');
 };
 
 //Models
