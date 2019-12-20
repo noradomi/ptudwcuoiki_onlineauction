@@ -1,0 +1,87 @@
+
+
+<div class="container">
+    <h1>Edit Password</h1>
+  	<hr>
+	<div class="row">
+      
+      
+      <!-- edit form column -->
+     {{#if hasErrors}}
+      <div class="alert alert-danger alert-dismissible  show rounded-pill" role="alert">
+          {{#each messages}}
+          <strong>Error!</strong> {{this}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          {{/each}}
+      </div>
+    {{/if}}
+
+    
+        <div class="form-group">
+            <span class="col-md-3"></span>
+            <button type="button" class="btn btn-info" onclick="window.location.href='/account/change-password'">Change password</button>
+        </div>
+        <form class="form-horizontal" role="form" action="/account/change-email" method="POST">
+        <div class="form-group">
+            <label class="col-md-3 control-label">New email:</label>
+            <div class="col-md-8">
+              <input name="password" class="form-control" type="email" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit"  class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+<hr>
+
+{{#if changeEmailSuccess}}
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Update email successfully'
+        })
+    </script>
+    {{/if}}
+
+    {{#if changeEmailFailed}}
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'error',
+            title: 'Update email failed, please try later'
+        })
+    </script>
+    {{/if}}

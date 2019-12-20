@@ -34,7 +34,9 @@ module.exports.Validate = (req,res,next) =>{
             showMailOTP:true,
             OTPFailed: true,
         });
-        console.log('OTP failed');
+		console.log('OTP failed');
+	}
+}
 
 module.exports.Validate = (req, res, next) => {
 	console.log(req.body.otp);
@@ -52,4 +54,4 @@ module.exports.Validate = (req, res, next) => {
 		});
 		console.log('OTP failed');
 	}
-};
+}

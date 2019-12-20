@@ -21,7 +21,7 @@ router.post(
     authController.validateRegister,
 	authController.reCaptcha,
 	authController.postRegister,
-    mailOTP.MailOTP,
+    //mailOTP.MailOTP,
 );
 
 router.post(
