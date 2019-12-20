@@ -48,7 +48,9 @@ router.get('/fb/callback', authController.authfbcb, (req, res, next) => {
     res.redirect('/');
 });
 
-router.get('/dashboard', isLoggedIn, authController.dashboard);
 
-
+const sellercontroller = require('../controllers/seller.controller');
+router.post('/seller/add/', sellercontroller.add);
+router.get('/dashboard', isLoggedIn, sellercontroller.productname);
+module.exports = router;
 module.exports = router;

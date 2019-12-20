@@ -1,0 +1,106 @@
+{{#section 'style'}}
+<script src="/js/util.js"></script>
+<link href="/css/card.css" rel="stylesheet" type="text/css">
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{{/section}}
+
+
+<div class="container">
+  
+  <section class="panel panel-default">
+<div class="panel-heading"> 
+<h3 class="panel-title">Đăng Sản Phẩm</h3> 
+</div> 
+<div class="panel-body">
+  
+<form action="designer-finish.html" class="form-horizontal" role="form">
+
+
+   <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">TÊN SẢN PHẨM</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name="name" id="productname"  placeholder="Tên món đồ đấu giá của mình">
+    </div>
+  </div> <!-- form-group // -->
+  <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">Loại sản phẩm</label>
+    <div class="col-sm-9">
+      <select class="input search-categories" name="selcat" id="product_type">
+                            {{#each ProT}}
+                                <option value={{id}}>{{protype_name}}</option>
+                            {{/each}}
+      </select>
+    </div>
+  </div> <!-- form-group // -->
+  <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">GIA: </label>
+    <div class="box col-sm-9">
+        <input type="number" value="9999" id="product_price">
+    </div>
+  </div> <!-- form-group // -->
+   <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">BUOC NHAY: </label>
+    <div class="box col-sm-9">
+        <input type="number" value="1000" id="product_stepcost">
+    </div>
+  </div> <!-- form-group // -->
+   <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">GIA MUA NGAY: </label>
+    <div class="box col-sm-9">
+        <input type="number" value="99999" id="product_buynowprice">
+    </div>
+  </div> <!-- form-group // -->
+  <div class="form-group">
+    <label class="col-sm-3 control-label">Thời gian đấu giá</label>
+    <div class="col-sm-3"> 
+      <div class='input-group date' id='datetimepicker'>
+                    <input type='text' class="form-control" id='datetimepicker1'/>
+                    <span class="input-group-addon">
+                        <i class="far fa-calendar-alt"></i>
+                    </span>
+      </div>
+    </div>
+	<div class="col-sm-3">   
+	   <div class='input-group date' id='datetimepicker'>
+                    <input type='text' class="form-control" id='datetimepicker2'/>
+                    <span class="input-group-addon">
+                        <i class="far fa-calendar-alt"></i>
+                    </span>
+      </div>
+    </div>
+    <script type="text/javascript">
+    
+  </script> 
+  </div> <!-- form-group // -->
+  <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">Ảnh mô tả</label>
+    <div class="col-sm-2">
+      <label class="control-label small" for="file_img">ẢNH (jpg):</label> <input type="file" name="file_img">
+    </div>
+	<div class="col-sm-2">
+      <label class="control-label small" for="file_img">ẢNH PHỤ:</label>  <input type="file" name="file_archive">
+    </div>
+    <div class="col-sm-2">
+      <label class="control-label small" for="file_img">ẢNH PHỤ:</label>  <input type="file" name="file_archive">
+    </div>
+    <div class="col-sm-2">
+      <label class="control-label small" for="file_img">ẢNH PHỤ:</label>  <input type="file" name="file_archive">
+    </div>
+  </div> <!-- form-group // -->
+  <div class="form-group">
+    <label for="about" class="col-sm-3 control-label">Mô Tả</label>
+    <div class="col-sm-9">
+      <textarea class="form-control" id="product_description"></textarea>
+    </div>
+  </div> <!-- form-group // -->
+  <hr>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <button pro-id="" type="button" class="btn btn-success" id="buttonaddproduct"><i class="fas fa-store-alt"></i> DANG SAN PHAM</button>
+    </div>
+  </div> <!-- form-group // -->
+</form>
+  
+</div><!-- panel-body // -->
+</section><!-- panel// -->
+</div> <!-- container// -->

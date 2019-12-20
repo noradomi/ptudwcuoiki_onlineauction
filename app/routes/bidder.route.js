@@ -7,5 +7,4 @@ const bidderController = require('../controllers/bidder.controller');
 router.post('/watchlist/:proid', bidderController.actWatchList);
 
 router.post('/bid/:proid', bidderController.bid);
-
 module.exports = router;

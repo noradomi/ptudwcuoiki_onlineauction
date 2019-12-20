@@ -1,37 +1,37 @@
 {
-	"development": {
-		"username": "root",
+    "development": {
+        "username": "root",
 
 		"password": "123456789",
 
-		"database": "onlineauction",
+        "database": "onlineauction",
 
-		"host": "127.0.0.1",
+        "host": "127.0.0.1",
 
-		"dialect": "mysql"
-	},
+        "dialect": "mysql"
+    },
 
-	"test": {
-		"username": "",
+    "test": {
+        "username": "",
 
-		"password": null,
+        "password": null,
 
-		"database": "",
+        "database": "",
 
-		"host": "",
+        "host": "",
 
-		"dialect": "mysql"
-	},
+        "dialect": "mysql"
+    },
 
-	"production": {
-		"username": "",
+    "production": {
+        "username": "",
 
-		"password": null,
+        "password": null,
 
-		"database": "",
+        "database": "",
 
-		"host": "127.0.0.1",
+        "host": "127.0.0.1",
 
-		"dialect": "mysql"
-	}
+        "dialect": "mysql"
+    }
 }
