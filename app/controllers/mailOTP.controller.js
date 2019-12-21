@@ -36,12 +36,7 @@ module.exports.MailOTP = async (req, res) => {
 module.exports.Validate = (req, res,next) => {
 
 	if (parseInt(req.body.otp) == randomNumber) {
-		res.render('web/register', {
-			layout: false,
-			registerSuccess: true
-		});
 		console.log('OTP passed');
-		//Activate user
 		next();
 		
 	} else {
@@ -59,6 +54,10 @@ module.exports.ActivateUser = (req,res)=>{
 	model.user.Activate(user).then(function(result){
 		if(result[0] == 1){
 			console.log('activate thanh cong');
+			res.render('web/register', {
+				layout: false,
+				registerSuccess: true
+			});
 		}
 		else{
 			console.log('activate that bai');

@@ -18,16 +18,22 @@
       </div>
     {{/if}}
 
-    
+    {{#each user}}
         <div class="form-group">
             <span class="col-md-3"></span>
-            <button type="button" class="btn btn-info" onclick="window.location.href='/account/change-password'">Change password</button>
+            <button type="button" class="btn btn-info" onclick="window.location.href='/account/change-password'">Change Email</button>
         </div>
         <form class="form-horizontal" role="form" action="/account/change-email" method="POST">
         <div class="form-group">
+            <label class="col-md-3 control-label">Current email:</label>
+            <div class="col-md-8">
+              <input name="currentEmail" class="form-control" readonly="readonly" type="email" value="{{userInfo.email}}">
+            </div>
+          </div>
+        <div class="form-group">
             <label class="col-md-3 control-label">New email:</label>
             <div class="col-md-8">
-              <input name="password" class="form-control" type="email" value="">
+              <input name="email" class="form-control" type="email" value="">
             </div>
           </div>
           <div class="form-group">
@@ -40,9 +46,47 @@
           </div>
         </form>
       </div>
+      {{/each}}
   </div>
 </div>
 <hr>
+
+{{#if showMailOTP}}
+    <script>
+        (async () => {
+        const {value: otp} = await Swal.fire({
+            title: 'Check your mail and enter an OTP here to activate your account',
+            html: `<form action = "/account/change-email/mailotp" method = "post">
+                    {{#if OTPFailed}}
+                    <div class="alert alert-danger alert-dismissible  show rounded-pill" role="alert">
+                        <strong>Wrong OTP</strong>
+                    </div>
+                    {{/if}}
+                   <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="email" placeholder="Email" readonly="readonly"
+                         value="{{email}}"">
+                </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" name="otp" 
+                            placeholder="OTP" required="required">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">OK</button>
+                    </div>
+                    </form>`,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to write something!'
+                }
+            }         
+        })
+        
+        })()
+    </script>
+    {{/if}}
 
 {{#if changeEmailSuccess}}
     <script>

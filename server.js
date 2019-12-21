@@ -78,6 +78,7 @@ app.use('/auth', authRoute);
 app.use('/product', productRoute);
 app.use('/bidders', require('./app/routes/bidder.route'));
 app.use('/seller', require('./app/routes/seller.route'));
+app.use('/account', accountRoute);
 
 //load passport strategies
 require('./app/configs/passport.js')(Passport, models.user);

@@ -234,3 +234,88 @@ module.exports.PostChangePassword = (req,res) =>
         })
     }
 }
+
+module.exports.ShowPageChangeEmail = (req,res) =>{
+    model.user.findOne({
+        where: {
+            id: req.session.passport.user,
+        }
+    }).then(dbUser => {
+        let user = [
+        {
+            userInfo: dbUser.dataValues,
+            id: req.session.passport.user,
+            isloggedin: true,
+        }
+        ];
+        res.render('web/change-email',{
+            user: user,
+        });
+    });
+}
+
+module.exports.changeEmail = (req,res,next) =>{
+    var user = {
+        email: req.body.email,
+        id: req.session.passport.user, 
+    }
+    
+    model.user.ChangeEmail(user).then(function(result){
+        if(result[0] == 1){
+            next();
+        }else{
+            res.render('web/change-email');
+        }
+    });
+}
+
+module.exports.ShowMailOTP = (req,res,next) =>{
+    res.render('web/change-email',{
+        showMailOTP: true,
+        email: req.body.email,
+    });
+    next();
+}
+
+module.exports.ActivateEmail = (req,res,next) =>{
+    var email = req.body.email;
+    model.user.Activate(email).then(function(result){
+        if(result[0] == 1){
+            model.user.findOne({
+                where: {
+                    id: req.session.passport.user,
+                }
+            }).then(dbUser => {
+                let user = [
+                {
+                    userInfo: dbUser.dataValues,
+                    id: req.session.passport.user,
+                    isloggedin: true,
+                }
+                ];
+                res.render('web/change-email',{
+                    user: user,
+                    changeEmailSuccess: true,
+                });
+            });
+        }else{
+            model.user.findOne({
+                where: {
+                    id: req.session.passport.user,
+                }
+            }).then(dbUser => {
+                let user = [
+                {
+                    userInfo: dbUser.dataValues,
+                    id: req.session.passport.user,
+                    isloggedin: true,
+                }
+                ];
+                res.render('web/change-email',{
+                    user: user,
+                    changeEmailFailed: true,
+                });
+            });
+        }
+    })
+}
