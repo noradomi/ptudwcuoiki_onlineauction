@@ -1,0 +1,48 @@
+{{#section 'style'}}
+<script src="/js/util.js"></script>
+<link href="/css/card.css" rel="stylesheet" type="text/css">
+{{/section}}
+<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+						<div class="order-summary clearfix">
+							<div class="section-title">
+								<h3 class="title">{{TITLE}}</h3>
+							</div>
+							<table class="shopping-cart-table table">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th></th>
+										<th class="text-center">CURR_Price</th>
+										<th class="text-center">START_PRICE</th>
+										<th class="text-center">BUYNOW_PRICE</th>
+										<th class="text-right"></th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {{#each WatchList}}
+									<tr>
+										<td class="thumb"><img src="/img/sp/{{id}}.jpg" alt=""></td>
+										<td class="details">
+											<a href="/product/productdetail/{{id}}">{{product_name}}</a>
+										</td>
+										<td class="price text-center"><strong class="primary-color">{{curr_price}}</strong></td>
+										<td class="total text-center"><strong >{{initial_price}}</strong></td>
+										<td class="total text-center"><strong >{{imme_buy_price}}</strong></td>
+									</tr>	
+                                    {{/each}}					
+								</tbody>	
+							</table>
+						</div>
+
+					</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
