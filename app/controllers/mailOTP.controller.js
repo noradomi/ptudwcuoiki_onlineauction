@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
+const model = require('../models');
 var randomNumber;
 
-module.exports.MailOTP = async (req, res, next) => {
+module.exports.MailOTP = async (req, res) => {
 	var email = req.body.email;
 
 	var otp = Math.floor(1000 + Math.random() * 9000);
@@ -21,27 +22,46 @@ module.exports.MailOTP = async (req, res, next) => {
 
 	let info = await transporter.sendMail({
 		from: '"Online Auction" <onlineauction@gmail.com>',
-		to: `${email}`,
-		subject: 'Email OTP',
-		text: `This is your OTP: ${randomNumber}`,
-		html: `<b>Enter this OTP: ${randomNumber} to activate your Online Auction account</b>`
-	});
-};
+        to: `${email}`,
+        subject: "Email OTP",
+        text: `This is your OTP: ${randomNumber}`,
+        html: `<b>Enter this OTP: ${randomNumber} to activate your Online Auction account</b>`
+	  });
 
-module.exports.Validate = (req, res, next) => {
-	console.log(req.body.otp);
+	console.log(info);
+	res.end();
+
+}
+
+module.exports.Validate = (req, res,next) => {
+
 	if (parseInt(req.body.otp) == randomNumber) {
-		res.render('./web/register', {
-			layout: false,
-			registerSuccess: true
-		});
 		console.log('OTP passed');
+		next();
+		
 	} else {
-		res.render('./web/register', {
+		res.render('web/register', {
 			layout: false,
 			showMailOTP: true,
 			OTPFailed: true
 		});
 		console.log('OTP failed');
 	}
-};
+}
+
+module.exports.ActivateUser = (req,res)=>{
+	var user = req.body.email;
+	model.user.Activate(user).then(function(result){
+		if(result[0] == 1){
+			console.log('activate thanh cong');
+			res.render('web/register', {
+				layout: false,
+				registerSuccess: true
+			});
+		}
+		else{
+			console.log('activate that bai');
+			res.render('web/register');
+		}
+	})
+}

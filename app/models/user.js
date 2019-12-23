@@ -1,3 +1,4 @@
+
 module.exports = function(sequelize, Sequelize) {
 	var User = sequelize.define('user', {
 		id: {
@@ -74,6 +75,60 @@ module.exports = function(sequelize, Sequelize) {
 		if (rating >= 0.8) return true;
 		return false;
 	};
+
+	User.EditProfile = function(user){
+		return User.update({
+			firstname: user.firstname,
+			lastname: user.lastname,
+			username: user.username,
+			address: user.address,
+		  }, {
+			where: {
+			  id: user.id,
+			}
+		  });
+	}
+
+	User.Activate = function(email){
+		return User.update({
+			status: 'active',
+		},{
+			where: {
+				email: email,
+			}
+		});
+	}
+
+	User.Deactivate = function(user){
+		return User.update({
+			status: 'inactive',
+		},{
+			where:{
+				id:user.id,
+			}
+		});
+	}
+
+	User.ChangeEmail = function(user){
+		return User.update({
+			email: user.email,
+			status: 'inactive',
+		},{
+			where:{
+				id: user.id,
+			}
+		});
+	}
+
+	User.ChangePassword = function(user){
+		return User.update({
+			password: user.password,
+		},{
+			where: {
+				id: user.id,
+			}
+		});
+	}
 
 	return User;
 };

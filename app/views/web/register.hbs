@@ -115,8 +115,12 @@
                         <strong>Wrong OTP</strong>
                     </div>
                     {{/if}}
+                   <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="email" placeholder="Email" readonly="readonly"
+                         value="{{email}}"">
+                </div>
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" name="otp"
+                        <input type="text" class="form-control input-lg" name="otp" 
                             placeholder="OTP" required="required">
                     </div>
                     <div class="form-group">
@@ -156,6 +160,9 @@
             icon: 'success',
             title: 'Register successfully'
         })
+        var timer = setTimeout(function() {
+            window.location='/auth/login'
+        }, 3000);
     </script>
     {{/if}}
     <!-- =========================  CONTENT END// ========================= -->

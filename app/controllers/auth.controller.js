@@ -57,7 +57,7 @@ module.exports.validateLogin = (req, res, next) => {
 
 module.exports.postLogin = passport.authenticate('local-signin', {
     successRedirect: '/',
-    failureRedirect: '/auth/login'
+    failureRedirect: '/auth/login',
 });
 
 module.exports.register = (req, res) => {
@@ -122,15 +122,20 @@ module.exports.reCaptcha = (req, res, next) => {
                     dataForm: dataForm
                 });
             } else {
-                res.render('./web/register', {
-                    layout: false,
-                    showMailOTP: true
-                });
                 next();
             }
         });
     }
 };
+
+module.exports.ShowMailOTP = (req,res,next)=>{
+    res.render('./web/register',{
+        layout:false,
+        showMailOTP:true,
+        email: req.body.email,
+    })
+    next();
+}
 
 module.exports.validateRegister = (req, res, next) => {
     // form values
@@ -188,7 +193,6 @@ module.exports.validateRegister = (req, res, next) => {
 };
 
 module.exports.postRegister = passport.authenticate('local-register', {
-    successRedirect: '/auth/login',
     failureRedirect: '/auth/register',
     failureFlash: true
 });

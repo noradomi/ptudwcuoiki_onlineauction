@@ -10,6 +10,7 @@ const validator = require('express-validator');
 // Modules tu viet: Routers
 const authRoute = require('./app/routes/auth.route');
 const productRoute = require('./app/routes/product.route');
+const accountRoute = require('./app/routes/account.route');
 
 const port = 3000;
 const app = express();
@@ -77,6 +78,8 @@ app.use('/auth', authRoute);
 app.use('/product', productRoute);
 app.use('/bidders', require('./app/routes/bidder.route'));
 app.use('/seller', require('./app/routes/seller.route'));
+app.use('/account', accountRoute);
+app.use('/admin', require('./app/routes/admin.route'));
 
 //load passport strategies
 require('./app/configs/passport.js')(Passport, models.user);
