@@ -324,3 +324,29 @@ module.exports.mywinpro = async(req, res, next) => {
         TITLE: "MY WINNING PRODUCT ",
     });
 };
+
+module.exports.addpoint = async(req, res, next) => {
+    //let id = req.session.passport.user;
+    let likeCount = await model.user.findLikeCountUser(2);
+    model.user.update({
+        like_count: likeCount + 1,
+    }, {
+        //returning: false,
+        where: {
+            id: 2,
+        }
+    });
+};
+
+module.exports.minuspoint = async(req, res, next) => {
+    //let id = req.session.passport.user;
+    let likeCount = await model.user.findLikeCountUser(2);
+    model.user.update({
+        like_count: likeCount - 1,
+    }, {
+        //returning: false,
+        where: {
+            id: 2,
+        }
+    });
+};

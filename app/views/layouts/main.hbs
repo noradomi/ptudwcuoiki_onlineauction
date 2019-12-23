@@ -354,6 +354,17 @@
         });
     </script> --}}
 
+     <script>
+        $('#buttonaddpoint').on('click', function (e) {
+            //alert('TAIYEULINH');
+            $.post('/account/addpoint');
+            });
+        $('#buttonminuspoint').on('click', function (e) {
+            //alert('TAIYEULINH');
+            $.post('/account/minuspoint');
+            });
+     </script>
+
 </body>
 
 </html>
