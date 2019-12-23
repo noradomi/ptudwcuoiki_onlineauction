@@ -40,4 +40,6 @@ router.post(
 router.get('/watchlist', isLoggedIn, accountController.watchlist);
 router.get('/mybid', isLoggedIn, accountController.mybid);
 router.get('/mywinningproduct', isLoggedIn, accountController.mywinpro);
+router.post('/addpoint', accountController.addpoint);
+router.post('/minuspoint', accountController.minuspoint);
 module.exports = router;
