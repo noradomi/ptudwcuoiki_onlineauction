@@ -149,37 +149,3 @@ function countDownTimer1(expriry_date, id) {
 }
 
 // Thêm/Xóa thích sản phẩm trong Watch List
-function actOnPro(event) {
-	let proId = event.target.dataset.proId;
-
-	console.log(event.target.dataset.islike);
-
-	let islike = event.target.dataset.islike;
-
-	if (islike === 'false') {
-		console.log('vao set css');
-		$(`[data-pro-id=${proId}]`).css({
-			color: '#f8694a',
-			'-webkit-box-shadow':
-				'0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a',
-			'box-shadow':
-				'0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a'
-		});
-		event.target.dataset.islike = 'true';
-	} else {
-		console.log('vao xóa css');
-		$(`[data-pro-id=${proId}]`).css({
-			color: '#30323a',
-			'background-color': '#fff',
-			'-webkit-box-shadow':
-				'0px 0px 0px 1px #dadada inset 0px 0px 0px 6px transparent',
-			'box-shadow':
-				'0px 0px 0px 1px #dadada inset, 0px 0px 0px 6px transparent'
-		});
-		event.target.dataset.islike = 'false';
-	}
-
-	console.log('Vao ham voi proid : ' + proId);
-
-	axios.post('/bidders/watchlist/' + proId);
-}

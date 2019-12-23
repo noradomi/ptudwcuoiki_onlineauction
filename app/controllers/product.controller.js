@@ -30,6 +30,20 @@ module.exports.search = async (req, res) => {
 };
 // PRODUCT DETAIL
 module.exports.productdetail = async (req, res) => {
+	// Kiêm tra đăng nhập chưa để render ra header thích hợp
+	let user = [];
+	if (req.isAuthenticated()) {
+		user.push({
+			userInfo: req.user,
+			id: req.session.passport.user,
+			isloggedin: true
+		});
+	} else {
+		user.push({
+			isloggedin: false
+		});
+	}
+
 	var id = req.params.id;
 	let ProTId = await db.product.findProductTypeIdById(id);
 	let Pro = [];
@@ -55,6 +69,7 @@ module.exports.productdetail = async (req, res) => {
 	});
 
 	res.render('./web/productdetail', {
+		user: user,
 		Pro: Pro,
 		ProRelate: ProRelate,
 		HistoryBid: HistoryBid,

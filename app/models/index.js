@@ -34,6 +34,7 @@ Object.keys(db).forEach(function(modelName) {
 db.product.hasMany(db.bid_details);
 db.product.hasMany(db.watchlist);
 db.product.belongsTo(db.product_type);
+db.product.hasMany(db.product_img);
 
 // Category
 db.category.hasMany(db.product_type, { as: 'ProductTypes' });
@@ -54,6 +55,8 @@ db.bid_details.belongsTo(db.user);
 db.watchlist.belongsTo(db.product);
 db.watchlist.belongsTo(db.user);
 
+// ProductImg
+db.product_img.belongsTo(db.product);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

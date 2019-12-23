@@ -23,8 +23,9 @@ module.exports = function(sequelize, Sequelize) {
 				productId: proId,
 				userId: userId
 			});
+			return 1;
 		} else {
-			console.log(record.dataValues.status);
+			// console.log(record.dataValues.status);
 
 			let status =
 				record.dataValues.status === 'active' ? 'inactive' : 'active';
@@ -37,6 +38,7 @@ module.exports = function(sequelize, Sequelize) {
 					where: { productId: proId, userId: userId }
 				}
 			);
+			return record.dataValues.status === 'active' ? 0 : 1;
 		}
 	};
 
