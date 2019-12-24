@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
     <link href="/vendors/fonts/slick.ttf">
 
+    <!-- AlertJs -->
+    <link rel="stylesheet" href="/vendors/css/alertify.css">
 
     <!-- Bootstrap -->
     {{!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -74,8 +76,7 @@
 
 
 
-    <!-- jQuery Plugins -->
-    <script src="/vendors/js/jquery.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
     <script src="/vendors/js/bootstrap.min.js"></script>
     <script src="/vendors/js/slick.min.js"></script>
@@ -87,6 +88,9 @@
     <script src="/vendors/js/bootbox.js"></script>
     <script src="/vendors/js/bootbox.locales.js"></script>
 
+    <!-- include alertify script -->
+    <script src="/vendors/js/alertify.min.js"></script>
+
     <!-- validator -->
     <script src="/vendors/js/validator.js"></script>
 
@@ -95,264 +99,36 @@
 
     {{{_sections.DROPUPLOAD_JS}}}
 
+    {{{_sections.WATCHLIST}}}
+
+    {{{_sections.BID_UTILS}}}
+
+
     {{!-- <script>
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-        });
-    </script> --}}
-    <script>
-
-        function actOnPro(event) {
-
-            let proId = event.target.dataset.proId;
-
-            console.log(event.target.dataset.islike);
-
-            let islike = event.target.dataset.islike;
-
-            // axios.post('/bidders/watchlist/' + proId);
-
-            $.ajax({
-                url: '/bidders/watchlist/' + proId,
-                method: "POST",
-                cache: false,
-                success: function (data) {
-                    // data is the object that you send form the server by 
-                    // res.jsonp();
-                    // here data = {success : true}
-                    // validate it
-                    if (data['success']) {
-
-                        if (data['type'] === 1) {
-                            bootbox.alert({
-                                message: "Đã thêm sản phẩm vào Watch List",
-                                size: 'small'
-                            });
-
-
-                            console.log('vao set css');
-                            $(`[data-pro-id=${proId}]`).css({
-                                color: '#f8694a',
-                                '-webkit-box-shadow':
-                                    '0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a',
-                                'box-shadow':
-                                    '0px 0px 0px 1px #f8694a inset, 0px 0px 0px 0px #f8694a'
-                            });
-                            event.target.dataset.islike = 'true';
-
-                        }
-                        else {
-                            bootbox.alert({
-                                message: "Đã xóa sản phẩm khỏi Watch List",
-                                size: 'small'
-                            });
-                            console.log('vao xóa css');
-                            $(`[data-pro-id=${proId}]`).css({
-                                color: '#30323a',
-                                'background-color': '#fff',
-                                '-webkit-box-shadow':
-                                    '0px 0px 0px 1px #dadada inset 0px 0px 0px 6px transparent',
-                                'box-shadow':
-                                    '0px 0px 0px 1px #dadada inset, 0px 0px 0px 6px transparent'
-                            });
-                            event.target.dataset.islike = 'false';
-                        }
-
-                        console.log('Vao ham voi proid : ' + proId);
-
-                    }
-                    else {
-                        bootbox.alert({
-                            message: "Chỉ bidder mới có thể thực hiện quyền này. Vui lòng thử lại với quyền bidder !!!",
-                            size: 'small'
-                        });
-                    }
-                },
-                error: function () {
-                    // some error handling part
-                    alert("Oops! Something went wrong.");
-                }
-            });
-
-
-
-
-
+        function alertUpdate(updateSuccess) {
+            if (updateSuccess) {
+                alertify.success('Success message');
+            }
+            else {
+                alertify.error('Error message');
+            }
         }
-    </script>
-
-    <script>
-        $('.add-to-cart').on('click', function (e) {
-            let proId = $(this).attr('pro-id');
-
-            let fieldName = $('.btn-number').attr('data-field');
-            let input = $("input[name='" + fieldName + "']");
-            // Giá đáu giá hiện tại submit
-            let currBidPrice = parseInt(input.val());
-            let step_cost = parseInt($('.input-number').attr('step_cost'));
-            console.log('Gia dau gia :' + currBidPrice);
-
-            bootbox.dialog({
-                title: 'XÁC NHẬN',
-                message: "<p>Bạn thực sự muốn đấu giá ?</p>",
-                size: 'large',
-                buttons: {
-                    cancel: {
-                        label: "I'm a cancel button!",
-                        className: 'btn-danger',
-                        callback: function () {
-                            console.log('Custom cancel clicked');
-                        }
-                    },
-                    ok: {
-                        label: "I'm an OK button!",
-                        className: 'btn-info',
-                        callback: function () {
-                            console.log('Custom OK clicked ' + proId);
-                            axios.post('/bidders/bid/' + proId, { bidPrice: currBidPrice });
-                            /*let newValue = currBidPrice + step_cost;
-                            input.val(newValue + ' K');
-                            input.attr('min', `${newValue}`);*/
-
-                            setTimeout(function () { bootbox.alert("Giá đấu của bạn đã được ghi nhận! F5 để xem kết quả"); }, 900);
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-
-    <script>
-        console.log("Vao day");
-        $('.btn-number').click(function (e) {
-            e.preventDefault();
-
-            fieldName = $(this).attr('data-field');
-            type = $(this).attr('data-type');
-            // Bước giá
-            let step_cost = parseInt($('.input-number').attr('step_cost'));
-            let input = $("input[name='" + fieldName + "']");
-            let currentVal = parseInt(input.val());
-            if (!isNaN(currentVal)) {
-                if (type == 'minus') {
-                    if (currentVal > input.attr('min')) {
-                        input.val((currentVal - step_cost) + ' K').change();
-                    }
-                    if (parseInt(input.val()) == input.attr('min')) {
-                        $(this).attr('disabled', true);
-                    }
-                } else if (type == 'plus') {
-                    if (currentVal < input.attr('max')) {
-                        input.val((currentVal + step_cost) + ' K').change();
-                    }
-                    if (parseInt(input.val()) == input.attr('max')) {
-                        $(this).attr('disabled', true);
-                    }
-                }
-            } else {
-                input.val(0);
-            }
-        });
-        $('.input-number').focusin(function () {
-            $(this).data('oldValue', $(this).val());
-        });
-        $('.input-number').change(function () {
-            minValue = parseInt($(this).attr('min'));
-            maxValue = parseInt($(this).attr('max'));
-            valueCurrent = parseInt($(this).val());
-
-            name = $(this).attr('name');
-            if (valueCurrent >= minValue) {
-                $(
-                    ".btn-number[data-type='minus'][data-field='" + name + "']"
-                ).removeAttr('disabled');
-            } else {
-                alert('Sorry, the minimum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-            if (valueCurrent <= maxValue) {
-                $(
-                    ".btn-number[data-type='plus'][data-field='" + name + "']"
-                ).removeAttr('disabled');
-            } else {
-                alert('Sorry, the maximum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-        });
-        $('.input-number').keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if (
-                $.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)
-            ) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if (
-                (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
-                (e.keyCode < 96 || e.keyCode > 105)
-            ) {
-                e.preventDefault();
-            }
-        });
-    </script>
-    {{!-- <script>
-        $('#buttonaddproduct').on('click', function (e) {
-            // let currBidPrice = parseInt(input.val());
-            let productname = $('#productname').val();
-            let product_typeID = $('#product_type').val();
-            let product_price = $('#product_price').val();
-            let product_stepcost = $('#product_stepcost').val();
-            let product_buynowprice = $('#product_buynowprice').val();
-            let product_startdate = $('#datetimepicker1').val();
-            let product_enddate = $('#datetimepicker2').val();
-            let product_description = $('#product_description').val();
-            console.log('TEN SAN PHAM :' + productname);
-            console.log('LOAI SAN PHAM ID:' + product_typeID);
-            console.log('GIA :' + product_price);
-            console.log('STEPCOST :' + product_stepcost);
-            console.log('BUYNOW :' + product_buynowprice);
-            console.log('Startdate :' + product_startdate);
-            console.log('Enddate :' + product_enddate);
-            console.log('DESCRIPTION :' + product_description);
-            bootbox.dialog({
-                title: 'XÁC NHẬN',
-                message: "<p>Bạn thực sự muốn đấu giá ?</p>",
-                size: 'large',
-                buttons: {
-                    cancel: {
-                        label: "I'm a cancel button!",
-                        className: 'btn-danger',
-                        callback: function () {
-                            console.log('Custom cancel clicked');
-                        }
-                    },
-                    ok: {
-                        label: "I'm an OK button!",
-                        className: 'btn-info',
-                        callback: function () {
-                            console.log('Custom OK clicked ');
-                            axios.post('/seller/add/', {
-                                productname: productname,
-                                product_typeID: product_typeID,
-                                product_price: product_price,
-                                product_stepcost: product_stepcost,
-                                product_buynowprice: product_buynowprice,
-                                product_startdate: product_startdate,
-                                product_enddate: product_enddate,
-                                product_description: product_description
-                            });
-                            setTimeout(function () { bootbox.alert("THEM THANH CONG"); }, 900);
-                        }
-                    }
-                }
-            });
-        });
     </script> --}}
+    <script>
+        $(document).ready(function () {
+            //get it if Status key found
+            if (localStorage.getItem("Status")) {
+                alertify.success('Giá đấu của bạn đã được ghi nhận!');
+                localStorage.clear();
+            }
+            if (localStorage.getItem("Deny")) {
+                alertify.success('Đã từ chối lượt ra giá này.');
+                localStorage.clear();
+            }
+
+        });
+    </script>
+
 
 </body>
 

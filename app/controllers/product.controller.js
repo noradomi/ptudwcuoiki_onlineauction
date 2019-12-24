@@ -30,23 +30,9 @@ module.exports.search = async (req, res) => {
 };
 // PRODUCT DETAIL
 module.exports.productdetail = async (req, res) => {
-	// Kiêm tra đăng nhập chưa để render ra header thích hợp
-	let user = [];
-	if (req.isAuthenticated()) {
-		user.push({
-			userInfo: req.user,
-			id: req.session.passport.user,
-			isloggedin: true
-		});
-	} else {
-		user.push({
-			isloggedin: false
-		});
-	}
-
 	var id = req.params.id;
 	let ProTId = await db.product.findProductTypeIdById(id);
-	let Pro = [];
+	// let Pro = [];
 	let Bid = [];
 	let ProRelate = await db.product.findRelatedProduct(ProTId, id);
 	let HistoryBid = await db.bid_details.findAllHistory(id);
@@ -58,23 +44,39 @@ module.exports.productdetail = async (req, res) => {
 	}
 
 	let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
-	Product.findAll({
-		where: {
-			id: id
-		}
-	}).then(function(pros) {
-		pros.forEach(p => {
-			Pro.push(p);
-		});
-	});
 
-	res.render('./web/productdetail', {
-		user: user,
-		Pro: Pro,
-		ProRelate: ProRelate,
-		HistoryBid: HistoryBid,
-		HiggestBidder: HiggestBidder
-	});
+	let Pro = await db.product.findByPk(id);
+
+	if (req.isAuthenticated()) {
+		req.user.isloggedin = true;
+		// Pro.forEach(p => {
+		// 	p.isBidder = req.user.role === 0;
+		// 	p.isSeller = req.user.role === 1;
+		// });
+		isOwner = await db.product.isSellerOfProduct(id, req.user.id);
+
+		res.render('./web/productdetail', {
+			user: [req.user],
+			isBidder: req.user.role === 0,
+			isSeller: req.user.role === 1,
+			isOwner: isOwner,
+			Pro: [Pro],
+			ProRelate: ProRelate,
+			HistoryBid: HistoryBid,
+			HiggestBidder: HiggestBidder
+		});
+	} else {
+		res.render('./web/productdetail', {
+			user: [req.user],
+			Pro: [Pro],
+			isBidder: false,
+			isSeller: false,
+			isOwner: false,
+			ProRelate: ProRelate,
+			HistoryBid: HistoryBid,
+			HiggestBidder: HiggestBidder
+		});
+	}
 };
 
 module.exports.product = async (req, res) => {

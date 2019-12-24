@@ -8,28 +8,17 @@ module.exports = async (req, res) => {
 
 	Cat = await models.category.categoriesAndChild();
 	if (req.isAuthenticated()) {
-		models.user
-			.findOne({
-				where: {
-					id: req.session.passport.user
-				}
-			})
-			.then(dbUser => {
-				let user = [
-					{
-						userInfo: dbUser.dataValues,
-						id: req.session.passport.user,
-						isloggedin: req.isAuthenticated()
-					}
-				];
-				res.render('web/homepage', {
-					user: user,
-					Pro2: Pro2,
-					Pro4: Pro4,
-					Pro6: Pro6,
-					Cat: Cat
-				});
-			});
+		console.log('>>>>>>>>>>>>>>>> ', req.user);
+		req.user.isloggedin = true;
+		res.render('web/homepage', {
+			user: [req.user],
+			isBidder: req.user.role === 0,
+			isSeller: req.user.role === 1,
+			Pro2: Pro2,
+			Pro4: Pro4,
+			Pro6: Pro6,
+			Cat: Cat
+		});
 	} else {
 		let user = [
 			{

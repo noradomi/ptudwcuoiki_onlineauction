@@ -33,8 +33,11 @@ Object.keys(db).forEach(function(modelName) {
 // Product
 db.product.hasMany(db.bid_details);
 db.product.hasMany(db.watchlist);
+db.product.hasMany(db.blacklist);
 db.product.belongsTo(db.product_type);
 db.product.hasMany(db.product_img);
+db.product.belongsTo(db.user, { foreignKey: 'sellerId' });
+db.product.belongsTo(db.user, { foreignKey: 'winnerId' });
 
 // Category
 db.category.hasMany(db.product_type, { as: 'ProductTypes' });
@@ -46,6 +49,9 @@ db.product_type.hasMany(db.product);
 // User
 db.user.hasMany(db.bid_details);
 db.user.hasMany(db.watchlist);
+db.user.hasMany(db.blacklist);
+db.user.hasMany(db.product, { as: 'Products', foreignKey: 'sellerId' });
+db.user.hasMany(db.product, { as: 'WinProducts', foreignKey: 'winnerId' });
 
 // BidDetails
 db.bid_details.belongsTo(db.product);

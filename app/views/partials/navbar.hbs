@@ -233,6 +233,17 @@
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
+                    {{#if isSeller}}
+                    <li><a href="/seller/post">Đăng sản phẩm</a></li>
+                    {{!-- <li><a href="/seller/myproduct">Sản phẩm của tôi</a></li> --}}
+                    <li class="dropdown default-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="true">Sản phẩm của tôi <i class="fa fa-caret-down"></i></a>
+                        <ul class="custom-menu">
+                            <li><a href="/seller/myproduct">Đang đăng & còn hạn</a></li>
+                            <li><a href="/seller/mydoneproduct">Đã có người thắng</a></li>
+                        </ul>
+                    </li>
+                    {{/if}}
                 </ul>
             </div>
             <!-- menu nav -->

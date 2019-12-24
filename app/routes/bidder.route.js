@@ -7,5 +7,10 @@ const auth = require('../middleware/auth.middleware');
 //  Thêm/Xóa 1 sản phẩm -> Danh sách WatchList của user
 router.post('/watchlist/:proid', bidderController.actWatchList);
 
-router.post('/bid/:proid', bidderController.bid);
+router.post(
+	'/bid/:proid',
+	auth.enoughRatingPoint,
+	auth.isNotInBlackList,
+	bidderController.bid
+);
 module.exports = router;

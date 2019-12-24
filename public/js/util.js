@@ -149,3 +149,25 @@ function countDownTimer1(expriry_date, id) {
 }
 
 // Thêm/Xóa thích sản phẩm trong Watch List
+
+function doSomething(isBidder, isSeller, isOwner) {
+	if (isBidder == true) {
+		return;
+	}
+	if (isOwner == true) {
+		document.getElementById(
+			'buttonbid'
+		).innerHTML = `<div class="alert alert-success" role="alert">Bạn là owner của product này</div>`;
+		return;
+	}
+	if (isSeller == true) {
+		document.getElementById(
+			'buttonbid'
+		).innerHTML = `<div class="alert alert-success" role="alert">Bạn là seller</div>`;
+		return;
+	}
+
+	document.getElementById(
+		'buttonbid'
+	).innerHTML = `<div class="alert alert-success" role="alert">Hãy đăng nhập với tư cách Bidder để thực hiện chức năng này</div>`;
+}

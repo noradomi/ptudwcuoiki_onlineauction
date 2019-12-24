@@ -4,7 +4,14 @@ const router = express.Router();
 const sellerController = require('../controllers/seller.controller');
 const uploadMulter = require('../configs/uploadConf');
 
-// router.post('/add/', sellerController.add);
+router.get('/post', sellerController.postproduct);
+
+router.get('/myproduct', sellerController.myproduct);
+
+router.get('/mydoneproduct', sellerController.mydoneproduct);
+
+router.post('/:id/description/edit', sellerController.edit_desc);
+
 router.post(
 	'/add/',
 	uploadMulter.fields([
@@ -16,4 +23,7 @@ router.post(
 		res.json(req.files);
 	}
 );
+
+router.post('/denybid/:bidderId/:proId', sellerController.deny_bid);
+
 module.exports = router;

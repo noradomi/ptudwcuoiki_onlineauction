@@ -1,9 +1,16 @@
 {{#section 'style'}}
 <link href="/css/card.css" rel="stylesheet" type="text/css">
 <script src="/js/util.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 {{/section}}
 
+{{#section 'WATCHLIST'}}
+<script src="/js/watchlist.utils.js"></script>
+{{/section}}
+
+{{#section 'BID_UTILS'}}
+<script src="/js/bidder/bidder.utils.js"></script>
+<script src="/js/seller/seller.utils.js"></script>
+{{/section}}
 
 <!-- section -->
 <div class="section">
@@ -13,6 +20,8 @@
 		<div class="row">
 			<!--  Product Details -->
 			<div class="product product-details clearfix">
+
+				{{#if isBidder}}
 				{{#each Pro}}
 				<div class="col-md-6">
 					<div id="product-main-view">
@@ -73,7 +82,6 @@
 						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
 
 							<script>
-
 								countDownTimer1(`{{ expriry_date }}`, {{ id }});
 							</script>
 
@@ -86,8 +94,8 @@
 									</div>
 								</div>
 							</div> --}}
-							<div class="product-btns" id="buttonbid">
 
+							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
 								<h4>Ra giá :</h4>
 								<div style="display:flex">
 
@@ -127,19 +135,142 @@
 									</i>
 								</div>
 
+							</div>
 
+						</div>
+
+					</div>
+				</div>
+				{{/each}}
+				{{else}}
+				{{#each Pro}}
+				<div class="col-md-6">
+					<div id="product-main-view">
+						<div class="product-view">
+							<img src="/img/sp/{{id}}.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-1.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-2.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-3.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+					</div>
+					<div id="product-view">
+						<div class="product-view">
+							<img src="/img/sp/{{id}}.jpg" alt="">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-1.jpg" alt="">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-2.jpg" alt="">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-3.jpg" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="product-body">
+						<div class="product-label">
+							<span>New</span>
+							<span class="sale">-20%</span>
+						</div>
+						<h2 class="product-name">{{product_name}}</h2>
+						<h3 class="product-price">{{initial_price}}</h3>
+						<div>
+							<div class="product-rating">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-o empty"></i>
+							</div>
+							<a href="#">3 Review(s) / Add Review</a>
+						</div>
+						<p><strong>Availability:</strong>Bidding</p>
+						<p><strong>Seller:</strong> Ten Nguoi ban goes here !! </p>
+						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
+						<p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
+								PM</a></p>
+						<p><strong>Time End_ :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
+								PM</a></p>
+
+						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
+
+							<script>
+								countDownTimer1(`{{ expriry_date }}`, {{ id }});
+							</script>
+
+						</div>
+						<div class="product-options">
+							{{!-- <div class="col-lg-4">
+								<div class="card  mb-lg-0">
+									<div class="card-body ">
+
+									</div>
+								</div>
+							</div> --}}
+
+							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
+								<h4> Giá hiện tại :</h4>
+								<div style="display:flex">
+
+									<div class="input-group" style="margin-right: 30px">
+										{{!-- <span class="input-group-btn">
+											<button type="button" class="btn btn-danger btn-number" data-type="minus"
+												data-field="quant[2]">
+												<i class="fa fa-minus"></i>
+											</button>
+										</span> --}}
+										{{!-- <input style="width: 90px;" type="text" name="quant[2]"
+											class="form-control input-number" value="{{curr_price}} K"
+											min="{{initial_price}} " max="100000000" step_cost="{{step_cost}}" readonly> --}}
+										<span class="product-label">
+											<span class="sale text-center" style="font-size: 30px;">{{curr_price}}
+												K</span>
+										</span>
+										<script>
+											input = document.getElementsByClassName('input-number')[0];
+											if ({{ curr_price }} == 0) {
+												input.value = (parseInt({{ initial_price }}) + ' K');
+											
+											}
+
+
+
+										</script>
+										{{!-- <span class="input-group-btn">
+												<button type="button" class="btn btn-success btn-number" data-type="plus"
+													data-field="quant[2]">
+													<i class="fa fa-plus"></i>
+												</button>
+											</span> --}}
+
+									</div>
+
+
+								</div>
+								<p></p>
+								<p></p>
+								<div class="alert alert-success" role="alert"> <i
+										class="fas fa-exclamation-triangle"></i> Hãy đăng nhập với tư cách Bidder
+									để thực hiện chức năng này</div>
 
 							</div>
 
 						</div>
 
-
-
-
-
 					</div>
 				</div>
 				{{/each}}
+				{{/if}}
+
+
 
 
 
@@ -154,6 +285,60 @@
 						</ul>
 						<div class="tab-content">
 							<div id="tab1" class="tab-pane fade in active">
+								{{#if isOwner}}
+								<table class="shopping-cart-table table table-striped"
+									style="width: 90%;margin-left: 40px;">
+									<thead>
+										<tr>
+											<th>Bidder</th>
+
+											<th class="text-center">Price</th>
+											<th class="text-center">Bid Date</th>
+											<th class="text-center">Rating</th>
+											<th class="text-right"></th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each HistoryBid}}
+										<tr>
+											{{#if isTop}}
+											<td><i class="fas fa-trophy"></i> &nbsp******{{lastname}}</td>
+											{{else}}
+											<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp******{{lastname}}</td>
+											{{/if}}
+
+											<td class="price text-center"><strong>{{price}} </strong>K</td>
+
+											<td class="qty text-center" id="{{price}}Time">
+												<script>
+
+													d = new Date('{{ time }}');
+													document.getElementById('{{ price }}Time').innerHTML = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+
+												</script>
+											</td>
+
+											<td class="total text-center"><strong class="primary-color">32.50 %</strong>
+											</td>
+
+											<td class="text-right">
+												<button id="{{id}}btn_cancel" bidderId="{{userId}}"
+													proId="{{productId}}" class="main-btn icon-btn"
+													style="width: auto; padding:0 10px" type="button"
+													onclick="cancelBid({{userId}},{{productId}},{{price}});">
+													<i class="fas fa-edit"></i>
+													Cancel This Bid
+												</button>
+
+
+											</td>
+
+										</tr>
+
+										{{/each}}
+									</tbody>
+								</table>
+								{{else}}
 								<table class="table table-striped">
 									<thead>
 										<tr>
@@ -176,7 +361,7 @@
 												<script>
 
 													d = new Date('{{ time }}');
-													document.getElementById('{{price}}Time').innerHTML = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+													document.getElementById('{{ price }}Time').innerHTML = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
 
 												</script>
 
@@ -189,6 +374,8 @@
 									</tbody>
 
 								</table>
+								{{/if}}
+
 							</div>
 							<div id="tab2" class="tab-pane fade in">
 								{{#each HiggestBidder}}
@@ -317,9 +504,8 @@
 						</div>
 						<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
 							<script>
-								console.log(`{{ expriry_date }}`);
-								countDownTimer(`{{ expriry_date }}`, {{ id }});
-											// countDownTimer('Mon Nov 11 2019 14:59:38 GMT+0700 (Indochina Time)', 'Mon Nov 13 2019 14:59:38 GMT+0700 (Indochina Time)', '1');
+								console.log(`{{expriry_date}} `);
+								countDownTimer(`{{expriry_date}}`, {{ id }});
 							</script>
 						</ul>
 

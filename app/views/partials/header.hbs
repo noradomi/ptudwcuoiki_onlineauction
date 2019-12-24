@@ -1,6 +1,6 @@
 <!-- HEADER -->
 <header>
-    
+
 
     <!-- header -->
     <div id="header">
@@ -47,7 +47,7 @@
                             </div>
                             <strong class="text-uppercase">Welcome, <i class="fa fa-caret-down"></i></strong>
                             <div>
-                                <span>{{userInfo.firstname}}</span>
+                                <span>{{firstname}}</span>
                             </div>
 
                         </div>
@@ -62,13 +62,13 @@
                     </li>
 
                     {{else}}
-                    <li class="mt-4" style="list-style-type: none;">
+                    <div class="btn-auth">
                         <div>
-                            <a href="/auth/register" class="btn btn-outline-secondary border">Signup</a>
+                            <a href="/auth/register" class=" signup">Sign up</a>
 
-                            <a href="/auth/login" class="btn btn-info">Login</a>
+                            <a href="/auth/login" class=" login">Login</a>
                         </div>
-                    </li>
+                    </div>
                     {{/if}}
                     {{/each}}
 

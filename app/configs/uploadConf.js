@@ -2,7 +2,7 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, './public/uploads/'); //hỉnh ảnh sẽ chưa trong folder uploads
+		cb(null, './public/img/sp/'); //hỉnh ảnh sẽ chưa trong folder uploads
 	},
 	filename: (req, file, cb) => {
 		let imgName = Date.now();
