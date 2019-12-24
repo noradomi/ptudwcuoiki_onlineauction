@@ -244,6 +244,19 @@
         }
     })
 
+    // TEST DATAMODAL
+    $("#watchsellerdetail").on("click", function() {
+        let html = `  <div id="MyModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">TRINH</div>
+                                <div class="modal-body">TAN</div>
+                                <div class="modal-footer">TAI</div>
+                            </div>
+                        </div>
+                    </div>`
+    });
+
 
 
 

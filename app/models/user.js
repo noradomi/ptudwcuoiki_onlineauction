@@ -64,10 +64,9 @@ module.exports = function(sequelize, Sequelize) {
 		}
 	});
 
-	User.isEnableToBid = async function(userId) {
-		let user = await User.findByPk(userId);
+	User.isEnableToBid = function(user) {
 		// Bidder chưa từng được đánh giá -> Được quyền ra giá (trong trường hợp người bán cho phép - tạm thời không quan tâm cái này)
-		if (user.like_count == 0 && user.report_count == 0) return true;
+		if (user.like_count === 0 && user.report_count === 0) return true;
 
 		let rating = Math.floor(
 			user.like_count / (user.like_count + user.report_count)
@@ -143,6 +142,20 @@ module.exports = function(sequelize, Sequelize) {
 				}
 			}
 		);
+	};
+	User.findLikeCountUser = function(id) {
+		return User.findOne({
+			where: {
+				id: id
+			}
+		}).then(function(result) {
+			if (result) {
+				var LikeCount = result.like_count;
+				return LikeCount;
+			} else {
+				console.log('Could Not Find User');
+			}
+		});
 	};
 
 	return User;
