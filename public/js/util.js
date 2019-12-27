@@ -20,7 +20,8 @@ function countDownTimer(expriry_date, id) {
 
 		countdown.innerHTML = `<h3>		
 		<span class="label label-success">FINISHED</span>
-    </h3>`;
+	</h3>`;
+
 		return;
 	}
 

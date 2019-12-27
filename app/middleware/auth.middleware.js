@@ -26,10 +26,8 @@ module.exports.isNotInBlackList = async (req, res, next) => {
 	const proId = req.params.proid;
 
 	if (await models.blacklist.isInBlackList(userId, proId)) {
-	
 		res.jsonp({ isInBL: true });
 	} else {
-		
 		next();
 	}
 };
@@ -37,7 +35,7 @@ module.exports.isNotInBlackList = async (req, res, next) => {
 module.exports.enoughRatingPoint = (req, res, next) => {
 	const userId = req.user.id;
 
-	if (models.user.isEnableToBid(userId)) {
+	if (models.user.isEnableToBid(req.user)) {
 		next();
 	} else {
 		res.jsonp({ notEnoughRP: true });

@@ -12,6 +12,9 @@ router.get('/mydoneproduct', sellerController.mydoneproduct);
 
 router.post('/:id/description/edit', sellerController.edit_desc);
 
+router.post('/rating/:winnerId', sellerController.rating);
+router.post('/remove_deal/:proId/:winnerId', sellerController.remove_deal);
+
 router.post(
 	'/add/',
 	uploadMulter.fields([

@@ -47,7 +47,7 @@ module.exports.mydoneproduct = async function(req, res) {
 	if (auth.isSeller(req, res)) {
 		// let ProT = await models.product_type.findAllProT();
 		let myPros = [];
-		myPros = await models.product.findAllNotExpiredProducts(1);
+		myPros = await models.product.findAllWinnedProducts(1);
 
 		if (req.session.updateSuccess == null) {
 			req.session.updateSuccess = false;
@@ -161,4 +161,67 @@ module.exports.deny_bid = async function(req, res, next) {
 
 	console.log('Xóa thành công');
 	res.jsonp({ success: true });
+};
+
+module.exports.rating = async function(req, res, next) {
+	// res.send('<h1>Thanh cong</h1>');
+	let bidderId = req.params.winnerId;
+	let sellerId = req.user.id;
+	let vote = req.body.rating;
+	let content = req.body.content;
+
+	await models.feedback.create({
+		sellerId: sellerId,
+		bidderId: bidderId,
+		vote: vote,
+		content: content
+	});
+
+	let bidderInstance = await models.user.findByPk(bidderId);
+
+	if (vote == 1) {
+		await models.user.update(
+			{
+				like_count: bidderInstance.like_count + 1
+			},
+			{
+				returning: false,
+				where: { id: bidderId }
+			}
+		);
+	} else {
+		await models.user.update(
+			{
+				report_count: bidderInstance.report_count + 1
+			},
+			{
+				returning: false,
+				where: { id: bidderId }
+			}
+		);
+	}
+
+	console.log('rating xong');
+	res.redirect('/seller/mydoneproduct');
+};
+
+module.exports.remove_deal = async function(req, res, next) {
+	// res.send('<h1>Thanh cong</h1>');
+	let bidderId = req.params.winnerId;
+	let proId = req.params.proId;
+
+	console.log(bidderId + '  -  ' + proId);
+
+	await models.product.update(
+		{
+			winnerId: null
+		},
+		{
+			returning: false,
+			where: { id: proId }
+		}
+	);
+
+	console.log('remove_deal xong');
+	res.redirect('/seller/mydoneproduct');
 };

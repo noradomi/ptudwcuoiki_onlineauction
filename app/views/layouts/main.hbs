@@ -126,20 +126,25 @@
                 localStorage.clear();
             }
 
+            if (localStorage.getItem("RemoveDeal")) {
+                alertify.success('Đã từ hủy giao dịch này.');
+                localStorage.clear();
+            }
+
         });
     </script>
 
 
-     <script>
+    <script>
         $('#buttonaddpoint').on('click', function (e) {
             //alert('TAIYEULINH');
             $.post('/account/addpoint');
-            });
+        });
         $('#buttonminuspoint').on('click', function (e) {
             //alert('TAIYEULINH');
             $.post('/account/minuspoint');
-            });
-     </script>
+        });
+    </script>
 
 </body>
 

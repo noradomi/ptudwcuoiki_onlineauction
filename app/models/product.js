@@ -165,6 +165,34 @@ module.exports = function(sequelize, Sequelize) {
 		return res;
 	};
 
+	// Tìm kiếm tất cả sản phẩm đã có người thắng
+	Product.findAllWinnedProducts = async id => {
+		let rows = await Product.findAll({
+			where: {
+				sellerId: id
+			}
+		});
+
+		// console.log('>>>>>>>>>> San pham :', rows);
+		let res = [];
+		// Chỉ trả về các sản phẩm hết hạn và có người thắng
+		let exp_date,
+			now = new Date();
+		for (const r of rows) {
+			exp_date = new Date(r.expriry_date);
+			// console.log(exp_date);
+			if (
+				exp_date.getTime() + exp_date.getTimezoneOffset() * 60 * 1000 <=
+					now.getTime() &&
+				r.winnerId != null
+			) {
+				res.push(r);
+			}
+			// res.push(r);
+		}
+		return res;
+	};
+
 	Product.isSellerOfProduct = async function(id, sellerId) {
 		let rs = await Product.findByPk(id);
 		return rs.sellerId === sellerId;
@@ -177,9 +205,7 @@ module.exports = function(sequelize, Sequelize) {
 		});
 	};
 
-	Product.findDoneProducts = function (sellerId,) {
-		
-	}
+	Product.findDoneProducts = function(sellerId) {};
 
 	return Product;
 };

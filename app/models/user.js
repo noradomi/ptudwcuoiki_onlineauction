@@ -71,6 +71,7 @@ module.exports = function(sequelize, Sequelize) {
 		let rating = Math.floor(
 			user.like_count / (user.like_count + user.report_count)
 		);
+		console.log('>>>>> ', rating);
 		if (rating >= 0.8) return true;
 		return false;
 	};

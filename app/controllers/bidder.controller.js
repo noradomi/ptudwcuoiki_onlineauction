@@ -43,6 +43,18 @@ module.exports.bid = (req, res, next) => {
 			where: { id: proId }
 		}
 	);
+
+	// Cập nhật thông tin người thắng hiện tại
+	db.product.update(
+		{
+			winnerId: userId
+		},
+		{
+			returning: false,
+			where: { id: proId }
+		}
+	);
+
 	// db.watchlist.actWatchList(userId, proId);
 	console.log('ĐÃ LƯU : Bid cho product ' + proId + ' boi bidder ' + userId);
 	res.redirect(`/product/productdetail/7`);
