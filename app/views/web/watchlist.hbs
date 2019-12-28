@@ -1,7 +1,7 @@
 {{#section 'style'}}
 <script src="/js/util.js"></script>
 <link href="/css/card.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+{{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> --}}
   {{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
@@ -30,7 +30,7 @@
 								</thead>
 								<tbody>
                                     {{#each WatchList}}
-									<tr>
+									<tr class="watch_list">
 										<td class="thumb"><img src="/img/sp/{{id}}.jpg" alt=""></td>
 										<td class="details">
 											<a href="/product/productdetail/{{id}}">{{product_name}}</a>
@@ -77,6 +77,13 @@
                                     {{/each}}			
 								</tbody>	
 							</table>
+							<ul class="store-pages" id="watchlist">
+											<li><span class="text-uppercase">No :</span></li>
+											{{!-- <li class="active">1</li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">3</a></li>
+											<li><a href="#"><i class="fa fa-caret-right"></i></a></li> --}}
+							</ul>
 						</div>
 
 					</div>

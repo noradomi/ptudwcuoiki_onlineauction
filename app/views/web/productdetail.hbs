@@ -20,7 +20,6 @@
 		<div class="row">
 			<!--  Product Details -->
 			<div class="product product-details clearfix">
-
 				{{#if isBidder}}
 				{{#each Pro}}
 				<div class="col-md-6">
@@ -72,12 +71,22 @@
 							<a href="#">3 Review(s) / Add Review</a>
 						</div>
 						<p><strong>Availability:</strong>Bidding</p>
-						<p><strong>Seller:</strong> Ten Nguoi ban goes here !! </p>
+						{{/each}}
+						{{#each Seller}}
+						<div style="display:flex;justify-content: space-between; "><p><strong>Seller:</strong>{{firstname}} {{lastname}} </p><p><strong>Point: </strong> {{like_count}} </p></div>
+						{{/each}}
+						{{#each HiggestBidder}}
+						<div style="display:flex;justify-content: space-between;"><p><strong>HiggestBidder:</strong> {{lastname}}</p><p ><strong>Point: </strong> {{like_count}} </p ></div>
+						{{/each}}
+						{{#each Pro}}
 						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
-						<p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
-								PM</a></p>
-						<p><strong>Time End_ :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
-								PM</a></p>
+						<p><strong>Time Start :</strong><i class="fa fa-clock-o"></i> <a href="#" id=timee{{id}} start_date={{start_date}}><script>
+											transferDateFormat2(`{{start_date}}`, {{ id }});
+										</script></a></p>
+						<p><strong>Time End_ :</strong><i class="fa fa-clock-o"></i><a href="#"id=timeee{{id}} expriry_date={{expriry_date}}><script>
+											transferDateFormat3(`{{expriry_date}}`, {{ id }});
+										</script> </a></p>
+						
 
 						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
 
@@ -193,13 +202,21 @@
 							<a href="#">3 Review(s) / Add Review</a>
 						</div>
 						<p><strong>Availability:</strong>Bidding</p>
-						<p><strong>Seller:</strong> Ten Nguoi ban goes here !! </p>
+						{{/each}}
+						{{#each Seller}}
+						<div style="display:flex;justify-content: space-between; "><p><strong>Seller:</strong>{{firstname}} {{lastname}} </p><p><strong>Point: </strong> {{like_count}} </p></div>
+						{{/each}}
+						{{#each HiggestBidder}}
+						<div style="display:flex;justify-content: space-between;"><p><strong>HiggestBidder:</strong> {{lastname}}</p><p ><strong>Point: </strong> {{like_count}} </p ></div>
+						{{/each}}
+						{{#each Pro}}
 						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
-						<p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
-								PM</a></p>
-						<p><strong>Time End_ :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
-								PM</a></p>
-
+						<p><strong>Time Start :</strong><i class="fa fa-clock-o"></i> <a href="#" id=timee{{id}} start_date={{start_date}}><script>
+											transferDateFormat2(`{{start_date}}`, {{ id }});
+										</script></a></p>
+						<p><strong>Time End_ :</strong><i class="fa fa-clock-o"></i><a href="#"id=timeee{{id}} expriry_date={{expriry_date}}><script>
+											transferDateFormat3(`{{expriry_date}}`, {{ id }});
+										</script> </a></p>
 						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
 
 							<script>
@@ -278,10 +295,8 @@
 					<div class="product-tab">
 						<ul class="tab-nav">
 							<li class="active"><a data-toggle="tab" href="#tab1">HISTORY BID</a></li>
-							<li><a data-toggle="tab" href="#tab2">Highest Bidder</a></li>
-							<li><a data-toggle="tab" href="#tab3">Send Feedback</a></li>
+							
 							<li><a data-toggle="tab" href="#tab4">Detail Product</a></li>
-							<li><a data-toggle="tab" href="#tab5">Owner / Seller</a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="tab1" class="tab-pane fade in active">
@@ -300,7 +315,7 @@
 									</thead>
 									<tbody>
 										{{#each HistoryBid}}
-										<tr>
+										<tr class="historyrow">
 											{{#if isTop}}
 											<td><i class="fas fa-trophy"></i> &nbsp******{{lastname}}</td>
 											{{else}}
@@ -317,10 +332,8 @@
 
 												</script>
 											</td>
-
 											<td class="total text-center"><strong class="primary-color">32.50 %</strong>
 											</td>
-
 											<td class="text-right">
 												<button id="{{id}}btn_cancel" bidderId="{{userId}}"
 													proId="{{productId}}" class="main-btn icon-btn"
@@ -350,32 +363,34 @@
 
 									<tbody>
 										{{#each HistoryBid}}
-										<tr>
+										<tr class="historyrow">
+											
 											{{#if isTop}}
-											<td><i class="fas fa-trophy"></i> &nbsp******{{lastname}}</td>
+											<td><i class="fas fa-trophy" ></i> &nbsp******{{lastname}}</td>
 											{{else}}
 											<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp******{{lastname}}</td>
 											{{/if}}
 
 											<td id="{{price}}Time">
 												<script>
-
 													d = new Date('{{ time }}');
 													document.getElementById('{{ price }}Time').innerHTML = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-
 												</script>
-
 											</td>
-
 											<td>{{price}} K</td>
-
 										</tr>
 										{{/each}}
 									</tbody>
-
 								</table>
+								
 								{{/if}}
-
+								<ul class="store-pages" id="historypage">
+											<li><span class="text-uppercase">No :</span></li>
+											{{!-- <li class="active">1</li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">3</a></li>
+											<li><a href="#"><i class="fa fa-caret-right"></i></a></li> --}}
+								</ul>
 							</div>
 							<div id="tab2" class="tab-pane fade in">
 								{{#each HiggestBidder}}
@@ -399,42 +414,6 @@
 								</div>
 								{{/each}}
 							</div>
-							<div id="tab3" class="tab-pane fade in">
-								<div class="col-md-6">
-									<h4 class="text-uppercase">Write Your Review</h4>
-									<p>Your email address will not be published.</p>
-									<form class="review-form">
-										<div class="form-group">
-											<input class="input" type="text" placeholder="Your Name" />
-										</div>
-										<div class="form-group">
-											<input class="input" type="email" placeholder="Email Address" />
-										</div>
-										<div class="form-group">
-											<textarea class="input" placeholder="Your review"></textarea>
-										</div>
-										<div class="form-group">
-											<div class="input-rating">
-												<strong class="text-uppercase">Your Rating: </strong>
-												<div class="stars">
-													<input type="radio" id="star5" name="rating" value="5" /><label
-														for="star5"></label>
-													<input type="radio" id="star4" name="rating" value="4" /><label
-														for="star4"></label>
-													<input type="radio" id="star3" name="rating" value="3" /><label
-														for="star3"></label>
-													<input type="radio" id="star2" name="rating" value="2" /><label
-														for="star2"></label>
-													<input type="radio" id="star1" name="rating" value="1" /><label
-														for="star1"></label>
-												</div>
-											</div>
-										</div>
-										<button class="primary-btn">Submit</button>
-									</form>
-								</div>
-
-							</div>
 							<div id="tab4" class="tab-pane fade in">
 								{{#each Pro}}
 
@@ -444,10 +423,7 @@
 
 							</div>
 							<script>
-
-
 							</script>
-
 							<div id="tab5" class="tab-pane fade in ">
 								<div class="single-review">
 									<div class="review-heading">
