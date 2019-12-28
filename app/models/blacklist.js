@@ -27,5 +27,6 @@ module.exports = function(sequelize, Sequelize) {
 			});
 		}
 	};
+
 	return Blacklist;
 };

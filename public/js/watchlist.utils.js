@@ -51,11 +51,18 @@ function actOnPro(event) {
 
 				console.log('Vao ham voi proid : ' + proId);
 			} else {
-				bootbox.alert({
-					message:
-						'Chỉ bidder mới có thể thực hiện quyền này. Vui lòng thử lại với quyền bidder !!!',
-					size: 'small'
-				});
+				// bootbox.alert({
+				// 	message:
+				// 		'Chỉ bidder mới có thể thực hiện quyền này. Vui lòng thử lại với quyền bidder !!!',
+				// 	size: 'small'
+				// });
+				alertify.alert(
+					'Có biến',
+					'Chỉ có bidder mới có quyền này.!',
+					function() {
+						alertify.success('Hãy đăng nhập với quyền bidder!');
+					}
+				);
 			}
 		},
 		error: function() {

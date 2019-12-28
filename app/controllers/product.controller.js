@@ -12,7 +12,10 @@ module.exports.search = async (req, res) => {
 
 	let results = await db.product.searchAllByFTS(query, ptId);
 
-	console.log(results);
+	results.forEach(async p => {
+		p.countBidders = await db.bid_details.countBiddersOfProduct(p.id);
+	});
+	// console.log(results);
 
 	results.forEach(p => {
 		//  Đánh dấu các sản phẩm mới đăng (trong vòng N phút) bằng thuộc tính isNew
@@ -21,12 +24,31 @@ module.exports.search = async (req, res) => {
 
 	let Cats = await db.category.categoriesAndChild();
 
-	res.render('web/searproduct', {
-		pros: results,
-		query: query,
-		countPros: results.length,
-		Cat: Cats
-	});
+	if (req.isAuthenticated()) {
+		req.user.isloggedin = true;
+		res.render('web/searproduct', {
+			user: [req.user],
+			isBidder: req.user.role === 0,
+			isSeller: req.user.role === 1,
+			pros: results,
+			query: query,
+			countPros: results.length,
+			Cat: Cats
+		});
+	} else {
+		let user = [
+			{
+				isloggedin: false
+			}
+		];
+		res.render('web/searproduct', {
+			user: user,
+			pros: results,
+			query: query,
+			countPros: results.length,
+			Cat: Cats
+		});
+	}
 };
 // PRODUCT DETAIL
 module.exports.productdetail = async (req, res) => {

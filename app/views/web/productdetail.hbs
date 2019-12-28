@@ -142,6 +142,133 @@
 					</div>
 				</div>
 				{{/each}}
+
+				{{else}}
+				{{#if isOwner}}
+				{{#each Pro}}
+				<div class="col-md-6">
+					<div id="product-main-view">
+						<div class="product-view">
+							<img src="/img/sp/{{id}}.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-1.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-2.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-3.jpg" alt="" style="width: 600px;height:500px;">
+						</div>
+					</div>
+					<div id="product-view">
+						<div class="product-view">
+							<img src="/img/sp/{{id}}.jpg" alt="">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-1.jpg" alt="">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-2.jpg" alt="">
+						</div>
+						<div class="product-view">
+							<img src="/img/sp/{{id}}-3.jpg" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="product-body">
+						<div class="product-label">
+							<span>New</span>
+							<span class="sale">-20%</span>
+						</div>
+						<h2 class="product-name">{{product_name}}</h2>
+						<h3 class="product-price">{{initial_price}}</h3>
+						<div>
+							<div class="product-rating">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-o empty"></i>
+							</div>
+							<a href="#">3 Review(s) / Add Review</a>
+						</div>
+						<p><strong>Availability:</strong>Bidding</p>
+						<p><strong>Seller:</strong> Ten Nguoi ban goes here !! </p>
+						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
+						<p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
+								PM</a></p>
+						<p><strong>Time End_ :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
+								PM</a></p>
+
+						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
+
+							<script>
+								countDownTimer1(`{{ expriry_date }}`, {{ id }});
+							</script>
+
+						</div>
+						<div class="product-options">
+							{{!-- <div class="col-lg-4">
+								<div class="card  mb-lg-0">
+									<div class="card-body ">
+
+									</div>
+								</div>
+							</div> --}}
+
+							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
+								<h4> Giá hiện tại :</h4>
+								<div style="display:flex">
+
+									<div class="input-group" style="margin-right: 30px">
+										{{!-- <span class="input-group-btn">
+											<button type="button" class="btn btn-danger btn-number" data-type="minus"
+												data-field="quant[2]">
+												<i class="fa fa-minus"></i>
+											</button>
+										</span> --}}
+										{{!-- <input style="width: 90px;" type="text" name="quant[2]"
+											class="form-control input-number" value="{{curr_price}} K"
+											min="{{initial_price}} " max="100000000" step_cost="{{step_cost}}" readonly> --}}
+										<span class="product-label">
+											<span class="sale text-center" style="font-size: 30px;">{{curr_price}}
+												K</span>
+										</span>
+										<script>
+											input = document.getElementsByClassName('input-number')[0];
+											if ({{ curr_price }} == 0) {
+												input.value = (parseInt({{ initial_price }}) + ' K');
+											
+											}
+
+
+
+										</script>
+										{{!-- <span class="input-group-btn">
+												<button type="button" class="btn btn-success btn-number" data-type="plus"
+													data-field="quant[2]">
+													<i class="fa fa-plus"></i>
+												</button>
+											</span> --}}
+
+									</div>
+
+
+								</div>
+								<p></p>
+								<p></p>
+								<div class="alert alert-success" role="alert"> <i
+										class="fas fa-exclamation-triangle"></i> Bạn là seller của sản phẩm này</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				{{/each}}
 				{{else}}
 				{{#each Pro}}
 				<div class="col-md-6">
@@ -268,6 +395,8 @@
 					</div>
 				</div>
 				{{/each}}
+				{{/if}}
+
 				{{/if}}
 
 

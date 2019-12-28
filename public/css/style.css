@@ -1861,3 +1861,36 @@ textarea.input {
 	background-color: #992337;
 	border-color: transparent;
 }
+
+/* CSS cho alertJs */
+.alertify .ajs-header {
+	color: black;
+	font-weight: bold;
+	background: #fafafa;
+	border-bottom: #eee 1px solid;
+	border-radius: 2px 2px 0 0;
+}
+.alertify .ajs-body {
+	color: black;
+}
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
+	color: #3593d2;
+}
+
+.alertify .ajs-footer .ajs-buttons.ajs-primary .ajs-button {
+	margin: 4px;
+}
+.alertify .ajs-footer .ajs-buttons .ajs-button {
+	background-color: transparent;
+	color: #000;
+	border: 0;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button {
+	min-width: 88px;
+	min-height: 35px;
+}
+	

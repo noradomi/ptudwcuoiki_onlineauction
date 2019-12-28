@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 module.exports = function(sequelize, Sequelize) {
 	var Product = sequelize.define(
 		'product',
@@ -67,13 +69,32 @@ module.exports = function(sequelize, Sequelize) {
 
 	// Hàm tìm kiếm bằng Full-Text Search
 	Product.searchAllByFTS = async function(query, ptId) {
-		let sql = `SELECT * FROM products WHERE MATCH(product_name) AGAINST ('${query}*' IN BOOLEAN MODE)`;
-		if (parseInt(ptId) !== 0) {
-			sql += ` AND productTypeId = ${ptId}`;
+		let sql;
+		if (query != '') {
+			sql = ` WHERE MATCH(product_name) AGAINST ('${query}*' IN BOOLEAN MODE)`;
+			if (parseInt(ptId) !== 0) {
+				sql += ` AND productTypeId = ${ptId}`;
+			}
+		} else {
+			sql = `SELECT p.*, u.lastname as lastname, u.firstname as firstname FROM products p left join users u on p.winnerId = u.id WHERE p.productTypeId = ${ptId}`;
 		}
-		return sequelize.query(sql, {
+
+		let res = await sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});
+
+		res.forEach(async p => {
+			console.log(p);
+			if (p.winnerId == null) {
+				p.isWinned = false;
+			} else {
+				p.winnerName = p.firstname + ' ' + p.lastname;
+				p.isWinned = true;
+			}
+			console.log(p.winnerName);
+		});
+
+		return res;
 	};
 
 	Product.isNewProduct = function(sd, N) {
@@ -96,13 +117,6 @@ module.exports = function(sequelize, Sequelize) {
 		return exprirydate <= currdate;
 	};
 
-	Product.top5PricingProducts = function() {
-		return Product.findAll({
-			limit: 5,
-			order: [[sequelize.col('initial_price'), 'DESC']]
-		});
-	};
-
 	Product.findByProductTypeId = function(id) {
 		return Product.findAll({ where: { productTypeId: id } });
 	};
@@ -110,7 +124,8 @@ module.exports = function(sequelize, Sequelize) {
 		return Product.findAll();
 	};
 	Product.findRelatedProduct = function(id, id1) {
-		let sql = `SELECT * FROM products WHERE  productTypeId = ${id} AND id!= ${id1}`;
+		let sql = `SELECT * FROM products WHERE  productTypeId = ${id} AND id!= ${id1} ORDER BY id asc
+		limit 5`;
 
 		return sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
@@ -205,7 +220,76 @@ module.exports = function(sequelize, Sequelize) {
 		});
 	};
 
-	Product.findDoneProducts = function(sellerId) {};
+	// Top 5 sản phẩm gần kết thúc
+	Product.top5NearlyExpiriedProducts = async function() {
+		let sql =
+			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID WHERE P.expriry_date > NOW() ORDER BY P.expriry_date ASC LIMIT 5';
+		let res = await sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+		// let res = await Product.findAll({
+		// 	limit: 5,
+		// 	order: [[sequelize.col('expriry_date'), 'DESC']]
+		// });
+		res.forEach(async p => {
+			console.log(p);
+			if (p.winnerId == null) {
+				p.isWinned = false;
+			} else {
+				p.winnerName = p.firstname + ' ' + p.lastname;
+				p.isWinned = true;
+			}
+			console.log(p.winnerName);
+		});
+		return res;
+	};
 
+	// Top 5 sản phẩm có lượt ra giá nhiều nhất
+	Product.top5BiddedProducts = async function() {
+		let sql =
+			'SELECT P.*,U.LASTNAME AS lastname,U.FIRSTNAME AS firstname FROM USERS U RIGHT JOIN PRODUCTS P ON P.WINNERID = U.ID  JOIN BID_DETAILS B ON P.ID = B.PRODUCTID group by ID ORDER BY COUNT(P.ID) desc LIMIT 5';
+		let res = await sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+		// let res = await Product.findAll({
+		// 	limit: 5,
+		// 	order: [[sequelize.col('expriry_date'), 'DESC']]
+		// });
+		res.forEach(async p => {
+			console.log(p);
+			if (p.winnerId == null) {
+				p.isWinned = false;
+			} else {
+				p.winnerName = p.firstname + ' ' + p.lastname;
+				p.isWinned = true;
+			}
+			console.log(p.winnerName);
+		});
+		return res;
+	};
+
+	// Top 5 sản phẩm có giá cao nhất
+	Product.top5PricingProducts = async function() {
+		let sql =
+			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID ORDER BY P.curr_price DESC LIMIT  5';
+		let res = await sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+		// let res = await Product.findAll({
+		// 	limit: 5,
+		// 	order: [[sequelize.col('expriry_date'), 'DESC']]
+		// });
+		res.forEach(async p => {
+			console.log(p);
+			if (p.winnerId == null) {
+				p.isWinned = false;
+			} else {
+				p.winnerName = p.firstname + ' ' + p.lastname;
+				p.isWinned = true;
+			}
+			console.log(p.winnerName);
+		});
+		return res;
+	};
 	return Product;
 };

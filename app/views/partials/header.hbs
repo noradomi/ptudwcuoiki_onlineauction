@@ -23,7 +23,13 @@
                             <option value="0">All Categories</option>
 
                             {{#each Cat}}
-                            <option value={{id}}>{{cat_name}}</option>
+                            {{#if hasChildCates}}
+                            {{#each childCates}}
+                            <option value={{id}}>{{protype_name}}</option>
+                            {{/each}}
+
+                            {{/if}}
+
                             {{/each}}
                         </select>
                         <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>

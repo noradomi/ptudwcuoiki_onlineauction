@@ -127,6 +127,7 @@
 						<div class="product product-single">
 							<div class="product-thumb">
 								<div class="product-label">
+
 									<span id=time{{id}} start_date={{start_date}}>
 										<script>
 											transferDateFormat(`{{start_date}}`, {{ id }});
@@ -134,15 +135,15 @@
 									</span>
 									<span class="sale text-center">New</span>
 								</div>
-								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+								<ul class="product-countdown" id="{{id}}NEARLYENDED" expriry_date="{{expriry_date}}">
 									<script>
 
-										countDownTimer(`{{ expriry_date }}`, {{ id }});
+										countDownTimer(`{{ expriry_date }}`, `{{ id }}NEARLYENDED`);
 									</script>
 								</ul>
 
 								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
-								<img src="/img/sp/{{id}}.jpg" alt="">
+								<img src="/img/sp/{{id}}.jpg" alt="" width="263" height="263">
 							</div>
 							<div class="product-body">
 
@@ -150,7 +151,7 @@
 									Current Price:
 								</p>
 
-								<h3 class="product-price">${{initial_price}}</h3>
+								<h3 class="product-price">{{curr_price}} K</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -161,12 +162,20 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}}
+										bidders
+										{{#if isWinned}}
+										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
+										{{winnerName}}
+
+										{{/if}}
+
+
 									</p>
-									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
+									<p>Buy now: <strong>{{imme_buy_price}} K</strong></p>
 								</div>
 								<div class="product-btns">
+
 									<i class="fa fa-heart main-btn icon-btn" onclick="actOnPro(event);"
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
@@ -218,15 +227,15 @@
 									</span>
 									<span class="sale text-center">New</span>
 								</div>
-								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+								<ul class="product-countdown" id="{{id}}TOPBIDDED" expriry_date="{{expriry_date}}">
 									<script>
 
-										countDownTimer(`{{ expriry_date }}`, {{ id }});
+										countDownTimer(`{{ expriry_date }}`, `{{ id }}TOPBIDDED`);
 									</script>
 								</ul>
 
 								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
-								<img src="/img/sp/{{id}}.jpg" alt="">
+								<img src="/img/sp/{{id}}.jpg" alt="" width="263" height="263">
 							</div>
 							<div class="product-body">
 
@@ -234,7 +243,7 @@
 									Current Price:
 								</p>
 
-								<h3 class="product-price">${{initial_price}}</h3>
+								<h3 class="product-price">{{curr_price}} K</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -245,10 +254,17 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}}
+										bidders
+										{{#if isWinned}}
+										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
+										{{winnerName}}
+
+										{{/if}}
+
+
 									</p>
-									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
+									<p>Buy now: <strong>{{imme_buy_price}} K</strong></p>
 								</div>
 								<div class="product-btns">
 
@@ -293,23 +309,23 @@
 						<div class="product product-single">
 							<div class="product-thumb">
 								<div class="product-label">
+
 									<span id=time{{id}} start_date={{start_date}}>
 										<script>
 											transferDateFormat(`{{start_date}}`, {{ id }});
 										</script>
 									</span>
-
 									<span class="sale text-center">New</span>
 								</div>
-								<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+								<ul class="product-countdown" id="{{id}}HIGHESTPRICE" expriry_date="{{expriry_date}}">
 									<script>
 
-										countDownTimer(`{{ expriry_date }}`, {{ id }});
+										countDownTimer(`{{ expriry_date }}`, `{{ id }}HIGHESTPRICE`);
 									</script>
 								</ul>
 
 								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
-								<img src="/img/sp/{{id}}.jpg" alt="">
+								<img src="/img/sp/{{id}}.jpg" alt="" width="263" height="263">
 							</div>
 							<div class="product-body">
 
@@ -317,7 +333,7 @@
 									Current Price:
 								</p>
 
-								<h3 class="product-price">${{initial_price}}</h3>
+								<h3 class="product-price">{{curr_price}} K</h3>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
@@ -328,12 +344,20 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-										<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}}
+										bidders
+										{{#if isWinned}}
+										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
+										{{winnerName}}
+
+										{{/if}}
+
+
 									</p>
-									<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
+									<p>Buy now: <strong>{{imme_buy_price}} K</strong></p>
 								</div>
 								<div class="product-btns">
+
 									<i class="fa fa-heart main-btn icon-btn" onclick="actOnPro(event);"
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
