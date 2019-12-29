@@ -135,6 +135,11 @@
             //alert('TAIYEULINH');
             $.post('/account/minuspoint');
         });
+
+        $('#upgradebiddertosellerbutton').on('click', function (e) {
+            $.post('/account/upgrade');
+            alert("DA GUI YEU CAU XIN LEN SELLER !!!!");
+        });
     </script>
 
 </body>

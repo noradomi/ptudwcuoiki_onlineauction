@@ -1,0 +1,20 @@
+<div class="row px-5">
+    <div class="col-md-12">
+        <!-- DATA TABLE -->
+        <h3 class="title-5 m-b-35 my-5">{{title}}</h3>
+        <div class="table-responsive table-responsive-data2">
+            <form method="post">
+                <input class="pl-1 w-25" type="text" name="pt_name" placeholder="Product type's name here"
+                    value="{{#each PT}}{{protype_name}}{{/each}}" autofocus>
+                <select name="cat_id">
+                    <option value="">None</option>
+                    {{#each Cats}}
+                    <option value="{{id}}">{{cat_name}}</option>
+                    {{/each}}
+                </select>
+                <input type="submit" name="addPT" value="Confirm">
+            </form>
+        </div>
+        <!-- END DATA TABLE -->
+    </div>
+</div>

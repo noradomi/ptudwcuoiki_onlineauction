@@ -8,6 +8,7 @@
                     <tr>
                         <th>Category ID</th>
                         <th>Category name</th>
+                        <th>Status</th>
 
                         <th>
                             <div class="table-data-feature">
@@ -17,7 +18,6 @@
                                 </a>
                             </div>
                         </th>
-                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                         <td>
                             <span class="block-email">{{cat_name}}</span>
                         </td>
-
+                        <td>{{status}}</td>
                         <td>
                             <div class="table-data-feature">
                                 <a class="item" data-toggle="tooltip" data-placement="top" title="Update"
@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td>{{status}}</td>
+
                     </tr>
                     {{/each}}
                 </tbody>
@@ -50,6 +50,8 @@
                     <tr>
                         <th>Type ID</th>
                         <th>Type name</th>
+                        <th>Category ID</th>
+
                         <th>
                             <div class="table-data-feature">
                                 <a class="item" data-toggle="tooltip" data-placement="top" title="Add"
@@ -68,6 +70,8 @@
                         <td>
                             <span class="block-email">{{protype_name}}</span>
                         </td>
+
+                        <td>{{categoryId}}</td>
                         <td>
                             <div class="table-data-feature">
                                 <a class="item" data-toggle="tooltip" data-placement="top" title="Update"

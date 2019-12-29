@@ -14,15 +14,23 @@ module.exports = function(sequelize, Sequelize) {
     return ProductType.findAll();
   };
 
-  ProductType.add = async cat_name => {
-    let sql = `INSERT INTO product_types(protype_name, createdAt, updatedAt) VALUES ('${cat_name}', now(), now())`;
+  ProductType.add = async (pt_name, cat_id) => {
+    let sql;
+    if(cat_id=="")
+    sql = `INSERT INTO product_types(protype_name, createdAt, updatedAt, categoryId) VALUES ('${pt_name}', now(), now(), null)`;
+    else
+    sql = `INSERT INTO product_types(protype_name, createdAt, updatedAt, categoryId) VALUES ('${pt_name}', now(), now(), '${cat_id}')`;
     return sequelize.query(sql, {
       type: sequelize.QueryTypes.INSERT
     });
   };
 
-  ProductType.update = async (cat_id, cat_name) => {
-    let sql = `UPDATE product_types SET protype_name = '${cat_name}' WHERE id = '${cat_id}';`;
+  ProductType.update = async (pt_id, pt_name, cat_id) => {
+    let sql;
+    if(cat_id=="")
+    sql = `UPDATE product_types SET protype_name = '${pt_name}', categoryId = null WHERE id = '${pt_id}'`;
+    else
+    sql = `UPDATE product_types SET protype_name = '${pt_name}', categoryId = '${cat_id}' WHERE id = '${pt_id}'`;
     return sequelize.query(sql, {
       type: sequelize.QueryTypes.UPDATE
     });
@@ -32,6 +40,13 @@ module.exports = function(sequelize, Sequelize) {
     let sql = `DELETE FROM product_types pt WHERE pt.id = '${idProductType}' AND NOT EXISTS (SELECT * FROM products p WHERE p.productTypeId = pt.id)`;
     await sequelize.query(sql, {
       type: sequelize.QueryTypes.DELETE
+    });
+  };
+
+  ProductType.findById = async id =>{
+    let sql = `SELECT * FROM product_types WHERE id = ${id}`;
+    return sequelize.query(sql, {
+      type: sequelize.QueryTypes.SELECT
     });
   };
 

@@ -57,5 +57,12 @@ module.exports = function(sequelize, Sequelize) {
 		);
 	};
 
+	Category.findById = async id => {
+		let sql = `SELECT * FROM categories WHERE id = ${id}`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+	};
+
 	return Category;
 };

@@ -331,5 +331,3 @@ module.exports.ActivateEmail = (req, res, next) => {
 		}
 	});
 };
-
-
