@@ -120,3 +120,28 @@ module.exports.deleteProductType = async(req, res, next) => {
     await models.product_type.delete(req.query.id);
     res.redirect("/admin/category/");
 };
+
+module.exports.findAllBidder = async(req, res, next) => {
+    let Bidder = await models.bid_details.findAllBidder();
+    res.render("web/admin-bidder", {
+        layout: "admin-main.hbs",
+        title: "Bidder management",
+        user: [req.user],
+        Bidder: Bidder
+    });
+}
+
+module.exports.findAllUserUpgrade = async(req, res, next) => {
+    let UserUpgrade = await models.user.findUserUpgrade();
+    res.render("web/admin-userupgrade", {
+        layout: "admin-main.hbs",
+        title: "USER WANT TO UPGRADE",
+        user: [req.user],
+        UserUpgrade: UserUpgrade
+    });
+}
+
+module.exports.upbiddertoseller = async(req, res, next) => {
+    await models.user.upgradeBidderToSeller(req.query.id);
+    res.redirect("/admin/userupgrade/");
+};
