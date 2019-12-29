@@ -58,6 +58,7 @@ module.exports.productdetail = async (req, res) => {
 	let Bid = [];
 	let ProRelate = await db.product.findRelatedProduct(ProTId, id);
 	let HistoryBid = await db.bid_details.findAllHistory(id);
+	let Seller = await db.product.findProSeller(id);
 
 	if (HistoryBid.length > 0) {
 		// Gắn cờ cho người đang đấu giá cao nhất
@@ -77,6 +78,8 @@ module.exports.productdetail = async (req, res) => {
 		// });
 		isOwner = await db.product.isSellerOfProduct(id, req.user.id);
 
+		Cat = await db.category.categoriesAndChild();
+
 		res.render('./web/productdetail', {
 			user: [req.user],
 			isBidder: req.user.role === 0,
@@ -85,7 +88,9 @@ module.exports.productdetail = async (req, res) => {
 			Pro: [Pro],
 			ProRelate: ProRelate,
 			HistoryBid: HistoryBid,
-			HiggestBidder: HiggestBidder
+			HiggestBidder: HiggestBidder,
+			Seller: Seller,
+			Cat: Cat
 		});
 	} else {
 		res.render('./web/productdetail', {
@@ -96,7 +101,9 @@ module.exports.productdetail = async (req, res) => {
 			isOwner: false,
 			ProRelate: ProRelate,
 			HistoryBid: HistoryBid,
-			HiggestBidder: HiggestBidder
+			HiggestBidder: HiggestBidder,
+			Seller: Seller,
+			Cat: Cat
 		});
 	}
 };

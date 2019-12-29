@@ -113,15 +113,27 @@ $('.input-number').change(function() {
 			".btn-number[data-type='minus'][data-field='" + name + "']"
 		).removeAttr('disabled');
 	} else {
-		alert('Sorry, the minimum value was reached');
+		alertify.alert(
+			'Có biến',
+			'Bạn ra giá thấp hơn người thắng hiện tại ?',
+			function() {
+				alertify.success('Thử lại nào');
+			}
+		);
 		$(this).val($(this).data('oldValue'));
 	}
-	if (valueCurrent <= maxValue) {
+	if (valueCurrent < maxValue) {
 		$(
 			".btn-number[data-type='plus'][data-field='" + name + "']"
 		).removeAttr('disabled');
-	} else {
-		alert('Sorry, the maximum value was reached');
+	} else if (valueCurrent >= maxValue) {
+		alertify.alert(
+			'Lưu ý',
+			'Bạn đã giá cao hơn hoặc bằng giá mua ngay của sản phẩm. Nếu tiếp tục, bạn sẽ là người thắng của sản phẩm này với mức giá mua ngay của sản phẩm !',
+			function() {
+				alertify.success('Chúc mừng bạn là người sở hữu sản phẩm này.');
+			}
+		);
 		$(this).val($(this).data('oldValue'));
 	}
 });

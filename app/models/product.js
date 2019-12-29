@@ -291,5 +291,11 @@ module.exports = function(sequelize, Sequelize) {
 		});
 		return res;
 	};
+	Product.findProSeller = function(id) {
+		let sql = `SELECT * FROM products p , users s WHERE p.id = ${id} AND p.sellerId = s.id`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+	};
 	return Product;
 };

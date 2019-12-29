@@ -128,6 +128,7 @@
                     <div class="section-title">
                         <h3 class="title">Các sản phẩm đang đăng và còn thời hạn</h3>
                     </div>
+                    
                     <table class="shopping-cart-table table">
                         <thead>
                             <tr>
@@ -141,7 +142,7 @@
                         </thead>
                         <tbody>
                             {{#each myProducts}}
-                            <tr>
+                            <tr class="check_out">
                                 <td class="thumb"><img src="/img/sp/{{id}}.jpg" alt=""></td>
                                 <td class="details">
                                     <a href="#">{{product_name}}</a>
@@ -171,18 +172,16 @@
                                     <div class="accordian-body collapse" id="{{id}}">
                                         <ul class="tab-nav">
                                             <li class="active"><a data-toggle="tab" href="#tab1">Description</a>
-
                                             </li>
-
                                         </ul>
                                         <div class="tab-content">
                                             <div id="tab1" class="tab-pane fade in active">
                                                 <form action='/seller/{{id}}/description/edit' method="post">
                                                     <div class="form-group">
                                                         <label for="a">Nội dung cũ</label>
-                                                        <textarea type="text" class="form-control" id="a" placeholder=""
-                                                            readonly>{{description}}
-                                                            </textarea>
+                                                        <div class="panel panel-default">
+                                                                <div class="panel-heading">{{{description}}}</div>
+                                                            </div>
                                                         <small id="emailHelp" class="form-text text-muted">*Bạn chỉ có
                                                             thể thêm nội dung mới vào description, không được sửa
                                                             nội dung cũ.</small>
@@ -200,14 +199,19 @@
                                     </div>
                                 </td>
                             </tr>
-
                             {{/each}}
                         </tbody>
-
+                        
 
 
                     </table>
-
+                    <ul class="store-pages" id="checkout">
+											<li><span class="text-uppercase">No :</span></li>
+											{{!-- <li class="active">1</li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">3</a></li>
+											<li><a href="#"><i class="fa fa-caret-right"></i></a></li> --}}
+					</ul>
             </div>
 
         </div>
@@ -218,3 +222,4 @@
 </div>
 <!-- /container -->
 </div>
+

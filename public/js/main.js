@@ -179,11 +179,11 @@
     $(".col-md-4 .product-single:gt(" + (limitPerPageProduct - 1) + ")").hide();
     var totalPagesProduct = Math.ceil(numberOfProducts / limitPerPageProduct);
 
-    $('.store-pages').append("<li class='current-page'><a href='javascript:void(0)'>" + 1 + "</a></li>")
+    $('#productpage').append("<li class='current-page'><a href='javascript:void(0)'>" + 1 + "</a></li>")
     for (var i = 2; i <= totalPagesProduct; i++) {
-        $('.store-pages').append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>")
+        $('#productpage').append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>")
     }
-    $(".store-pages li.current-page").on("click", function() {
+    $("#productpage li.current-page").on("click", function() {
         var currentPage = $(this).index();
         $(".col-md-4 .product-single").hide();
         var grandTotal = limitPerPageProduct * currentPage;
@@ -257,6 +257,66 @@
                     </div>`
     });
 
+
+    // PHAN TRANG CHO HISTORY BIDDER
+    var numberOfHistory = $('.historyrow').length;;
+    console.log(numberOfHistory);
+    //SO LUONG ITEM CUA HISTORY TRONG 1 TRANG NEN DE LA 3 6 Hoac 9
+    var limitPerPageHistory = 3;
+    $(".historyrow:gt(" + (limitPerPageHistory - 1) + ")").hide();
+    var totalPagesHistory = Math.ceil(numberOfHistory / limitPerPageHistory);
+    $('#historypage').append("<li class='current-page'><a href='javascript:void(0)'>" + 1 + "</a></li>")
+    for (var i = 2; i <= totalPagesHistory; i++) {
+        $('#historypage').append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>")
+    }
+    $("#historypage li.current-page").on("click", function() {
+        var currentPage = $(this).index();
+        $(".historyrow").hide();
+        var grandTotal = limitPerPageHistory * currentPage;
+        for (var i = grandTotal - limitPerPageHistory; i < grandTotal; i++) {
+            $(".historyrow:eq(" + i + ")").show();
+        }
+    })
+
+
+    // PHAN TRANG CHO CHECKOUT SAN PHAM DA DANG
+    var numberOfCheckout = $('.check_out').length;;
+    console.log(numberOfCheckout);
+    //SO LUONG ITEM CUA CHECKOUT TRONG 1 TRANG NEN DE LA 3 6 Hoac 9
+    var limitPerPageCheckout = 3;
+    $(".check_out:gt(" + (limitPerPageCheckout - 1) + ")").hide();
+    var totalPagesCheckout = Math.ceil(numberOfCheckout / limitPerPageCheckout);
+    $('#checkout').append("<li class='current-page'><a href='javascript:void(0)'>" + 1 + "</a></li>")
+    for (var i = 2; i <= totalPagesCheckout; i++) {
+        $('#checkout').append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>")
+    }
+    $("#checkout li.current-page").on("click", function() {
+        var currentPage = $(this).index();
+        $(".check_out").hide();
+        var grandTotal = limitPerPageCheckout * currentPage;
+        for (var i = grandTotal - limitPerPageCheckout; i < grandTotal; i++) {
+            $(".check_out:eq(" + i + ")").show();
+        }
+    })
+
+    // PHAN TRANG CHO CHECKOUT SAN PHAM DA DANG
+    var numberOfWatchlist = $('.watch_list').length;;
+    //SO LUONG ITEM CUA CHECKOUT TRONG 1 TRANG NEN DE LA 3 6 Hoac 9
+    var limitPerPageWatchlist = 2;
+    $(".watch_list:gt(" + (limitPerPageWatchlist - 1) + ")").hide();
+    var totalPagesWatchlist = Math.ceil(numberOfWatchlist / limitPerPageWatchlist);
+    $('#watchlist').append("<li class='current-page'><a href='javascript:void(0)'>" + 1 + "</a></li>")
+    for (var i = 2; i <= totalPagesWatchlist; i++) {
+        $('#watchlist').append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>")
+    }
+    $("#watchlist li.current-page").on("click", function() {
+        var currentPage = $(this).index();
+        $(".watch_list").hide();
+        var grandTotal = limitPerPageWatchlist * currentPage;
+        for (var i = grandTotal - limitPerPageWatchlist; i < grandTotal; i++) {
+            $(".watch_list:eq(" + i + ")").show();
+        }
+    })
 
 
 
