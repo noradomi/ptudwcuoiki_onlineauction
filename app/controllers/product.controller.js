@@ -60,6 +60,11 @@ module.exports.productdetail = async (req, res) => {
 	let HistoryBid = await db.bid_details.findAllHistory(id);
 	let Seller = await db.product.findProSeller(id);
 
+	Seller[0].rating =
+		(Seller[0].like_count /
+			(Seller[0].like_count + Seller[0].report_count)) *
+		100;
+
 	if (HistoryBid.length > 0) {
 		// Gắn cờ cho người đang đấu giá cao nhất
 		HistoryBid.forEach(h => (h.isTop = false));
@@ -68,7 +73,15 @@ module.exports.productdetail = async (req, res) => {
 
 	let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
 
+	HiggestBidder[0].rating =
+		(HiggestBidder[0].like_count /
+			(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
+		100;
+
 	let Pro = await db.product.findByPk(id);
+	Pro.isExprired = db.product.isExprired(Pro.expriry_date);
+
+	console.log('>>>>>>>>>>> ', Pro.isExprired);
 
 	if (req.isAuthenticated()) {
 		req.user.isloggedin = true;

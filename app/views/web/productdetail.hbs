@@ -54,12 +54,13 @@
 				</div>
 				<div class="col-md-6">
 					<div class="product-body">
+
 						<div class="product-label">
 							<span>New</span>
 							<span class="sale">-20%</span>
 						</div>
 						<h2 class="product-name">{{product_name}}</h2>
-						<h3 class="product-price">{{initial_price}}</h3>
+
 						<div>
 							<div class="product-rating">
 								<i class="fa fa-star"></i>
@@ -68,51 +69,83 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<a href="#">3 Review(s) / Add Review</a>
 						</div>
-						<p><strong>Availability:</strong>Bidding</p>
+
+
 						{{/each}}
-						{{#each Seller}}
-						<div style="display:flex;justify-content: space-between; ">
-							<p><strong>Seller:</strong>{{firstname}} {{lastname}} </p>
-							<p><strong>Point: </strong> {{like_count}} </p>
-						</div>
-						{{/each}}
-						{{#each HiggestBidder}}
-						<div style="display:flex;justify-content: space-between;">
-							<p><strong>HiggestBidder:</strong> {{lastname}}</p>
-							<p><strong>Point: </strong> {{like_count}} </p>
-						</div>
-						{{/each}}
-						{{#each Pro}}
-						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
-						<p><strong>Time Start :</strong><i class="fa fa-clock-o"></i> <a href="#" id=timee{{id}}
-								start_date={{start_date}}>
+						<dl class="row" style="margin-left: 10px;margin-bottom: 20px;">
+							{{#each Seller}}
+							<dt class="col-sm-4">Người bán :</dt>
+							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+									%</button></dd>
+							{{/each}}
+
+							{{#each HiggestBidder}}
+							<dt class="col-sm-4">Người thắng hiện tại :</dt>
+							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+									%</button></dd>
+							{{/each}}
+
+							{{#each Pro}}
+							<dt class="col-sm-4">Giá mua ngay :</dt>
+							<dd class="col-sm-8">{{imme_buy_price}} K</dd>
+							<dt class="col-sm-4">Ngày đăng :</dt>
+							<dd class="col-sm-8" id="timee{{id}}" start_date={{start_date}}>
 								<script>
 									transferDateFormat2(`{{start_date}}`, {{ id }});
-								</script></a></p>
-						<p><strong>Time End_ :</strong><i class="fa fa-clock-o"></i><a href="#" id=timeee{{id}}
-								expriry_date={{expriry_date}}>
+								</script>
+							</dd>
+							<dt class="col-sm-4">Ngày hết hạn :</dt>
+							<dd class="col-sm-8	" id="timeee{{id}}" expriry_date={{expriry_date}}>
 								<script>
 									transferDateFormat3(`{{expriry_date}}`, {{ id }});
-								</script> </a></p>
-
-
-						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
+								</script>
+							</dd>
+						</dl>
+						<div class="timer " id=time{{id}} style="margin-top: 20px;" expriry_date={{expriry_date}}>
 
 							<script>
 								countDownTimer1(`{{ expriry_date }}`, {{ id }});
 							</script>
 
 						</div>
+						{{!-- Sản phẩm kết thúc r thì không hiện ra ô đấu giá --}}
+						{{#if isExprired}}
 						<div class="product-options">
-							{{!-- <div class="col-lg-4">
-								<div class="card  mb-lg-0">
-									<div class="card-body ">
 
+							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
+								<h4> Giá cuối cùng :</h4>
+								<div style="display:flex">
+
+									<div class="input-group" style="margin-right: 30px">
+
+										<span class="product-label">
+											<span class="sale text-center" style="font-size: 30px;">{{curr_price}}
+												K</span>
+										</span>
+										<script>
+											input = document.getElementsByClassName('input-number')[0];
+											if ({{ curr_price }} == 0) {
+												input.value = (parseInt({{ initial_price }}) + ' K');
+											
+											}
+										</script>
 									</div>
 								</div>
-							</div> --}}
+								<p></p>
+								<p></p>
+								<div class="alert alert-success" role="alert"> <i
+										class="fas fa-exclamation-triangle"></i> Hãy
+									đăng nhập với tư cách Bidder
+									để thực hiện chức năng này</div>
+
+							</div>
+
+						</div>
+						{{else}}
+						<div class="product-options">
 
 							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
 								<h4>Ra giá :</h4>
@@ -148,7 +181,8 @@
 										</span>
 									</div>
 									<button pro-id="{{id}}" type="button" class="primary-btn add-to-cart"
-										style="margin-right: 180px"><i class="fa fa-shopping-cart"></i> Bid Now</button>
+										style="margin-right: 180px"><i class="fa fa-shopping-cart"></i> Bid
+										Now</button>
 									<i class="fa fa-heart main-btn icon-btn pull-right" onclick="actOnPro(event);"
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
@@ -157,10 +191,13 @@
 							</div>
 
 						</div>
+						{{/if}}
+
 
 					</div>
 				</div>
 				{{/each}}
+
 
 				{{else}}
 				{{#if isOwner}}
@@ -197,12 +234,13 @@
 				</div>
 				<div class="col-md-6">
 					<div class="product-body">
+
 						<div class="product-label">
 							<span>New</span>
 							<span class="sale">-20%</span>
 						</div>
 						<h2 class="product-name">{{product_name}}</h2>
-						<h3 class="product-price">{{initial_price}}</h3>
+
 						<div>
 							<div class="product-rating">
 								<i class="fa fa-star"></i>
@@ -211,46 +249,63 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<a href="#">3 Review(s) / Add Review</a>
 						</div>
-						<p><strong>Availability:</strong>Bidding</p>
-						<p><strong>Seller:</strong> Ten Nguoi ban goes here !! </p>
-						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
-						<p><strong>Time Start :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
-								PM</a></p>
-						<p><strong>Time End_ :</strong><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0
-								PM</a></p>
 
-						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
+
+						{{/each}}
+						<dl class="row" style="margin-left: 10px;margin-bottom: 20px;">
+							{{#each Seller}}
+							<dt class="col-sm-4">Người bán :</dt>
+							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+									%</button></dd>
+							{{/each}}
+
+							{{#each HiggestBidder}}
+							<dt class="col-sm-4">Người thắng hiện tại :</dt>
+							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+									%</button></dd>
+							{{/each}}
+
+							{{#each Pro}}
+							<dt class="col-sm-4">Giá mua ngay :</dt>
+							<dd class="col-sm-8">{{imme_buy_price}} K</dd>
+							<dt class="col-sm-4">Ngày đăng :</dt>
+							<dd class="col-sm-8" id="timee{{id}}" start_date={{start_date}}>
+								<script>
+									transferDateFormat2(`{{start_date}}`, {{ id }});
+								</script>
+							</dd>
+							<dt class="col-sm-4">Ngày hết hạn :</dt>
+							<dd class="col-sm-8	" id="timeee{{id}}" expriry_date={{expriry_date}}>
+								<script>
+									transferDateFormat3(`{{expriry_date}}`, {{ id }});
+								</script>
+							</dd>
+						</dl>
+						<div class="timer " id=time{{id}} style="margin-top: 20px;" expriry_date={{expriry_date}}>
 
 							<script>
 								countDownTimer1(`{{ expriry_date }}`, {{ id }});
 							</script>
 
 						</div>
-						<div class="product-options">
-							{{!-- <div class="col-lg-4">
-								<div class="card  mb-lg-0">
-									<div class="card-body ">
+						{{!-- Sản phẩm kết thúc r thì không hiện ra ô đấu giá --}}
 
-									</div>
-								</div>
-							</div> --}}
+						<div class="product-options">
 
 							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
+								{{#if isExprired}}
+								<h4> Giá cuối cùng :</h4>
+								{{else}}
 								<h4> Giá hiện tại :</h4>
+								{{/if}}
+
 								<div style="display:flex">
 
 									<div class="input-group" style="margin-right: 30px">
-										{{!-- <span class="input-group-btn">
-											<button type="button" class="btn btn-danger btn-number" data-type="minus"
-												data-field="quant[2]">
-												<i class="fa fa-minus"></i>
-											</button>
-										</span> --}}
-										{{!-- <input style="width: 90px;" type="text" name="quant[2]"
-											class="form-control input-number" value="{{curr_price}} K"
-											min="{{initial_price}} " max="100000000" step_cost="{{step_cost}}" readonly> --}}
+
 										<span class="product-label">
 											<span class="sale text-center" style="font-size: 30px;">{{curr_price}}
 												K</span>
@@ -261,30 +316,15 @@
 												input.value = (parseInt({{ initial_price }}) + ' K');
 											
 											}
-
-
-
 										</script>
-										{{!-- <span class="input-group-btn">
-												<button type="button" class="btn btn-success btn-number" data-type="plus"
-													data-field="quant[2]">
-													<i class="fa fa-plus"></i>
-												</button>
-											</span> --}}
-
 									</div>
-
-
 								</div>
 								<p></p>
 								<p></p>
 								<div class="alert alert-success" role="alert"> <i
-										class="fas fa-exclamation-triangle"></i> Bạn là seller của sản phẩm này</div>
-
+										class="fas fa-exclamation-triangle"></i> Bạn là seller của sản phẩm này !</div>
 							</div>
-
 						</div>
-
 					</div>
 				</div>
 				{{/each}}
@@ -322,12 +362,13 @@
 				</div>
 				<div class="col-md-6">
 					<div class="product-body">
+
 						<div class="product-label">
 							<span>New</span>
 							<span class="sale">-20%</span>
 						</div>
 						<h2 class="product-name">{{product_name}}</h2>
-						<h3 class="product-price">{{initial_price}}</h3>
+
 						<div>
 							<div class="product-rating">
 								<i class="fa fa-star"></i>
@@ -336,64 +377,63 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<a href="#">3 Review(s) / Add Review</a>
 						</div>
-						<p><strong>Availability:</strong>Bidding</p>
+
+
 						{{/each}}
-						{{#each Seller}}
-						<div style="display:flex;justify-content: space-between; ">
-							<p><strong>Seller:</strong>{{firstname}} {{lastname}} </p>
-							<p><strong>Point: </strong> {{like_count}} </p>
-						</div>
-						{{/each}}
-						{{#each HiggestBidder}}
-						<div style="display:flex;justify-content: space-between;">
-							<p><strong>HiggestBidder:</strong> {{lastname}}</p>
-							<p><strong>Point: </strong> {{like_count}} </p>
-						</div>
-						{{/each}}
-						{{#each Pro}}
-						<p><strong>Buy now for:</strong> {{imme_buy_price}} </p>
-						<p><strong>Time Start :</strong><i class="fa fa-clock-o"></i> <a href="#" id=timee{{id}}
-								start_date={{start_date}}>
+						<dl class="row" style="margin-left: 10px;margin-bottom: 20px;">
+							{{#each Seller}}
+							<dt class="col-sm-4">Người bán :</dt>
+							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+									%</button></dd>
+							{{/each}}
+
+							{{#each HiggestBidder}}
+							<dt class="col-sm-4">Người thắng hiện tại :</dt>
+							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+									%</button></dd>
+							{{/each}}
+
+							{{#each Pro}}
+							<dt class="col-sm-4">Giá mua ngay :</dt>
+							<dd class="col-sm-8">{{imme_buy_price}} K</dd>
+							<dt class="col-sm-4">Ngày đăng :</dt>
+							<dd class="col-sm-8" id="timee{{id}}" start_date={{start_date}}>
 								<script>
 									transferDateFormat2(`{{start_date}}`, {{ id }});
-								</script></a></p>
-						<p><strong>Time End_ :</strong><i class="fa fa-clock-o"></i><a href="#" id=timeee{{id}}
-								expriry_date={{expriry_date}}>
+								</script>
+							</dd>
+							<dt class="col-sm-4">Ngày hết hạn :</dt>
+							<dd class="col-sm-8	" id="timeee{{id}}" expriry_date={{expriry_date}}>
 								<script>
 									transferDateFormat3(`{{expriry_date}}`, {{ id }});
-								</script> </a></p>
-						<div class="timer " id=time{{id}} expriry_date={{expriry_date}}>
+								</script>
+							</dd>
+						</dl>
+						<div class="timer " id=time{{id}} style="margin-top: 20px;" expriry_date={{expriry_date}}>
 
 							<script>
 								countDownTimer1(`{{ expriry_date }}`, {{ id }});
 							</script>
 
 						</div>
-						<div class="product-options">
-							{{!-- <div class="col-lg-4">
-								<div class="card  mb-lg-0">
-									<div class="card-body ">
+						{{!-- Sản phẩm kết thúc r thì không hiện ra ô đấu giá --}}
 
-									</div>
-								</div>
-							</div> --}}
+						<div class="product-options">
 
 							<div class="product-btns" id="buttonbid" isBidder="{{isBidder}}" isSeller="{{isSeller}}">
+								{{#if isExprired}}
+								<h4> Giá cuối cùng :</h4>
+								{{else}}
 								<h4> Giá hiện tại :</h4>
+								{{/if}}
+
 								<div style="display:flex">
 
 									<div class="input-group" style="margin-right: 30px">
-										{{!-- <span class="input-group-btn">
-											<button type="button" class="btn btn-danger btn-number" data-type="minus"
-												data-field="quant[2]">
-												<i class="fa fa-minus"></i>
-											</button>
-										</span> --}}
-										{{!-- <input style="width: 90px;" type="text" name="quant[2]"
-											class="form-control input-number" value="{{curr_price}} K"
-											min="{{initial_price}} " max="100000000" step_cost="{{step_cost}}" readonly> --}}
+
 										<span class="product-label">
 											<span class="sale text-center" style="font-size: 30px;">{{curr_price}}
 												K</span>
@@ -405,25 +445,15 @@
 											
 											}
 										</script>
-										{{!-- <span class="input-group-btn">
-												<button type="button" class="btn btn-success btn-number" data-type="plus"
-													data-field="quant[2]">
-													<i class="fa fa-plus"></i>
-												</button>
-											</span> --}}
-
 									</div>
 								</div>
 								<p></p>
 								<p></p>
 								<div class="alert alert-success" role="alert"> <i
-										class="fas fa-exclamation-triangle"></i> Hãy đăng nhập với tư cách Bidder
-									để thực hiện chức năng này</div>
-
+										class="fas fa-exclamation-triangle"></i> Hãy đăng nhập với tư cách bidder để
+									được ra giá sản phẩm này !</div>
 							</div>
-
 						</div>
-
 					</div>
 				</div>
 				{{/each}}
@@ -621,9 +651,9 @@
 				<div class="product product-single">
 					<div class="product-thumb">
 						<div class="product-label">
-							<span id=time{{id}} start_date={{start_date}}>
+							<span id="time{{id}}" start_date={{start_date}}>
 								<script>
-									transferDateFormat(`{{start_date}}`, {{ id }});
+									transferDateFormat(`{{start_date}}`, `time{{id}}`);
 								</script>
 							</span>
 							<span class="sale text-center">New</span>

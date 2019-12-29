@@ -42,84 +42,6 @@
 		</div>
 		<div class="panel-body shadow p-3 mb-5 bg-white rounded">
 
-			<!-- <form action="/seller/add" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
-
-
-				<div class="form-group">
-					<label for="productname" class="col-sm-3 control-label">TÊN SẢN PHẨM</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" name="productname"
-							placeholder="Tên món đồ đấu giá của mình">
-					</div>
-				</div> 
-				<div class="form-group">
-					<label for="name" class="col-sm-3 control-label">Loại sản phẩm</label>
-					<div class="col-sm-9">
-						<select class="input search-categories" name="selcat" id="product_type">
-							{{#each ProT}}
-							<option value={{id}}>{{protype_name}}</option>
-							{{/each}}
-						</select>
-					</div>
-				</div> 
-				<div class="form-group">
-					<label for="name" class="col-sm-3 control-label">GIA: </label>
-					<div class="box col-sm-9">
-						<input type="number" value="9999" name="product_price">
-					</div>
-				</div> 
-				<div class="form-group">
-					<label for="name" class="col-sm-3 control-label">BUOC NHAY: </label>
-					<div class="box col-sm-9">
-						<input type="number" value="1000" name="product_stepcost">
-					</div>
-				</div> 
-				<div class="form-group">
-					<label for="name" class="col-sm-3 control-label">GIA MUA NGAY: </label>
-					<div class="box col-sm-9">
-						<input type="number" value="99999" name="product_buynowprice">
-					</div>
-				</div> 
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Thời gian đấu giá</label>
-					<div class="col-sm-3">
-						
-						<input type="datetime-local" name="expdate">
-					</div>
-
-
-				</div> 
-				<div class="form-group">
-					<label for="name" class="col-sm-3 control-label">Ảnh mô tả</label>
-					<div class="col-sm-2">
-						<label class="control-label small" for="file_img">ẢNH CHÍNH (jpg):</label> <input type="file"
-							name="main_img">
-					</div>
-
-					<div class="col-sm-2">
-						<label class="control-label small" for="file_img">CÁC ẢNH PHỤ:</label> <input type="file"
-							name="alt_imgs" multiple>
-					</div>
-
-				</div> 
-				<div class="form-group">
-					<label for="product_description" class="col-sm-3 control-label">Mô Tả</label>
-					<div class="col-sm-9">
-						<textarea class="form-control" name="product_description"></textarea>
-					</div>
-				</div>
-				<hr>
-				<div class="form-group">
-					<div class="col-sm-offset-3 col-sm-9">
-						<button pro-id="" class="btn btn-success" id="buttonaddproduct" type="submit"><i
-								class="fas fa-store-alt"></i>&nbsp;&nbsp; DANG SAN PHAM</button>
-					</div>
-				</div> 
-
-
-			</form>-->
-
-
 			<form class="form-horizontal form-label-left" action="/seller/add" role="form" method="POST"
 				enctype="multipart/form-data" novalidate>
 				<div class="media" style="margin-left: 50px; margin-bottom: 20px;">
@@ -133,7 +55,7 @@
 						{{!-- <h4 class="media-heading">Informations</h4> --}}
 						{{!-- Tên sản phẩm --}}
 						<div class="item form-group">
-							<label class="col-form-label col-md-3 col-sm-2 label-align" for="email">Product name <span
+							<label class="col-form-label col-md-3 col-sm-2 label-align" for="email">Tên sản phẩm <span
 									class="required">*</span>
 							</label>
 							<div class="col-md-7 col-sm-6">
@@ -144,8 +66,8 @@
 
 						{{!-- Loại sản phẩm --}}
 						<div class=" item form-group">
-							<label class="col-form-label col-md-3 col-sm-2 label-align" for="website">Type product <span
-									class="required">*</span>
+							<label class="col-form-label col-md-3 col-sm-2 label-align" for="website">Loại sản phẩm
+								<span class="required">*</span>
 							</label>
 							<div class="col-md-7 col-sm-6">
 								<select class="input search-categories" name="selcat" id="product_type">
@@ -193,7 +115,7 @@
 
 						{{!-- Ngày hết hạn --}}
 						<div class="item form-group">
-							<label class="col-form-label col-md-3 col-sm-2 label-align" for="telephone">Expiry Date
+							<label class="col-form-label col-md-3 col-sm-2 label-align" for="telephone">Ngày hết hạn
 								<span class="required">*</span>
 							</label>
 							<div class="col-md-7 col-sm-6">
@@ -207,6 +129,44 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="item form-group">
+							<label class="col-form-label col-md-3 col-sm-2 label-align" for="telephone"> Tự động gia hạn
+								<span class="required">*</span>
+							</label>
+							<div class="col-md-7 col-sm-6">
+								<div class="input-rating" style="display: flex;">
+									<div class="form-check" style="margin-right: 30px;">
+										<label class="form-check-label">
+											<input type="radio" id="star5" name="auto_extend" value="1"><label
+												for="star5"></label>
+
+											<img alt=":thumbsup:" class="emoji" style="width: 30px;"
+												src="https://hackmd.io/build/emojify.js/dist/images/basic/thumbsup.png"
+												title="like">
+											<span>(Có)</span>
+										</label>
+									</div>
+									<div class="form-check">
+										<label class="form-check-label">
+											<input type="radio" id="star5" name="auto_extend" value="0"><label
+												for="star5"></label>
+
+											<img alt=":thumbsdown:" class="emoji" style="width: 35px;"
+												src="https://hackmd.io/build/emojify.js/dist/images/basic/thumbsdown.png"
+												title="unlike">
+											<span>(Không)</span>
+										</label>
+									</div>
+
+								</div>
+								<p>(*Nếu chọn có, khi có lượt đấu giá mới trước khi kết thúc 5 phút, sản phẩm tự động
+									gia hạn thêm 10 phút) </p>
+							</div>
+
+
+						</div>
+
 					</div>
 				</div>
 

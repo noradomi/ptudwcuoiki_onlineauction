@@ -13,4 +13,11 @@ router.post(
 	auth.isNotInBlackList,
 	bidderController.bid
 );
+
+router.get('/watchlist', bidderController.watchlist);
+router.get('/mybid', bidderController.mybid);
+router.get('/mywinningproduct', bidderController.mywinpro);
+router.post('/rating/:winnerId', bidderController.rating);
+router.post('/addpoint', bidderController.addpoint);
+router.post('/minuspoint', bidderController.minuspoint);
 module.exports = router;

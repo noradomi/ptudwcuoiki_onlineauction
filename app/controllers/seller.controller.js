@@ -23,7 +23,17 @@ module.exports.myproduct = async function(req, res) {
 	if (auth.isSeller(req, res)) {
 		// let ProT = await models.product_type.findAllProT();
 		let myPros = [];
-		myPros = await models.product.findAllNotExpiredProducts(1);
+		myPros = await models.product.findAllNotExpiredProducts(req.user.id);
+
+		myPros.forEach(p => {
+			if (p.winnerId !== null) {
+				p.winnerName = p.lastname + ' ' + p.firstname;
+			} else p.winnerName = 'Chưa có ai đấu giá';
+		});
+
+		// myPros.forEach(p => {
+		// 	console.log(p.winnerName);
+		// });
 
 		if (req.session.updateSuccess == null) {
 			req.session.updateSuccess = false;
@@ -47,8 +57,12 @@ module.exports.mydoneproduct = async function(req, res) {
 	if (auth.isSeller(req, res)) {
 		// let ProT = await models.product_type.findAllProT();
 		let myPros = [];
-		myPros = await models.product.findAllWinnedProducts(1);
+		myPros = await models.product.findAllWinnedProducts(req.user.id);
 
+		myPros.forEach(async p => {
+			winner = await p.getWinner();
+			p.winnerName = winner.lastname + ' ' + winner.firstname;
+		});
 		if (req.session.updateSuccess == null) {
 			req.session.updateSuccess = false;
 		}
@@ -73,6 +87,7 @@ module.exports.add = async (req, res, next) => {
 	const product_stepcost = req.body.product_stepcost;
 	const product_buynowprice = req.body.product_buynowprice;
 	const product_description = req.body.product_description;
+	const auto_extend = req.body.auto_extend;
 	console.log(req.body.expdate);
 
 	let localCurrDate = new Date().toLocaleString('vi-VN', {
@@ -92,7 +107,7 @@ module.exports.add = async (req, res, next) => {
 			description: product_description,
 			imme_buy_price: product_buynowprice,
 			step_cost: product_stepcost,
-			auto_extend: 0,
+			auto_extend: auto_extend,
 			productTypeId: product_typeID,
 			sellerId: req.user.id
 		})
@@ -108,7 +123,7 @@ module.exports.add = async (req, res, next) => {
 
 	console.log('ĐÃ LƯU PRODUCT MOI');
 
-	next();
+	res.redirect('/seller/myproduct');
 };
 
 module.exports.edit_desc = async function(req, res, next) {
@@ -222,6 +237,27 @@ module.exports.remove_deal = async function(req, res, next) {
 		}
 	);
 
+	// Feedback
+	await models.feedback.create({
+		sellerId: req.user.id,
+		bidderId: bidderId,
+		vote: 0,
+		content: 'Người thắng không thanh toán.'
+	});
+
+	// Trừ điểm đánh giá đi 1 điểm
+	let bidderInstance = await models.user.findByPk(bidderId);
+
+	await models.user.update(
+		{
+			report_count: bidderInstance.report_count + 1
+		},
+		{
+			returning: false,
+			where: { id: bidderId }
+		}
+	);
+
 	console.log('remove_deal xong');
-	res.redirect('/seller/mydoneproduct');
+	res.jsonp({ success: true });
 };

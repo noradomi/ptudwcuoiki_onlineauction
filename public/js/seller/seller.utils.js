@@ -85,19 +85,12 @@ function removeDeal(winnerId, proId) {
 								// }, 300);
 							} else {
 								bootbox.alert({
-									message:
-										'Chỉ bidder mới có thể thực hiện quyền này. Vui lòng thử lại với quyền bidder !!!',
+									message: 'Lỗi không xác định !!!',
 									size: 'small'
 								});
 							}
 						}
 					});
-
-					// setTimeout(function() {
-					// 	bootbox.alert(
-					// 		'Giá đấu của bạn đã được ghi nhận! F5 để xem kết quả'
-					// 	);
-					// }, 900);
 				}
 			}
 		}

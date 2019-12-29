@@ -84,14 +84,12 @@ module.exports = function(sequelize, Sequelize) {
 		});
 
 		res.forEach(async p => {
-			console.log(p);
 			if (p.winnerId == null) {
 				p.isWinned = false;
 			} else {
 				p.winnerName = p.firstname + ' ' + p.lastname;
 				p.isWinned = true;
 			}
-			console.log(p.winnerName);
 		});
 
 		return res;
@@ -155,28 +153,13 @@ module.exports = function(sequelize, Sequelize) {
 
 	// Tìm kiếm tất cả sản phẩm còn hạn đấu giả của 1 seller
 	Product.findAllNotExpiredProducts = async id => {
-		let rows = await Product.findAll({
-			where: {
-				sellerId: id
-			}
+		let sql = `select p.*,u.lastname as lastname, u.firstname as firstname, (select count(*) from bid_details b where b.productId = p.id) as countBids from products p left join users u on p.winnerId = u.id where p.sellerId = ${id}
+		and p.expriry_date > now();`;
+
+		let res = await sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
 		});
 
-		// console.log('>>>>>>>>>> San pham :', rows);
-		let res = [];
-		// Chỉ trả về các sản phẩm còn hạn
-		let exp_date,
-			now = new Date();
-		for (const r of rows) {
-			exp_date = new Date(r.expriry_date);
-			// console.log(exp_date);
-			if (
-				exp_date.getTime() + exp_date.getTimezoneOffset() * 60 * 1000 >
-				now.getTime()
-			) {
-				res.push(r);
-			}
-			// res.push(r);
-		}
 		return res;
 	};
 
@@ -223,23 +206,17 @@ module.exports = function(sequelize, Sequelize) {
 	// Top 5 sản phẩm gần kết thúc
 	Product.top5NearlyExpiriedProducts = async function() {
 		let sql =
-			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID WHERE P.expriry_date > NOW() ORDER BY P.expriry_date ASC LIMIT 5';
+			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname, (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID WHERE P.expriry_date > NOW() ORDER BY P.expriry_date ASC LIMIT 5	';
 		let res = await sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});
-		// let res = await Product.findAll({
-		// 	limit: 5,
-		// 	order: [[sequelize.col('expriry_date'), 'DESC']]
-		// });
 		res.forEach(async p => {
-			console.log(p);
 			if (p.winnerId == null) {
 				p.isWinned = false;
 			} else {
 				p.winnerName = p.firstname + ' ' + p.lastname;
 				p.isWinned = true;
 			}
-			console.log(p.winnerName);
 		});
 		return res;
 	};
@@ -247,7 +224,7 @@ module.exports = function(sequelize, Sequelize) {
 	// Top 5 sản phẩm có lượt ra giá nhiều nhất
 	Product.top5BiddedProducts = async function() {
 		let sql =
-			'SELECT P.*,U.LASTNAME AS lastname,U.FIRSTNAME AS firstname FROM USERS U RIGHT JOIN PRODUCTS P ON P.WINNERID = U.ID  JOIN BID_DETAILS B ON P.ID = B.PRODUCTID group by ID ORDER BY COUNT(P.ID) desc LIMIT 5';
+			'SELECT P.*,U.LASTNAME AS lastname,U.FIRSTNAME AS firstname,  (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM USERS U RIGHT JOIN PRODUCTS P ON P.WINNERID = U.ID  JOIN BID_DETAILS B ON P.ID = B.PRODUCTID group by ID ORDER BY COUNT(P.ID) desc LIMIT 5';
 		let res = await sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});
@@ -256,14 +233,12 @@ module.exports = function(sequelize, Sequelize) {
 		// 	order: [[sequelize.col('expriry_date'), 'DESC']]
 		// });
 		res.forEach(async p => {
-			console.log(p);
 			if (p.winnerId == null) {
 				p.isWinned = false;
 			} else {
 				p.winnerName = p.firstname + ' ' + p.lastname;
 				p.isWinned = true;
 			}
-			console.log(p.winnerName);
 		});
 		return res;
 	};
@@ -271,7 +246,7 @@ module.exports = function(sequelize, Sequelize) {
 	// Top 5 sản phẩm có giá cao nhất
 	Product.top5PricingProducts = async function() {
 		let sql =
-			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID ORDER BY P.curr_price DESC LIMIT  5';
+			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname, (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID ORDER BY P.curr_price DESC LIMIT  5';
 		let res = await sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});
@@ -280,14 +255,12 @@ module.exports = function(sequelize, Sequelize) {
 		// 	order: [[sequelize.col('expriry_date'), 'DESC']]
 		// });
 		res.forEach(async p => {
-			console.log(p);
 			if (p.winnerId == null) {
 				p.isWinned = false;
 			} else {
 				p.winnerName = p.firstname + ' ' + p.lastname;
 				p.isWinned = true;
 			}
-			console.log(p.winnerName);
 		});
 		return res;
 	};
@@ -303,6 +276,39 @@ module.exports = function(sequelize, Sequelize) {
 		await sequelize.query(sql, {
 			type: sequelize.QueryTypes.DELETE
 		});
+	};
+
+	Product.bonusTimeProduct = async function(proId) {
+		let pro = await Product.findByPk(proId);
+
+		// Nếu sản phẩm có tự động gia hạn
+		if (pro.auto_extend) {
+			// Kiểm tra còn bao nhiêu phút hết hạn. Nếu <= 5 phút thì gia hạn 10 phút.
+			let expdate = new Date(`${pro.expriry_date}`);
+			let now = new Date();
+			let offset = new Date().getTimezoneOffset();
+			let diff = Math.abs(expdate - now + offset * 60 * 1000);
+
+			let minutes = Math.floor(diff / 1000 / 60);
+
+			console.log('>>>>>>>>> ' + minutes + ' phut');
+			if (minutes <= 5) {
+				// Cập nhật thời gian thêm 10 phút
+				let sql = `update products set expriry_date = DATE_ADD(expriry_date, INTERVAL 10 MINUTE) where id = ${proId};`;
+
+				await sequelize.query(sql, {
+					type: sequelize.QueryTypes.UPDATE
+				});
+
+				console.log('Đã gia hạn thời gian');
+				return;
+			}
+
+			console.log('Chưa tới thời điểm được gia hạn');
+			return;
+		}
+		console.log('Không tự extend');
+		return;
 	};
 
 	return Product;

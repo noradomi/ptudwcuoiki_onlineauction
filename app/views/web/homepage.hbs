@@ -128,9 +128,9 @@
 							<div class="product-thumb">
 								<div class="product-label">
 
-									<span id=time{{id}} start_date={{start_date}}>
+									<span id="time{{id}}NEARLYENDED" start_date="{{start_date}}">
 										<script>
-											transferDateFormat(`{{start_date}}`, {{ id }});
+											transferDateFormat(`{{start_date}}`, `time{{id}}NEARLYENDED`);
 										</script>
 									</span>
 									<span class="sale text-center">New</span>
@@ -162,8 +162,7 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}}
-										bidders
+										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}} bidders
 										{{#if isWinned}}
 										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
 										{{winnerName}}
@@ -220,9 +219,9 @@
 							<div class="product-thumb">
 								<div class="product-label">
 
-									<span id=time{{id}} start_date={{start_date}}>
+									<span id="time{{id}}TOPBIDDED" start_date={{start_date}}>
 										<script>
-											transferDateFormat(`{{start_date}}`, {{ id }});
+											transferDateFormat(`{{start_date}}`, `time{{id}}TOPBIDDED`);
 										</script>
 									</span>
 									<span class="sale text-center">New</span>
@@ -310,9 +309,9 @@
 							<div class="product-thumb">
 								<div class="product-label">
 
-									<span id=time{{id}} start_date={{start_date}}>
+									<span id="time{{id}}HIGHESTPRICE" start_date={{start_date}}>
 										<script>
-											transferDateFormat(`{{start_date}}`, {{ id }});
+											transferDateFormat(`{{start_date}}`, `time{{id}}HIGHESTPRICE`);
 										</script>
 									</span>
 									<span class="sale text-center">New</span>

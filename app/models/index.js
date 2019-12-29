@@ -36,8 +36,8 @@ db.product.hasMany(db.watchlist);
 db.product.hasMany(db.blacklist);
 db.product.belongsTo(db.product_type);
 db.product.hasMany(db.product_img);
-db.product.belongsTo(db.user, { foreignKey: 'sellerId' });
-db.product.belongsTo(db.user, { foreignKey: 'winnerId' });
+db.product.belongsTo(db.user, { as: 'Seller', foreignKey: 'sellerId' });
+db.product.belongsTo(db.user, { as: 'Winner', foreignKey: 'winnerId' });
 
 // Category
 db.category.hasMany(db.product_type, { as: 'ProductTypes' });

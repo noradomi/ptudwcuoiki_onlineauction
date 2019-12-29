@@ -1893,4 +1893,19 @@ textarea.input {
 	min-width: 88px;
 	min-height: 35px;
 }
-	
+
+/* Trang chi tiết sản phẩm */
+
+dt,
+dd {
+	font-size: 15px;
+	margin: 10px 0;
+}
+
+.ratebtn {
+	background-color: tomato;
+	border: none;
+	border-radius: 0%;
+	padding: 3px 9px;
+	font-weight: 500;
+}

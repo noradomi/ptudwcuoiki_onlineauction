@@ -9,7 +9,9 @@
 
     <title>Home</title>
 
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="icon"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKoo6kgU4L3A-Gm0VFd50jv7ERlNkfZCk4KZlz4ig212Hv4BxB&s"
+        type="image/gif">
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -103,17 +105,6 @@
 
     {{{_sections.BID_UTILS}}}
 
-
-    {{!-- <script>
-        function alertUpdate(updateSuccess) {
-            if (updateSuccess) {
-                alertify.success('Success message');
-            }
-            else {
-                alertify.error('Error message');
-            }
-        }
-    </script> --}}
     <script>
         $(document).ready(function () {
             //get it if Status key found
@@ -127,7 +118,7 @@
             }
 
             if (localStorage.getItem("RemoveDeal")) {
-                alertify.success('Đã từ hủy giao dịch này.');
+                alertify.success('Đã hủy giao dịch này.');
                 localStorage.clear();
             }
 
