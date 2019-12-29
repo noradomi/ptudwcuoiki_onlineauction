@@ -1,0 +1,32 @@
+<div class="row px-5">
+    <div class="col-md-12">
+        <!-- DATA TABLE -->
+        <h3 class="title-5 m-b-35 my-5">{{title}}</h3>
+        <div class="table-responsive table-responsive-data2">
+            <table class="table table-data2">
+                <thead>
+                    <tr>
+                        <th> ID</th>
+                        <th>Bidder name</th>
+                        <th>Bidder price</th>
+                        <th>Product name</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="spacer"></tr>
+                    {{#each Bidder}}
+                    <tr class="tr-shadow">
+                        <td>{{BDID}}</td>
+                        <td>{{firstname}}  {{lastname}}</td>
+                        <td>{{price}}</td>
+                        <td>{{product_name}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <!-- END DATA TABLE -->
+    </div>
+</div>

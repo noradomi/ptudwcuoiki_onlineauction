@@ -63,7 +63,7 @@
                             <li><a href="/account/watchlist"><i class="fa fa-heart-o"></i> My Watchlist</a></li>
                             <li><a href="/account/mybid"><i class="fas fa-gavel"></i> My Bids</a></li>
                             <li><a href="/account/mywinningproduct"><i class="fas fa-gavel"></i> My Winning</a></li>
-                            <li><a href="#"><i class="fa fa-unlock-alt"></i> Upgrade Accounts</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#upgradeaccount"><i class="fa fa-unlock-alt"></i> Upgrade Accounts</a></li>
                             <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                         </ul>
                     </li>
@@ -139,3 +139,27 @@
     <!-- container -->
 </header>
 <!-- /HEADER -->
+<!-- Modal -->
+  {{#if isBidder}}
+    <div class="modal fade" id="upgradeaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">UPGRADE ACCOUNT</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">BẠN CÓ CHẮC LÀ MUỐN LÊN SELLER ?.</div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" id="upgradebiddertosellerbutton" href="#" data-dismiss="modal">OK</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+{{!-- -- END MODAL -- --}}

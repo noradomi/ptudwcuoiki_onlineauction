@@ -42,4 +42,5 @@ router.get('/mybid', isLoggedIn, accountController.mybid);
 router.get('/mywinningproduct', isLoggedIn, accountController.mywinpro);
 router.post('/addpoint', accountController.addpoint);
 router.post('/minuspoint', accountController.minuspoint);
+router.post('/upgrade', accountController.upgradeaccount);
 module.exports = router;
