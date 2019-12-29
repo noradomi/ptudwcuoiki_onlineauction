@@ -297,5 +297,13 @@ module.exports = function(sequelize, Sequelize) {
 			type: sequelize.QueryTypes.SELECT
 		});
 	};
+
+	Product.delete = async idProduct => {
+		let sql = `DELETE FROM products WHERE products.id = '${idProduct}'`;
+		await sequelize.query(sql, {
+			type: sequelize.QueryTypes.DELETE
+		});
+	};
+
 	return Product;
 };

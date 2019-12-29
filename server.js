@@ -22,21 +22,21 @@ var env = require('dotenv').config();
 
 // View template engine
 app.engine(
-    '.hbs',
-    exphbs({
-        defaultLayout: 'main',
-        extname: '.hbs',
-        section: express_handlebars_sections(),
-        helpers: {
-            section: function(name, options) {
-                if (!this._sections) {
-                    this._sections = {};
-                }
-                this._sections[name] = options.fn(this);
-                return null;
-            }
-        }
-    })
+	'.hbs',
+	exphbs({
+		defaultLayout: 'main',
+		extname: '.hbs',
+		section: express_handlebars_sections(),
+		helpers: {
+			section: function(name, options) {
+				if (!this._sections) {
+					this._sections = {};
+				}
+				this._sections[name] = options.fn(this);
+				return null;
+			}
+		}
+	})
 );
 app.set('view engine', '.hbs');
 app.set('views', './app/views');
@@ -50,12 +50,12 @@ app.use(express.json());
 
 // Session
 app.use(
-    session({
-        cookie: { maxAge: 60000 * 30 * 24 },
-        secret: 'finalproject',
-        resave: true,
-        saveUninitialized: true
-    })
+	session({
+		cookie: { maxAge: 60000 * 30 * 24 },
+		secret: 'finalproject',
+		resave: true,
+		saveUninitialized: true
+	})
 );
 
 // Init PassportJS
@@ -86,12 +86,12 @@ require('./app/configs/passport.js')(Passport, models.user);
 
 //Sync Database
 models.sequelize
-    .sync()
-    .then(function() {
-        console.log('Nice! Database looks fine');
-    })
-    .catch(function(err) {
-        console.log(err, 'Something went wrong with the Database Update!');
-    });
+	.sync()
+	.then(function() {
+		console.log('Nice! Database looks fine');
+	})
+	.catch(function(err) {
+		console.log(err, 'Something went wrong with the Database Update!');
+	});
 
 app.listen(port, () => console.log(`Server listen on port ${port}!`));

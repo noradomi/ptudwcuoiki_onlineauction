@@ -1,0 +1,92 @@
+<div class="row px-5">
+    <div class="col-md-12">
+        <!-- DATA TABLE -->
+        <h3 class="title-5 m-b-35 my-5">{{title}}</h3>
+        <div class="table-responsive table-responsive-data2">
+            <table class="table table-data2">
+                <thead>
+                    <tr>
+                        <th>Category ID</th>
+                        <th>Category name</th>
+
+                        <th>
+                            <div class="table-data-feature">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Add"
+                                    href="/admin/category/add">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="spacer"></tr>
+                    {{#each Cats}}
+                    <tr class="tr-shadow">
+                        <td>{{id}}</td>
+                        <td>
+                            <span class="block-email">{{cat_name}}</span>
+                        </td>
+
+                        <td>
+                            <div class="table-data-feature">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Update"
+                                    href="/admin/category/update?id={{id}}">
+                                    <i class="fas fa-pen-square"></i>
+                                </a>
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Delete"
+                                    href="/admin/category/delete?id={{id}}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td>{{status}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+                <thead>
+                    <tr>
+                        <th>Type ID</th>
+                        <th>Type name</th>
+                        <th>
+                            <div class="table-data-feature">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Add"
+                                    href="/admin/category/addPT">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="spacer"></tr>
+                    {{#each PTs}}
+                    <tr class="tr-shadow">
+                        <td>{{ id }}</td>
+                        <td>
+                            <span class="block-email">{{protype_name}}</span>
+                        </td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Update"
+                                    href="/admin/category/updatePT?id={{id}}">
+                                    <i class="fas fa-pen-square"></i>
+                                </a>
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Delete"
+                                    href="/admin/category/deletePT?id={{id}}"
+                                    onclick="return confirm('Do you want to delete product type {{id}} - {{protype_name}}?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+        <!-- END DATA TABLE -->
+    </div>
+</div>

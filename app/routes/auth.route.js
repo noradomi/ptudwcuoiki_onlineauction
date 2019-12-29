@@ -12,7 +12,21 @@ function isLoggedIn(req, res, next) {
 
 router.get('/login', authController.login);
 
-router.post('/login', authController.validateLogin, authController.postLogin);
+router.post(
+	'/login',
+	authController.validateLogin,
+	authController.postLogin,
+	async (req, res) => {
+		if (!req.user) {
+			res.redirect('/auth/login');
+		}
+		if (req.user.role === 2) {
+			res.redirect('/admin');
+		} else {
+			res.redirect('/');
+		}
+	}
+);
 
 router.get('/register', authController.register);
 
