@@ -23,5 +23,12 @@ module.exports = function(sequelize, Sequelize) {
 		}
 	});
 
+	FeedBack.findAllFeedbacks = async function(bidderId) {
+		let sql = `select f.*,u.lastname as lastname, u.firstname as firstname from feedbacks f, users u where f.sellerId = u.id and bidderId = ${bidderId}`;
+		let res = await sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+		return res;
+	};
 	return FeedBack;
 };

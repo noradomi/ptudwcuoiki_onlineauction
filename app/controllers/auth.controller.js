@@ -55,7 +55,10 @@ module.exports.validateLogin = (req, res, next) => {
 	}
 };
 
-module.exports.postLogin = passport.authenticate('local-signin');
+module.exports.postLogin = passport.authenticate('local-signin', {
+	successRedirect: '/auth/route',
+	failureRedirect: '/auth/login'
+});
 
 module.exports.register = (req, res) => {
 	// lấy các thông báo lỗi từ passport.js

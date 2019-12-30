@@ -14,7 +14,7 @@ module.exports = app => {
 			errorCode = 500;
 		}
 		let errorMsg = err.message;
-		res.render('errors/${errorView}', {
+		res.render(`./web/errors/${errorCode}`, {
 			layout: false,
 			errorCode,
 			errorMsg,

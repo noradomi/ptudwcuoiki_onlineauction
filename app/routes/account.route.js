@@ -38,5 +38,5 @@ router.post(
 	accountController.ValidateCurrentPassword,
 	accountController.PostChangePassword
 );
-
+router.post('/upgrade', accountController.upgradeaccount);
 module.exports = router;

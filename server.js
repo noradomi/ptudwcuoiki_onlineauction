@@ -94,4 +94,8 @@ models.sequelize
 		console.log(err, 'Something went wrong with the Database Update!');
 	});
 
+// app.use(function(req, res, next) {
+// 	return res.status(404).send({ message: 'Route' + req.url + ' Not found.' });
+// });
+require('./app/middleware/error.middleware')(app);
 app.listen(port, () => console.log(`Server listen on port ${port}!`));

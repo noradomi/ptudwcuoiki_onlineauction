@@ -331,3 +331,18 @@ module.exports.ActivateEmail = (req, res, next) => {
 		}
 	});
 };
+
+module.exports.upgradeaccount = async (req, res, next) => {
+	let id = req.session.passport.user;
+	model.user.update(
+		{
+			upgrade: 1
+		},
+		{
+			//returning: false,
+			where: {
+				id: id
+			}
+		}
+	);
+};
