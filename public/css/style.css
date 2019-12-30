@@ -1909,3 +1909,52 @@ dd {
 	padding: 3px 9px;
 	font-weight: 500;
 }
+
+/* Rating page */
+.rating-title {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.rating-num {
+	color: #f8694a;
+	font-size: 70px;
+}
+
+.rate-count {
+	margin-top: 5px;
+	color: darkslategrey;
+}
+
+.progress {
+	height: 35px;
+}
+.rating-star {
+	color: #ffb656;
+}
+
+.rating-type-like {
+	color: #5bc0de;
+}
+
+.rating-type-dislike {
+	color: #d9534f;
+}
+
+.review-content {
+	border: 0.4px solid darkgrey;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.product-reviews {
+	margin-top: 30px;
+}
+
+/* .progress-bar {
+	
+} */
+
+.content-count {
+	font-size: 18px;
+}

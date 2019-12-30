@@ -1,4 +1,5 @@
 const db = require('../models');
+var createError = require('http-errors');
 var Product = db.product;
 var Category = db.category;
 var bid_details = db.bid_details;
@@ -51,73 +52,85 @@ module.exports.search = async (req, res) => {
 	}
 };
 // PRODUCT DETAIL
-module.exports.productdetail = async (req, res) => {
-	var id = req.params.id;
-	let ProTId = await db.product.findProductTypeIdById(id);
-	// let Pro = [];
-	let Bid = [];
-	let ProRelate = await db.product.findRelatedProduct(ProTId, id);
-	let HistoryBid = await db.bid_details.findAllHistory(id);
-	let Seller = await db.product.findProSeller(id);
+module.exports.productdetail = async (req, res, next) => {
+	try {
+		var id = req.params.id;
+		let ProTId = await db.product.findProductTypeIdById(id);
+		// let Pro = [];
+		let Bid = [];
+		let ProRelate = await db.product.findRelatedProduct(ProTId, id);
+		let HistoryBid = await db.bid_details.findAllHistory(id);
+		let Seller = await db.product.findProSeller(id);
 
-	Seller[0].rating =
-		(Seller[0].like_count /
-			(Seller[0].like_count + Seller[0].report_count)) *
-		100;
+		if (Seller[0] !== undefined) {
+			Seller[0].rating =
+				(Seller[0].like_count /
+					(Seller[0].like_count + Seller[0].report_count)) *
+				100;
+		}
 
-	if (HistoryBid.length > 0) {
-		// Gắn cờ cho người đang đấu giá cao nhất
-		HistoryBid.forEach(h => (h.isTop = false));
-		HistoryBid[0].isTop = true;
-	}
+		if (HistoryBid.length > 0) {
+			// Gắn cờ cho người đang đấu giá cao nhất
+			HistoryBid.forEach(h => (h.isTop = false));
+			HistoryBid[0].isTop = true;
+		}
 
-	let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
+		let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
 
-	HiggestBidder[0].rating =
-		(HiggestBidder[0].like_count /
-			(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
-		100;
+		// if (HiggestBidder[0] !== undefined) {
+		// 	HiggestBidder[0].rating =
+		// 		(HiggestBidder[0].like_count /
+		// 			(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
+		// 		100;
+		// }
+		HiggestBidder[0].rating =
+			(HiggestBidder[0].like_count /
+				(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
+			100;
 
-	let Pro = await db.product.findByPk(id);
-	Pro.isExprired = db.product.isExprired(Pro.expriry_date);
+		let Pro = await db.product.findByPk(id);
+		Pro.isExprired = db.product.isExprired(Pro.expriry_date);
 
-	console.log('>>>>>>>>>>> ', Pro.isExprired);
+		console.log('>>>>>>>>>>> ', Pro.isExprired);
 
-	if (req.isAuthenticated()) {
-		req.user.isloggedin = true;
-		// Pro.forEach(p => {
-		// 	p.isBidder = req.user.role === 0;
-		// 	p.isSeller = req.user.role === 1;
-		// });
-		isOwner = await db.product.isSellerOfProduct(id, req.user.id);
+		if (req.isAuthenticated()) {
+			req.user.isloggedin = true;
+			// Pro.forEach(p => {
+			// 	p.isBidder = req.user.role === 0;
+			// 	p.isSeller = req.user.role === 1;
+			// });
+			isOwner = await db.product.isSellerOfProduct(id, req.user.id);
 
-		Cat = await db.category.categoriesAndChild();
+			Cat = await db.category.categoriesAndChild();
 
-		res.render('./web/productdetail', {
-			user: [req.user],
-			isBidder: req.user.role === 0,
-			isSeller: req.user.role === 1,
-			isOwner: isOwner,
-			Pro: [Pro],
-			ProRelate: ProRelate,
-			HistoryBid: HistoryBid,
-			HiggestBidder: HiggestBidder,
-			Seller: Seller,
-			Cat: Cat
-		});
-	} else {
-		res.render('./web/productdetail', {
-			user: [req.user],
-			Pro: [Pro],
-			isBidder: false,
-			isSeller: false,
-			isOwner: false,
-			ProRelate: ProRelate,
-			HistoryBid: HistoryBid,
-			HiggestBidder: HiggestBidder,
-			Seller: Seller,
-			Cat: Cat
-		});
+			res.render('./web/productdetail', {
+				user: [req.user],
+				isBidder: req.user.role === 0,
+				isSeller: req.user.role === 1,
+				isOwner: isOwner,
+				Pro: [Pro],
+				ProRelate: ProRelate,
+				HistoryBid: HistoryBid,
+				HiggestBidder: HiggestBidder,
+				Seller: Seller,
+				Cat: Cat
+			});
+		} else {
+			res.render('./web/productdetail', {
+				user: [req.user],
+				Pro: [Pro],
+				isBidder: false,
+				isSeller: false,
+				isOwner: false,
+				ProRelate: ProRelate,
+				HistoryBid: HistoryBid,
+				HiggestBidder: HiggestBidder,
+				Seller: Seller,
+				Cat: Cat
+			});
+		}
+	} catch (error) {
+		return next(createError(500, error));
 	}
 };
 

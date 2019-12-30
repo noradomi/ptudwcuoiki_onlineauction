@@ -8,7 +8,6 @@ module.exports = async (req, res) => {
 	Cat = await models.category.categoriesAndChild();
 
 	if (req.isAuthenticated()) {
-		// console.log('>>>>>>>>>>>>>>>> ', req.user);
 		req.user.isloggedin = true;
 		res.render('web/homepage', {
 			user: [req.user],

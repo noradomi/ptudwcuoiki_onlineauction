@@ -200,3 +200,38 @@ module.exports.rating = async function(req, res, next) {
 	console.log('rating xong');
 	res.redirect('/bidders/mywinningproduct');
 };
+module.exports.feedbacks = async function(req, res, next) {
+	if (auth.isBidder(req, res)) {
+		console.log('Den day');
+		let feedbacks = await db.feedback.findAllFeedbacks(req.user.id);
+
+		feedbacks.forEach(f => {
+			f.isLike = f.vote === 1 ? true : false;
+			let d = new Date(`${f.createdAt}`);
+			d.setTime(d.getTime() + d.getTimezoneOffset() * 60 * 1000);
+			console.log(d);
+			f.date_post = d.toLocaleString();
+			console.log(f.date_post);
+		});
+
+		let info = await db.user.findByPk(req.user.id);
+
+		info.rating =
+			(info.like_count * 100) / (info.like_count + info.report_count);
+		info.report_rate = 100 - info.rating;
+
+		Cat = await db.category.categoriesAndChild();
+
+		req.user.isloggedin = true;
+		res.render('./web/bidder/myfeedback', {
+			feedbacks: feedbacks,
+			info: [info],
+			user: [req.user],
+			isBidder: req.user.role === 0,
+			isSeller: req.user.role === 1,
+			Cat: Cat
+		});
+	} else {
+		res.redirect('/');
+	}
+};

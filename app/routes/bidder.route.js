@@ -17,6 +17,7 @@ router.post(
 router.get('/watchlist', bidderController.watchlist);
 router.get('/mybid', bidderController.mybid);
 router.get('/mywinningproduct', bidderController.mywinpro);
+router.get('/feedbacks', bidderController.feedbacks);
 router.post('/rating/:winnerId', bidderController.rating);
 router.post('/addpoint', bidderController.addpoint);
 router.post('/minuspoint', bidderController.minuspoint);
