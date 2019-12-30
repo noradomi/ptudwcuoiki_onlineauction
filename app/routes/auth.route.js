@@ -3,6 +3,7 @@ const router = express.Router();
 
 const authController = require('../controllers/auth.controller');
 const mailOTP = require('../controllers/mailOTP.controller');
+const resetPassword = require('../controllers/reset-password.controller');
 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated()) return next();
@@ -11,6 +12,17 @@ function isLoggedIn(req, res, next) {
 }
 
 router.get('/login', authController.login);
+
+router.get('/reset-password',(req,res)=>{
+	res.render('../views/web/reset-password',{
+		layout:false,
+	})
+});
+
+router.post('/reset-password',
+			resetPassword.IdentifyEmailExist,
+			resetPassword.SendMail,
+			resetPassword.ChangeTemporyPassword);
 
 router.post(
 	'/login',
