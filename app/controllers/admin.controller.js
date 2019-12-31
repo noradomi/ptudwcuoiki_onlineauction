@@ -6,7 +6,8 @@ module.exports.category = async function(req, res) {
         let PTs = await models.product_type.findAllProT();
         res.render("web/admin-category", {
             layout: "admin-main.hbs",
-            title: "Categories management",
+            title: "QUẢN LÝ DANH MỤC",
+            user: [req.user],
             Cats: Cats,
             PTs: PTs
         });
@@ -20,7 +21,8 @@ module.exports.product = async(req, res) => {
         let Products = await models.product.findAllPro();
         res.render("web/admin-product", {
             layout: "admin-main.hbs",
-            title: "Products management",
+            title: "QUẢN LÝ SẢN PHẨM",
+            user: [req.user],
             Products: Products
         });
     } else {
@@ -39,7 +41,8 @@ module.exports.fillCategory = (req, res) => {
     if (req.user.role === 2) {
         res.render("web/admin-fillCategory", {
             layout: "admin-main.hbs",
-            title: "Categories management"
+            user: [req.user],
+            title: "THÊM DANH MỤC"
         });
     } else {
         res.redirect("/");
@@ -56,7 +59,8 @@ module.exports.fillUpdateCategory = async (req, res) => {
         const C = await models.category.findById(req.query.id);
         res.render("web/admin-fillCategory", {
             layout: "admin-main.hbs",
-            title: "Categories management",
+            title: "CẬP NHẬT DANH MỤC",
+            user: [req.user],
             C: C
         });
     } else {
@@ -81,7 +85,8 @@ module.exports.fillProductType = async (req, res) => {
         const Cats = await models.category.categoriesAndChild();
         res.render("web/admin-fillProductType", {
             layout: "admin-main.hbs",
-            title: "Categories management",
+            title: "THÊM DANH MỤC CON",
+            user: [req.user],
             Cats: Cats
         });
     } else {
@@ -101,7 +106,8 @@ module.exports.fillUpdateProductType = async (req, res) => {
         console.log(PT);
         res.render("web/admin-fillProductType", {
             layout: "admin-main.hbs",
-            title: "Categories management",
+            title: "CẬP NHẬT DANH MỤC CON",
+            user: [req.user],
             PT: PT,
             Cats: Cats
         });
@@ -125,7 +131,7 @@ module.exports.findAllBidder = async(req, res, next) => {
     let Bidder = await models.bid_details.findAllBidder();
     res.render("web/admin-bidder", {
         layout: "admin-main.hbs",
-        title: "Bidder management",
+        title: "QUẢN LÝ NGƯỜI ĐẤU GIÁ",
         user: [req.user],
         Bidder: Bidder
     });
@@ -135,7 +141,7 @@ module.exports.findAllUserUpgrade = async(req, res, next) => {
     let UserUpgrade = await models.user.findUserUpgrade();
     res.render("web/admin-userupgrade", {
         layout: "admin-main.hbs",
-        title: "USER WANT TO UPGRADE",
+        title: "DANH SÁCH NGƯỜI ĐẤU GIÁ CHỜ NÂNG CẤP LÊN NGƯỜI BÁN",
         user: [req.user],
         UserUpgrade: UserUpgrade
     });
@@ -145,3 +151,23 @@ module.exports.upbiddertoseller = async(req, res, next) => {
     await models.user.upgradeBidderToSeller(req.query.id);
     res.redirect("/admin/userupgrade/");
 };
+
+module.exports.seller = async(req, res, next) => {
+    let Sellers = await models.user.findSeller();
+    res.render("web/admin-seller", {
+        layout: "admin-main.hbs",
+        title: "QUẢN LÝ NGƯỜI BÁN",
+        user: [req.user],
+        Sellers: Sellers
+    });
+}
+
+module.exports.bidder = async(req, res, next) => {
+    let Bidders = await models.user.findBidder();
+    res.render("web/admin-bidder", {
+        layout: "admin-main.hbs",
+        title: "QUẢN LÝ NGƯỜI ĐẤU GIÁ",
+        user: [req.user],
+        Bidders: Bidders
+    });
+}

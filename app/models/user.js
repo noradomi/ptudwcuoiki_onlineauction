@@ -165,5 +165,22 @@ module.exports = function(sequelize, Sequelize) {
             }
         });
     }
+
+    User.findSeller = () =>{
+        return User.findAll({
+            where: {
+                role: 1
+            }
+        });
+    }
+
+    User.findBidder = () =>{
+        return User.findAll({
+            where: {
+                role: 0
+            }
+        });
+    }
+
     return User;
 };

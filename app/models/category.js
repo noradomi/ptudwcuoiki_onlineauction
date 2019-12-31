@@ -44,17 +44,11 @@ module.exports = function(sequelize, Sequelize) {
 		});
 	};
 
-	Category.delete = catId => {
-		return Category.update(
-			{
-				status: 'inactive'
-			},
-			{
-				where: {
-					id: catId
-				}
-			}
-		);
+	Category.delete = async catId => {
+		let sql = `DELETE FROM categories c WHERE c.id = '${catId}' AND NOT EXISTS (SELECT * FROM products p, product_types pt WHERE p.productTypeId = pt.id AND pt.categoryId = c.id)`;
+		await sequelize.query(sql, {
+			type: sequelize.QueryTypes.DELETE
+		});
 	};
 
 	Category.findById = async id => {
