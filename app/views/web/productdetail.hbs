@@ -187,7 +187,23 @@
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
 								</div>
-
+								 <button class="main-btn icon-btn" style="width: auto; padding:0 10px" type="button"
+                                        data-toggle="collapse" data-target="#{{id}}" aria-expanded="false"
+                                        aria-controls="collapseExample">
+                                        ĐẤU GIÁ TỰ ĐỘNG
+                                 </button>
+								 {{!-- -- DATA ĐẤU GIÁ TỰ ĐỘNG ---- --}}
+								<tr>
+                                <td colspan="6" class="hiddenRow product-tab">
+                                    <div class="accordian-body collapse" id="{{id}}">
+                                        <div class="col-md-7 pull-right" style="margin:20px 0">
+                                            <h4>MỜI NHẬP GIÁ TỐI ĐA</h4>
+										<input type="number" id="giatoida">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+							{{!-- -- DATA ĐẤU GIÁ TỰ ĐỘNG ---- --}}
 							</div>
 
 						</div>

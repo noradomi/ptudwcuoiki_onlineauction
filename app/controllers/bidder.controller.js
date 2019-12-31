@@ -20,18 +20,28 @@ module.exports.actWatchList = async(req, res, next) => {
 
 module.exports.bid = (req, res, next) => {
     const userId = req.user.id;
-
     const proId = req.params.proid;
-
     const bidPrice = req.body.bidPrice;
+    const maxPrice = req.body.maxPrice;
+    console.log('MAXXXXXXX', maxPrice == '');
 
-    // Lưu thông tin đấu giá vào bảng bid_details
-    db.bid_details.create({
-        time: new Date(),
-        price: bidPrice,
-        productId: proId,
-        userId: userId
-    });
+    if (maxPrice == '') {
+        // Lưu thông tin đấu giá vào bảng bid_details
+        db.bid_details.create({
+            time: new Date(),
+            price: bidPrice,
+            productId: proId,
+            userId: userId
+        });
+    } else {
+        db.bid_details.create({
+            time: new Date(),
+            price: bidPrice,
+            max_price: maxPrice,
+            productId: proId,
+            userId: userId
+        });
+    }
 
     // Kiểm tra sản phẩm có tự động cộng thêm thời gian khi có đấu giá 5 phút cuối không ?
     console.log('>>>>>>>>>>>> Kiểm tra bonus time');
@@ -55,6 +65,61 @@ module.exports.bid = (req, res, next) => {
     // db.watchlist.actWatchList(userId, proId);
     console.log('ĐÃ LƯU : Bid cho product ' + proId + ' boi bidder ' + userId);
     res.redirect(`/product/productdetail/7`);
+};
+
+// TEST CHUC NANG 6.2
+module.exports.findBiddingUserId = async(req, res, next) => {
+    //const userId = req.user.id;
+    //const proId = req.params.proid;
+    //let userBiddingId = await db.bid_details.top1BidingUserId(8);
+    let allProductId = await db.bid_details.findAllProductInBid();
+    for (var i = 0; i < allProductId.length; i++) {
+        console.log('PRODUCT ID IN BID DETAILS   :  ' + allProductId[i].productId);
+        let higgestBidder = await db.bid_details.findTheHighestBidder2(allProductId[i].productId);
+        console.log('PRICEEEEEEEEEEEEEEEE        :  ' + higgestBidder[0].userId);
+        let allUserId = await db.bid_details.findAllUserInBid(allProductId[i].productId);
+        // XET XEM TRONG SAN PHAM DANG XET CO PHAI LA NGUOI TOP KHONG, NEU KHONG THI DUA VAO GIA CUA 
+        //BIDDER VUA MOI BID DE TANG GIA LEN SAO CHO VUA DU NHUNG DIEU KIEN LA <= giatoida
+        for (var j = 0; j < allUserId.length; j++) {
+            if (allUserId[j].userId === higgestBidder[0].userId) {
+                //NEU DA LA CAO NHAT THI KHONG CAN CAP NHAT 
+                console.log(allUserId[j].userId + 'BANGGGGGGGGGGGGGGGGGGGGGG' + higgestBidder[0].userId);
+            } else {
+                //NEU KHONG PHAI CAO NHAT THI DUA VAO GIA TOI DA VA GIA RA CUA THANG DAU GIA KHAC
+                //HE THONG TU RA GIA
+                console.log('NOOOOOOOOO');
+                let max_Price = await db.bid_details.findMaxPriceUserInBid(allProductId[i].productId, allUserId[j].userId);
+                console.log('MAX PRICE:    ' + max_Price[0].max_price);
+                if (higgestBidder[0].price < max_Price[0].max_price) {
+                    let newPrice = higgestBidder[0].price + 100000;
+                    console.log('THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' + newPrice);
+                    await db.bid_details.create({
+                        time: new Date(),
+                        price: newPrice,
+                        max_price: max_Price[0].max_price,
+                        productId: allProductId[i].productId,
+                        userId: allUserId[j].userId
+                    });
+                    await db.product.update({
+                        curr_price: newPrice
+                    }, {
+                        returning: false,
+                        where: { id: allProductId[i].productId }
+                    });
+
+                }
+            }
+            // console.log(allUserId[j].userId);
+        }
+    }
+    // console.log(userBiddingId);
+    // if (userBiddingId === 1) {
+    //     console.log('AUKE AUKE');
+    // } else {
+    //     console.log('NO!!!!!!!!!!!');
+    // }
+    // console.log('USERRRRRRRRRRRRRRRRRR:     ' + userBiddingId);
+    //res.redirect(`/`);
 };
 
 module.exports.watchlist = async(req, res, next) => {
