@@ -14,11 +14,13 @@ module.exports = function(sequelize, Sequelize) {
         price: {
             type: Sequelize.INTEGER,
             notEmpty: true
+        },
+        max_price: {
+            type: Sequelize.INTEGER,
         }
     });
     BidDetails.findAllHistory = function(id) {
         let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id order by price desc`;
-
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
@@ -43,6 +45,46 @@ module.exports = function(sequelize, Sequelize) {
         let sql = `SELECT *,bd.id as BDID FROM bid_details bd, users s, products p WHERE bd.userId=s.id AND  bd.productId = p.id`;
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
+        });
+    };
+    BidDetails.findAllProductInBid = function() {
+        let sql = `SELECT DISTINCT productId FROM bid_details`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+    BidDetails.findTheHighestBidder2 = function(id) {
+        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id ORDER BY b.price DESC LIMIT 1`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+    BidDetails.findAllUserInBid = function(id) {
+        let sql = `SELECT DISTINCT userId FROM bid_details WHERE productId = ${id}`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+    BidDetails.findMaxPriceUserInBid = function(id, userId) {
+        let sql = `SELECT * FROM bid_details WHERE productId = ${id} AND userId = ${userId}`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+
+    BidDetails.top1BidingUserId = function(proId) {
+        return BidDetails.findOne({
+            limit: 1,
+            order: [
+                [sequelize.col('price'), 'DESC']
+            ]
+        }).then(function(result) {
+            if (result) {
+                var userId = result.price;
+                return userId;
+            } else {
+                console.log('Could Not Find');
+            }
         });
     };
     return BidDetails;

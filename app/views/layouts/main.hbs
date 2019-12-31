@@ -127,15 +127,23 @@
 
 
     <script>
+
+        ///TEST
+        /*setInterval(function() {
+                    let current_date = new Date().getMinutes();
+                    if(current_date%2 == 0){
+                        $.post('/bidders/TEST');
+                    }
+                }, 9000);*/ 
+        //TEST
+
+        
         $('#buttonaddpoint').on('click', function (e) {
-            //alert('TAIYEULINH');
             $.post('/account/addpoint');
         });
         $('#buttonminuspoint').on('click', function (e) {
-            //alert('TAIYEULINH');
             $.post('/account/minuspoint');
         });
-
         $('#upgradebiddertosellerbutton').on('click', function (e) {
             $.post('/account/upgrade');
             alert("DA GUI YEU CAU XIN LEN SELLER !!!!");

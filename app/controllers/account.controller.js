@@ -11,7 +11,7 @@ module.exports.account = (req, res) => {
 					id: req.session.passport.user
 				}
 			})
-			.then(dbUser => {
+			.then(async dbUser => {
 				let user = [
 					{
 						userInfo: dbUser.dataValues,
@@ -19,8 +19,13 @@ module.exports.account = (req, res) => {
 						isloggedin: true
 					}
 				];
+				Cat = await model.category.categoriesAndChild();
+
+				PTNotParent = await model.product_type.findAllProductTypeNotParent();
 				res.render('web/account', {
-					user: user
+					user: user,
+					Cat: Cat,
+					PTNotParent: PTNotParent
 				});
 			});
 	} else {
@@ -43,7 +48,7 @@ module.exports.ValidateEdit = (req, res, next) => {
 					id: req.session.passport.user
 				}
 			})
-			.then(dbUser => {
+			.then(async dbUser => {
 				var messages = [];
 				errors.forEach(function(error) {
 					messages.push(error.msg);
@@ -55,10 +60,15 @@ module.exports.ValidateEdit = (req, res, next) => {
 						isloggedin: true
 					}
 				];
+				Cat = await model.category.categoriesAndChild();
+
+				PTNotParent = await model.product_type.findAllProductTypeNotParent();
 				res.render('web/account', {
 					messages: messages,
 					hasErrors: messages.length > 0,
-					user: user
+					user: user,
+					Cat: Cat,
+					PTNotParent: PTNotParent
 				});
 			});
 	} else {
@@ -87,7 +97,7 @@ module.exports.edit = (req, res) => {
 						id: req.session.passport.user
 					}
 				})
-				.then(dbUser => {
+				.then(async dbUser => {
 					let user = [
 						{
 							userInfo: dbUser.dataValues,
@@ -95,9 +105,14 @@ module.exports.edit = (req, res) => {
 							isloggedin: true
 						}
 					];
+					Cat = await model.category.categoriesAndChild();
+
+					PTNotParent = await model.product_type.findAllProductTypeNotParent();
 					res.render('web/account', {
 						editProfileSuccess: true,
-						user: user
+						user: user,
+						Cat: Cat,
+						PTNotParent: PTNotParent
 					});
 				});
 		} else {
@@ -107,7 +122,7 @@ module.exports.edit = (req, res) => {
 						id: req.session.passport.user
 					}
 				})
-				.then(dbUser => {
+				.then(async dbUser => {
 					let user = [
 						{
 							userInfo: dbUser.dataValues,
@@ -115,9 +130,14 @@ module.exports.edit = (req, res) => {
 							isloggedin: true
 						}
 					];
+					Cat = await model.category.categoriesAndChild();
+
+					PTNotParent = await model.product_type.findAllProductTypeNotParent();
 					res.render('web/account', {
 						editProfileFailed: true,
-						user: user
+						user: user,
+						Cat: Cat,
+						PTNotParent: PTNotParent
 					});
 				});
 		}
@@ -133,7 +153,7 @@ module.exports.ShowPageChangePassword = (req, res) => {
 				id: req.session.passport.user
 			}
 		})
-		.then(dbUser => {
+		.then(async dbUser => {
 			let user = [
 				{
 					userInfo: dbUser.dataValues,
@@ -141,10 +161,15 @@ module.exports.ShowPageChangePassword = (req, res) => {
 					isloggedin: true
 				}
 			];
+			Cat = await model.category.categoriesAndChild();
+
+			PTNotParent = await model.product_type.findAllProductTypeNotParent();
 			res.render('web/change-password', {
 				messages: messages,
 				hasErrors: messages.length > 0,
-				user: user
+				user: user,
+				Cat: Cat,
+				PTNotParent: PTNotParent
 			});
 		});
 };
@@ -174,7 +199,7 @@ module.exports.PostChangePassword = (req, res) => {
 					id: req.session.passport.user
 				}
 			})
-			.then(dbUser => {
+			.then(async dbUser => {
 				let user = [
 					{
 						userInfo: dbUser.dataValues,
@@ -182,10 +207,15 @@ module.exports.PostChangePassword = (req, res) => {
 						isloggedin: true
 					}
 				];
+				Cat = await model.category.categoriesAndChild();
+
+				PTNotParent = await model.product_type.findAllProductTypeNotParent();
 				res.render('web/change-password', {
 					messages: messages,
 					hasErrors: true,
-					user: user
+					user: user,
+					Cat: Cat,
+					PTNotParent: PTNotParent
 				});
 			});
 	} else {

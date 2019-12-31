@@ -35,7 +35,7 @@
                             <tr>
                                 <td class="thumb"><img src="/img/sp/{{id}}.jpg" alt=""></td>
                                 <td class="details" style="width:30%">
-                                    <a href="#">{{product_name}}</a>
+                                    <a href="/product/productdetail/{{id}}">{{product_name}}</a>
                                     <ul>
                                         <li><span>Giá khởi tạo: {{initial_price}}</span></li>
                                         <li><span>Giá mua ngay: {{imme_buy_price}}</span></li>
@@ -51,9 +51,6 @@
                                         aria-controls="collapseExample"><i class="fas fa-edit"></i>
                                         ĐÁNH GIÁ
                                     </button>
-
-
-
                                 </td>
 
                             </tr>
@@ -109,7 +106,6 @@
                                     </div>
                                 </td>
                             </tr>
-
                             {{/each}}
                         </tbody>
 
