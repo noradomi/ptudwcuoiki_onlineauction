@@ -90,6 +90,7 @@ module.exports.mybid = async (req, res, next) => {
 		});
 
 		Cat = await db.category.categoriesAndChild();
+		let PTNotParent = await db.product_type.findAllProductTypeNotParent();
 		req.user.isloggedin = true;
 		res.render('./web/bidder/mybidproduct', {
 			myProducts: WatchList,
@@ -97,7 +98,8 @@ module.exports.mybid = async (req, res, next) => {
 			isBidder: req.user.role === 0,
 			isSeller: req.user.role === 1,
 			TITLE: 'MY WINNING PRODUCT ',
-			Cat: Cat
+			Cat: Cat,
+			PTNotParent: PTNotParent
 		});
 	} else {
 		res.redirect('/');
@@ -112,6 +114,7 @@ module.exports.mywinpro = async (req, res, next) => {
 			p.sellerName = p.firstname + p.lastname;
 		});
 		Cat = await db.category.categoriesAndChild();
+		let PTNotParent = await db.product_type.findAllProductTypeNotParent();
 		req.user.isloggedin = true;
 		res.render('./web/bidder/mywinningproduct', {
 			myProducts: WatchList,
@@ -119,7 +122,8 @@ module.exports.mywinpro = async (req, res, next) => {
 			isBidder: req.user.role === 0,
 			isSeller: req.user.role === 1,
 			TITLE: 'MY WINNING PRODUCT ',
-			Cat: Cat
+			Cat: Cat,
+			PTNotParent: PTNotParent
 		});
 	} else {
 		res.redirect('/');
@@ -221,7 +225,7 @@ module.exports.feedbacks = async function(req, res, next) {
 		info.report_rate = 100 - info.rating;
 
 		Cat = await db.category.categoriesAndChild();
-
+		let PTNotParent = await db.product_type.findAllProductTypeNotParent();
 		req.user.isloggedin = true;
 		res.render('./web/bidder/myfeedback', {
 			feedbacks: feedbacks,
@@ -229,7 +233,8 @@ module.exports.feedbacks = async function(req, res, next) {
 			user: [req.user],
 			isBidder: req.user.role === 0,
 			isSeller: req.user.role === 1,
-			Cat: Cat
+			Cat: Cat,
+			PTNotParent: PTNotParent
 		});
 	} else {
 		res.redirect('/');

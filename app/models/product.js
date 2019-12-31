@@ -205,12 +205,19 @@ module.exports = function(sequelize, Sequelize) {
 
 	// Top 5 sản phẩm gần kết thúc
 	Product.top5NearlyExpiriedProducts = async function() {
-		let sql =
-			'SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname, (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID WHERE P.expriry_date > NOW() ORDER BY P.expriry_date ASC LIMIT 5	';
+		let now = new Date();
+		now.setTime(now.getTime() - now.getTimezoneOffset() * 60 * 1000);
+		nowDate = now
+			.toISOString()
+			.slice(0, 19)
+			.replace('T', ' ');
+		console.log(now);
+		let sql = `SELECT P.*,U.LASTNAME as lastname,U.FIRSTNAME as firstname, (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM PRODUCTS P LEFT JOIN USERS U ON P.WINNERID = U.ID WHERE P.expriry_date > '${nowDate}' ORDER BY P.expriry_date ASC LIMIT 5`;
 		let res = await sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});
 		res.forEach(async p => {
+			console.log(p.product_name);
 			if (p.winnerId == null) {
 				p.isWinned = false;
 			} else {
