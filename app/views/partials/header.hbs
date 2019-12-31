@@ -17,10 +17,10 @@
                 <!-- Search -->
                 <div class="header-search">
                     <form action="/product/search" method="get">
-                        <input class="input search-input" name="q" type="text" placeholder="Enter your keyword"
+                        <input class="input search-input" name="q" type="text" placeholder="TỪ KHOÁ TÌM KIẾM"
                             value={{query}}>
                         <select class="input search-categories" name="selcat">
-                            <option value="0">All Categories</option>
+                            <option value="0">Tất cả mục</option>
 
                             {{#each Cat}}
                             {{#if hasChildCates}}
@@ -51,7 +51,7 @@
                             <div class="header-btns-icon">
                                 <i class="fa fa-user-o"></i>
                             </div>
-                            <strong class="text-uppercase">Welcome, <i class="fa fa-caret-down"></i></strong>
+                            <strong class="text-uppercase">CHÀO MỪNG, <i class="fa fa-caret-down"></i></strong>
                             <div>
                                 <span>{{firstname}}</span>
                             </div>
@@ -59,13 +59,14 @@
                         </div>
 
                         <ul class="custom-menu">
-                            <li><a href="/account"><i class="fa fa-user-o"></i> My Account</a></li>
-                            <li><a href="/bidders/watchlist"><i class="fa fa-heart-o"></i> My Watchlist</a></li>
-                            <li><a href="/bidders/mybid"><i class="fas fa-gavel"></i> My Bids</a></li>
-                            <li><a href="/bidders/mywinningproduct"><i class="fa fa-trophy" aria-hidden="true"></i> My
-                                    Winning</a></li>
-                            <li><a href="/bidders/feedbacks"><i class="fa fa-unlock-alt"></i> My Feedbacks</a></li>
-                            <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                            <li><a href="/account"><i class="fa fa-user-o"></i> Tài Khoản Của Tôi</a></li>
+                            <li><a href="/bidders/watchlist"><i class="fa fa-heart-o"></i>Watchlist Của Tôi</a></li>
+                            <li><a href="/bidders/mybid"><i class="fas fa-gavel"></i> Danh sách Bids</a></li>
+                            <li><a href="/bidders/mywinningproduct"><i class="fa fa-trophy" aria-hidden="true"></i>Danh sách sp Thắng</a></li>
+                            <li><a href="/bidders/feedbacks"><i class="fas fa-comments">
+
+</i>Feedbacks của tôi</a></li>
+                            <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i>Đăng Xuất</a></li>
                         </ul>
                     </li>
 
