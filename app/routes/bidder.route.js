@@ -22,5 +22,4 @@ router.post('/rating/:winnerId', bidderController.rating);
 router.post('/addpoint', bidderController.addpoint);
 router.post('/minuspoint', bidderController.minuspoint);
 router.post('/TEST', bidderController.findBiddingUserId);
-
 module.exports = router;
