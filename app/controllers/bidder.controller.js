@@ -37,6 +37,8 @@ module.exports.bid = async (req, res, next) => {
 
 	var listbider = await BidDetails.GetAllBiderOfProduct(product.id);
 
+
+	
 	let transporter = nodemailer.createTransport({
 		service: 'gmail',
 		auth: {
@@ -88,7 +90,7 @@ module.exports.bid = async (req, res, next) => {
 
 	/*Mail system - Gui mail cho cac ben lien quan khi bid thanh cong */
 	
-	//Gui mail cho chinh nguoi bid
+	//Gui mail confirm bid
 
 	User.findOne({
         where:{
@@ -124,24 +126,24 @@ module.exports.bid = async (req, res, next) => {
 		html: `Your product: <b> ${product.product_name}</b> just have a new bid with price <b> ${bidPrice}. </b> Check out now ! `
 	  });
 	
-	//Gui mail cho cac bider khac
-	var arraybidermail = []; //All other bider
+	//Gui mail thong bao cho cac bider khac
 
 	listbider.forEach(l =>{
-		if(l !== user.email){
-			arraybidermail.push(l.email);
+		if(l.email != user.email){
+			console.log(l.email);
+			transporter.sendMail({
+				from: '"Online Auction" <onlineauction@gmail.com>',
+				to: `${l.email}`,
+				subject: "You have been outbid. Bid again now !",
+				text: `Your bid for ${product.product_name} has been outbid`,
+				html: `You are no longer the high bidder on the following item: <b> ${product.product_name}.</b> The new price is: <b> ${bidPrice}. </b> Bid again now ! `
+			  });
 		}
+		console.log(`send mail to ${l.email}`);
 	});
 
-	transporter.sendMail({
-		from: '"Online Auction" <onlineauction@gmail.com>',
-		to: `${listbider}`,
-		subject: "New bid for your product",
-		text: `New bid for ${arraybidermail.join(', ')} `,
-		html: `Your product: <b> ${product.product_name}</b> just have a new bid with price <b> ${bidPrice}. </b> Check out now ! `
-	  });
-
 	
+
 	
 };
 
