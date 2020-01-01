@@ -54,7 +54,7 @@ module.exports = function(sequelize, Sequelize) {
         });
     };
     BidDetails.findTheHighestBidder2 = function(id) {
-        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id ORDER BY b.price DESC LIMIT 1`;
+        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id ORDER BY b.price DESC `;
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
@@ -85,6 +85,20 @@ module.exports = function(sequelize, Sequelize) {
             } else {
                 console.log('Could Not Find');
             }
+        });
+    };
+
+    BidDetails.findProStepCost = function(id) {
+        let sql = `SELECT  step_cost FROM products WHERE id = ${id}`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+
+    BidDetails.findFirstBidOfUser = function(id) {
+        let sql = `SELECT * FROM bid_details WHERE userId = ${id} LIMIT 1`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
         });
     };
     return BidDetails;
