@@ -116,7 +116,6 @@ module.exports.bid = async (req, res, next) => {
 	
 	// Gui mail thong bao cho seller
 	var seller_email = seller.email;
-	console.log(seller_email);
 
 	transporter.sendMail({
 		from: '"Online Auction" <onlineauction@gmail.com>',
@@ -139,12 +138,8 @@ module.exports.bid = async (req, res, next) => {
 				html: `You are no longer the high bidder on the following item: <b> ${product.product_name}.</b> The new price is: <b> ${bidPrice}. </b> Bid again now ! `
 			  });
 		}
-		console.log(`send mail to ${l.email}`);
 	});
 
-	
-
-	
 };
 
 
