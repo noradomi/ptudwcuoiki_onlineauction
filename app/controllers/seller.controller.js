@@ -6,12 +6,16 @@ module.exports.postproduct = async (req, res) => {
 	if (auth.isSeller(req, res)) {
 		let ProT = await models.product_type.findAllProT();
 
+		Cat = await models.category.categoriesAndChild();
+		let PTNotParent = await models.product_type.findAllProductTypeNotParent();
 		req.user.isloggedin = true;
 		res.render('web/sellerproduct', {
 			user: [req.user],
 			isBidder: req.user.role === 0,
 			isSeller: req.user.role === 1,
-			ProT: ProT
+			ProT: ProT,
+			Cat: Cat,
+			PTNotParent: PTNotParent
 		});
 	} else {
 		res.redirect('/');
@@ -39,13 +43,17 @@ module.exports.myproduct = async function(req, res) {
 			req.session.updateSuccess = false;
 		}
 
+		Cat = await models.category.categoriesAndChild();
+		let PTNotParent = await models.product_type.findAllProductTypeNotParent();
 		req.user.isloggedin = true;
 		res.render('web/seller/checkout', {
 			user: [req.user],
 			isBidder: req.user.role === 0,
 			isSeller: req.user.role === 1,
 			updateSuccess: req.session.updateSuccess,
-			myProducts: myPros
+			myProducts: myPros,
+			PTNotParent: PTNotParent,
+			Cat: Cat
 		});
 	} else {
 		res.redirect('/');
@@ -67,13 +75,17 @@ module.exports.mydoneproduct = async function(req, res) {
 			req.session.updateSuccess = false;
 		}
 
+		Cat = await models.category.categoriesAndChild();
+		let PTNotParent = await models.product_type.findAllProductTypeNotParent();
 		req.user.isloggedin = true;
 		res.render('web/seller/mydoneproduct', {
 			user: [req.user],
 			isBidder: req.user.role === 0,
 			isSeller: req.user.role === 1,
 			updateSuccess: req.session.updateSuccess,
-			myProducts: myPros
+			myProducts: myPros,
+			PTNotParent: PTNotParent,
+			Cat: Cat
 		});
 	} else {
 		res.redirect('/');

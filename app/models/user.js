@@ -165,5 +165,50 @@ module.exports = function(sequelize, Sequelize) {
             }
         });
     }
+
+    User.findSeller = () =>{
+        return User.findAll({
+            where: {
+                role: 1
+            }
+        });
+    }
+
+    User.findBidder = () =>{
+        return User.findAll({
+            where: {
+                role: 0
+            }
+        });
+    }
+
+    User.addUser = async user => {
+		let sql = `INSERT INTO users(firstname, lastname, username, email, address, password, role, createdAt, updatedAt) VALUES ("${user.firstname}", "${user.lastname}", "${user.username}", "${user.email}", "${user.address}", "${user.password}", "${user.role}", now(), now())`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.INSERT
+		});
+	};
+
+    User.findById = async (id) => {
+        let sql = `SELECT * FROM users WHERE id = ${id}`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.SELECT
+		});
+    };
+
+    User.updateUser = async (id, user) => {
+        let sql = `UPDATE users SET lastname = '${user.lastname}', firstname = '${user.firstname}', username = '${user.username}', email = '${user.email}', address = '${user.address}', password = '${user.password}', role = '${user.role}', updatedAt = now() WHERE id = '${id}';`;
+		return sequelize.query(sql, {
+			type: sequelize.QueryTypes.UPDATE
+		});
+    };
+
+    User.delete = async id => {
+		let sql = `DELETE FROM users WHERE id = '${id}'`;
+		await sequelize.query(sql, {
+			type: sequelize.QueryTypes.DELETE
+		});
+	};
+
     return User;
-};
+}; 

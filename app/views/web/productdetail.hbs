@@ -187,7 +187,23 @@
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
 								</div>
-
+								<button class="main-btn icon-btn" style="width: auto; padding:0 10px" type="button"
+									data-toggle="collapse" data-target="#{{id}}" aria-expanded="false"
+									aria-controls="collapseExample">
+									ĐẤU GIÁ TỰ ĐỘNG
+								</button>
+								{{!-- -- DATA ĐẤU GIÁ TỰ ĐỘNG ---- --}}
+								<tr>
+									<td colspan="6" class="hiddenRow product-tab">
+										<div class="accordian-body collapse" id="{{id}}">
+											<div class="col-md-7 pull-right" style="margin:20px 0">
+												<h4>MỜI NHẬP GIÁ TỐI ĐA</h4>
+												<input type="number" id="giatoida">
+											</div>
+										</div>
+									</td>
+								</tr>
+								{{!-- -- DATA ĐẤU GIÁ TỰ ĐỘNG ---- --}}
 							</div>
 						</div>
 						{{/if}}
@@ -638,7 +654,7 @@
 	<div class="container">
 		<!-- row -->
 		<div class="section-title">
-			<h2 class="title">RELATED PRODUCTS</h2>
+			<h2 class="title">Sản phẩm liên quan</h2>
 			<div class="pull-right">
 				<div class="product-slick-dots-1 custom-dots"></div>
 			</div>
@@ -650,30 +666,31 @@
 				<div class="product product-single">
 					<div class="product-thumb">
 						<div class="product-label">
-							<span id="time{{id}}" start_date={{start_date}}>
+
+							<span id="time{{id}}NEARLYENDED" start_date="{{start_date}}">
 								<script>
-									transferDateFormat(`{{start_date}}`, `time{{id}}`);
+									transferDateFormat(`{{start_date}}`, `time{{id}}NEARLYENDED`);
 								</script>
 							</span>
 							<span class="sale text-center">New</span>
 						</div>
-						<ul class="product-countdown" id={{id}} expriry_date={{expriry_date}}>
+						<ul class="product-countdown" id="{{id}}NEARLYENDED" expriry_date="{{expriry_date}}">
 							<script>
-								console.log(`{{expriry_date}} `);
-								countDownTimer(`{{expriry_date}}`, {{ id }});
+
+								countDownTimer(`{{ expriry_date }}`, `{{ id }}NEARLYENDED`);
 							</script>
 						</ul>
 
-						<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
+						<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Chi tiết</a>
 						<img src="/img/sp/{{id}}.jpg" alt="" width="263" height="263">
 					</div>
 					<div class="product-body">
 
 						<p class="align-self-end ">
-							Current Price:
+							Giá hiện tại:
 						</p>
 
-						<h3 class="product-price">${{initial_price}}</h3>
+						<h3 class="product-price">{{curr_price}} K</h3>
 						<div class="product-rating">
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
@@ -684,19 +701,25 @@
 						<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 						<div class="">
 							<p>
-								<i class="fas fa-trophy grey-text pr-2"></i> Trinh Tan Tai |
-								<i class="fas fa-users fa-lg text-info pr-2"> </i> 33 bidders
+								<i class="fas fa-gavel text-info"></i> </i>
+								{{countBidders}} lượt
+								<span>&nbsp;&nbsp;</span>
+								{{#if isWinned}}
+								<i class="fas fa-trophy " style="margin-left: 10px; color:grey;"></i>
+								{{winnerName}}
+
+								{{/if}}
 							</p>
-							<p>Buy now: <strong>${{imme_buy_price}}</strong></p>
+							<p>Mua ngay: <strong>{{imme_buy_price}} K</strong></p>
 						</div>
 						<div class="product-btns">
+
 							<i class="fa fa-heart main-btn icon-btn" onclick="actOnPro(event);" data-pro-id="{{id}}"
 								data-islike="false">
 							</i>
 
 							<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>&nbsp
-								Bid
-								now</button>
+								Ra giá</button>
 						</div>
 					</div>
 				</div>

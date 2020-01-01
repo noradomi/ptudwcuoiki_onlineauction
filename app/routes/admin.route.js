@@ -29,7 +29,15 @@ router.post("/category/addPT", admincontroller.addProductType);
 router.get("/category/updatePT", isLoggedIn, admincontroller.fillUpdateProductType);
 router.post("/category/updatePT", admincontroller.updateProductType);
 router.get("/category/deletePT", isLoggedIn, admincontroller.deleteProductType);
-router.get("/bidder", isLoggedIn, admincontroller.findAllBidder);
+// router.get("/bidder", isLoggedIn, admincontroller.findAllBidder);
 router.get("/userupgrade", isLoggedIn, admincontroller.findAllUserUpgrade);
 router.get("/userupgrade/upgrade", admincontroller.upbiddertoseller);
+router.get("/seller", isLoggedIn, admincontroller.seller);
+router.get("/bidder", isLoggedIn, admincontroller.bidder);
+router.get("/user/add", isLoggedIn, admincontroller.fillUser);
+router.post("/user/add", admincontroller.addUser);
+router.get("/user/update", isLoggedIn, admincontroller.fillUpdateUser);
+router.post("/user/update", admincontroller.updateUser);
+router.get("/user/delete", isLoggedIn, admincontroller.deleteUser);
+
 module.exports = router;

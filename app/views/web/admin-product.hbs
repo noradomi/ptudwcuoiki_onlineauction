@@ -6,13 +6,13 @@
             <table class="table table-data2">
                 <thead>
                     <tr>
-                        <th>Product ID</th>
-                        <th>Product name</th>
-                        <th>Starting price</th>
-                        <th>Immediate purchase price</th>
-                        <th>Step</th>
-                        <th>Time</th>
-                        <th>Status</th>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá khởi điểm</th>
+                        <th>Giá mua ngay</th>
+                        <th>Bước giá</th>
+                        <th>Thời gian đáu giá</th>
+                        {{!-- <th>Status</th> --}}
 
                         <th></th>
                     </tr>
@@ -27,12 +27,12 @@
                         <td>{{imme_buy_price}}</td>
                         <td>{{step_cost}}</td>
                         <td>{{start_date}} - {{expriry_date}}</td>
-                        <td>{{status}}</td>
+                        {{!-- <td>{{status}}</td> --}}
                         <td>
                             <div class="table-data-feature">
-                                <a class="item" data-toggle="tooltip" data-placement="top" title="Delete"
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Xóa"
                                     href="/admin/product/delete?id={{id}}"
-                                    onclick="return confirm('Do you want to delete product {{id}} - {{product_name}}?')">
+                                    onclick="return confirm('Bạn chắc chắn muốn xóa sản phẩm: {{id}} - {{product_name}}?')">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>

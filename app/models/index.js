@@ -43,7 +43,7 @@ db.product.belongsTo(db.user, { as: 'Winner', foreignKey: 'winnerId' });
 db.category.hasMany(db.product_type, { as: 'ProductTypes' });
 
 // ProductType
-db.product_type.belongsTo(db.category);
+db.product_type.belongsTo(db.category, { as: 'Category' });
 db.product_type.hasMany(db.product);
 
 // User

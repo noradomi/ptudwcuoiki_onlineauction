@@ -2,10 +2,14 @@ const models = require('../models');
 
 module.exports = async (req, res) => {
 	Pro2 = await models.product.top5NearlyExpiriedProducts();
+
 	Pro4 = await models.product.top5BiddedProducts();
+
 	Pro6 = await models.product.top5PricingProducts();
 
 	Cat = await models.category.categoriesAndChild();
+
+	PTNotParent = await models.product_type.findAllProductTypeNotParent();
 
 	if (req.isAuthenticated()) {
 		req.user.isloggedin = true;
@@ -16,7 +20,8 @@ module.exports = async (req, res) => {
 			Pro2: Pro2,
 			Pro4: Pro4,
 			Pro6: Pro6,
-			Cat: Cat
+			Cat: Cat,
+			PTNotParent: PTNotParent
 		});
 	} else {
 		let user = [
@@ -29,7 +34,8 @@ module.exports = async (req, res) => {
 			Pro2: Pro2,
 			Pro4: Pro4,
 			Pro6: Pro6,
-			Cat: Cat
+			Cat: Cat,
+			PTNotParent: PTNotParent
 		});
 	}
 };

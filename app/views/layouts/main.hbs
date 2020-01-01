@@ -127,15 +127,22 @@
 
 
     <script>
+
+        ///30 s he thong se tu bid 1 lan 
+        setInterval(function() {
+                        $.post('/bidders/TEST');
+                }, 30000);
+        //TEST
+        setInterval(function() {
+                  window.location.reload();
+                }, 100000);
+        
         $('#buttonaddpoint').on('click', function (e) {
-            //alert('TAIYEULINH');
             $.post('/account/addpoint');
         });
         $('#buttonminuspoint').on('click', function (e) {
-            //alert('TAIYEULINH');
             $.post('/account/minuspoint');
         });
-
         $('#upgradebiddertosellerbutton').on('click', function (e) {
             $.post('/account/upgrade');
             alert("DA GUI YEU CAU XIN LEN SELLER !!!!");

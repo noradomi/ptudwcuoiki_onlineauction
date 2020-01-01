@@ -24,7 +24,7 @@ module.exports.search = async (req, res) => {
 	});
 
 	let Cats = await db.category.categoriesAndChild();
-
+	let PTNotParent = await db.product_type.findAllProductTypeNotParent();
 	if (req.isAuthenticated()) {
 		req.user.isloggedin = true;
 		res.render('web/searproduct', {
@@ -34,7 +34,8 @@ module.exports.search = async (req, res) => {
 			pros: results,
 			query: query,
 			countPros: results.length,
-			Cat: Cats
+			Cat: Cats,
+			PTNotParent: PTNotParent
 		});
 	} else {
 		let user = [
@@ -47,7 +48,8 @@ module.exports.search = async (req, res) => {
 			pros: results,
 			query: query,
 			countPros: results.length,
-			Cat: Cats
+			Cat: Cats,
+			PTNotParent: PTNotParent
 		});
 	}
 };
@@ -77,6 +79,7 @@ module.exports.productdetail = async (req, res, next) => {
 
 		let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
 
+<<<<<<< HEAD
 		 if (HiggestBidder[0] !== undefined) {
 		 	HiggestBidder[0].rating =
 		 		(HiggestBidder[0].like_count /
@@ -87,6 +90,19 @@ module.exports.productdetail = async (req, res, next) => {
 		//	(HiggestBidder[0].like_count /
 		//		(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
 		//	100;
+=======
+		if (HiggestBidder[0] !== undefined) {
+			HiggestBidder[0].rating =
+				(HiggestBidder[0].like_count /
+					(HiggestBidder[0].like_count +
+						HiggestBidder[0].report_count)) *
+				100;
+		}
+		// HiggestBidder[0].rating =
+		// 	(HiggestBidder[0].like_count /
+		// 		(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
+		// 	100;
+>>>>>>> ce49c8588c4beef86d5156f25ddde9c7c0e31944
 
 		let Pro = await db.product.findByPk(id);
 		Pro.isExprired = db.product.isExprired(Pro.expriry_date);
@@ -102,7 +118,7 @@ module.exports.productdetail = async (req, res, next) => {
 			isOwner = await db.product.isSellerOfProduct(id, req.user.id);
 
 			Cat = await db.category.categoriesAndChild();
-
+			let PTNotParent = await db.product_type.findAllProductTypeNotParent();
 			res.render('./web/productdetail', {
 				user: [req.user],
 				isBidder: req.user.role === 0,
@@ -113,7 +129,8 @@ module.exports.productdetail = async (req, res, next) => {
 				HistoryBid: HistoryBid,
 				HiggestBidder: HiggestBidder,
 				Seller: Seller,
-				Cat: Cat
+				Cat: Cat,
+				PTNotParent: PTNotParent
 			});
 		} else {
 			res.render('./web/productdetail', {
@@ -126,7 +143,8 @@ module.exports.productdetail = async (req, res, next) => {
 				HistoryBid: HistoryBid,
 				HiggestBidder: HiggestBidder,
 				Seller: Seller,
-				Cat: Cat
+				Cat: Cat,
+				PTNotParent: PTNotParent
 			});
 		}
 	} catch (error) {

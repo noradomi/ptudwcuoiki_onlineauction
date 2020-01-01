@@ -5,7 +5,7 @@
         <div id="responsive-nav">
             <!-- category nav -->
             <div class="category-nav show-on-click">
-                <span class="category-header">Thể loại <i class="fa fa-list"></i></span>
+                <span class="category-header">Danh Sách <i class="fa fa-list"></i></span>
                 <ul class="category-list">
                     {{#each Cat}}
                     {{#if hasChildCates}}
@@ -25,6 +25,9 @@
                     {{/if}}
 
                     {{/each}}
+                    {{#each PTNotParent}}
+                    <li><a href="/product/search?q=&selcat={{id}}">{{protype_name}}</a></li>
+                    {{/each}}
 
 
                 </ul>
@@ -35,9 +38,9 @@
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">TRANG CHỦ</a></li>
+                    <li><a href="#">VỀ TÔI</a></li>
+                    <li><a href="#">LIÊN HỆ</a></li>
                     {{#if isSeller}}
                     <li><a href="/seller/post">Đăng sản phẩm</a></li>
                     {{!-- <li><a href="/seller/myproduct">Sản phẩm của tôi</a></li> --}}

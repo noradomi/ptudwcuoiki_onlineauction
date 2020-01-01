@@ -17,32 +17,33 @@
 			<div id="home-slick">
 				<!-- banner -->
 				<div class="banner banner-1">
-					<img src="./img/banner01.jpg" alt="">
+					<img src="https://laptophot.vn/wp-content/uploads/2019/07/banner.jpg" alt="" height="490">
 					<div class="banner-caption text-center">
-						<h1>Bags sale</h1>
-						<h3 class="white-color font-weak">Up to 50% Discount</h3>
-						<button class="primary-btn">Shop Now</button>
+						<h1 class="white-color">Thiết bị điện tử</h1>
+						<h3 class="white-color font-weak"></h3>
+						<button class="primary-btn">Khám phá ngay</button>
 					</div>
 				</div>
 				<!-- /banner -->
 
 				<!-- banner -->
 				<div class="banner banner-1">
-					<img src="./img/banner02.jpg" alt="">
+					<img src="/img/banner02.jpg" alt="">
 					<div class="banner-caption">
-						<h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span>
+						<h1 class="primary-color">Và<br><span class="white-color font-weak">nhiều cái khác</span>
 						</h1>
-						<button class="primary-btn">Shop Now</button>
+						<button class="primary-btn">Mua ngay</button>
 					</div>
 				</div>
 				<!-- /banner -->
 
 				<!-- banner -->
 				<div class="banner banner-1">
-					<img src="./img/banner03.jpg" alt="">
+					<img src="https://didongviet.vn/blog/wp-content/uploads/2018/08/man-hinh-galaxy-s8-didongviet.jpg"
+						alt="" height="490">
 					<div class="banner-caption">
-						<h1 class="white-color">New Product <span>Collection</span></h1>
-						<button class="primary-btn">Shop Now</button>
+						<h1 class="white-color">Thiết bị <span>thông minh</span></h1>
+						<button class="primary-btn">Bid ngay</button>
 					</div>
 				</div>
 				<!-- /banner -->
@@ -64,9 +65,10 @@
 			<!-- banner -->
 			<div class="col-md-4 col-sm-6">
 				<a class="banner banner-1" href="#">
-					<img src="./img/banner10.jpg" alt="">
+					<img src="https://ibid.modeltheme.com/shop-only/wp-content/uploads/2018/09/masonry-banner111-1024x466.jpg"
+						alt="" height="229.56">
 					<div class="banner-caption text-center">
-						<h2 class="white-color">NEW COLLECTION</h2>
+						<h1 class="white-color">BID</h1>
 					</div>
 				</a>
 			</div>
@@ -75,9 +77,12 @@
 			<!-- banner -->
 			<div class="col-md-4 col-sm-6">
 				<a class="banner banner-1" href="#">
-					<img src="./img/banner11.jpg" alt="">
+					<img src="https://ibid.modeltheme.com/shop-only/wp-content/uploads/2018/09/masonry-banner444-1-1024x466.jpg"
+						alt="" height="229.56">
+					{{!-- <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span>
+					</h1> --}}
 					<div class="banner-caption text-center">
-						<h2 class="white-color">NEW COLLECTION</h2>
+						<h1 class="white-color">BUY</h1>
 					</div>
 				</a>
 			</div>
@@ -86,9 +91,10 @@
 			<!-- banner -->
 			<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
 				<a class="banner banner-1" href="#">
-					<img src="./img/banner12.jpg" alt="">
+					<img src="https://ibid.modeltheme.com/shop-only/wp-content/uploads/2018/09/masonry-banner222-1-1024x653.jpg"
+						alt="">
 					<div class="banner-caption text-center">
-						<h2 class="white-color">NEW COLLECTION</h2>
+						<h1 class="white-color">FUN</h1>
 					</div>
 				</a>
 			</div>
@@ -110,7 +116,7 @@
 			<!-- section-title -->
 			<div class="col-md-12">
 				<div class="section-title">
-					<h2 class="title">NEARLY ENDED</h2>
+					<h2 class="title">Sắp kết thúc</h2>
 					<div class="pull-right">
 						<div class="product-slick-dots-1 custom-dots"></div>
 					</div>
@@ -142,13 +148,13 @@
 									</script>
 								</ul>
 
-								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
+								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Chi tiết</a>
 								<img src="/img/sp/{{id}}.jpg" alt="" width="263" height="263">
 							</div>
 							<div class="product-body">
 
 								<p class="align-self-end ">
-									Current Price:
+									Giá hiện tại:
 								</p>
 
 								<h3 class="product-price">{{curr_price}} K</h3>
@@ -162,16 +168,16 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}} bidders
+										<i class="fas fa-gavel text-info"></i> </i>
+										{{countBidders}} lượt
+										<span>&nbsp;&nbsp;</span>
 										{{#if isWinned}}
-										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
+										<i class="fas fa-trophy " style="margin-left: 10px; color:grey;"></i>
 										{{winnerName}}
 
 										{{/if}}
-
-
 									</p>
-									<p>Buy now: <strong>{{imme_buy_price}} K</strong></p>
+									<p>Mua ngay: <strong>{{imme_buy_price}} K</strong></p>
 								</div>
 								<div class="product-btns">
 
@@ -180,8 +186,7 @@
 									</i>
 
 									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>&nbsp
-										Bid
-										now</button>
+										Ra giá</button>
 								</div>
 							</div>
 						</div>
@@ -202,7 +207,7 @@
 			<!-- section-title -->
 			<div class="col-md-12">
 				<div class="section-title">
-					<h2 class="title">TOP BIDDED</h2>
+					<h2 class="title">Được đấu giá nhiều nhất</h2>
 					<div class="pull-right">
 						<div class="product-slick-dots-2 custom-dots"></div>
 					</div>
@@ -239,7 +244,7 @@
 							<div class="product-body">
 
 								<p class="align-self-end ">
-									Current Price:
+									Giá hiện tại:
 								</p>
 
 								<h3 class="product-price">{{curr_price}} K</h3>
@@ -253,17 +258,16 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}}
-										bidders
+										<i class="fas fa-gavel text-info"></i> </i>
+										{{countBidders}} lượt
+										<span>&nbsp;&nbsp;</span>
 										{{#if isWinned}}
-										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
+										<i class="fas fa-trophy " style="margin-left: 10px; color:grey;"></i>
 										{{winnerName}}
 
 										{{/if}}
-
-
 									</p>
-									<p>Buy now: <strong>{{imme_buy_price}} K</strong></p>
+									<p>Mua ngay: <strong>{{imme_buy_price}} K</strong></p>
 								</div>
 								<div class="product-btns">
 
@@ -272,8 +276,7 @@
 									</i>
 
 									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>&nbsp
-										Bid
-										now</button>
+										Ra giá</button>
 								</div>
 							</div>
 						</div>
@@ -292,7 +295,7 @@
 			<!-- section-title -->
 			<div class="col-md-12">
 				<div class="section-title">
-					<h2 class="title">HIGHEST PRICE</h2>
+					<h2 class="title">Giá cao nhất</h2>
 					<div class="pull-right">
 						<div class="product-slick-dots-3 custom-dots"></div>
 					</div>
@@ -323,13 +326,13 @@
 									</script>
 								</ul>
 
-								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Detail</a>
+								<a href="/product/productdetail/{{id}}" class=" main-btn quick-view">Chi tiết</a>
 								<img src="/img/sp/{{id}}.jpg" alt="" width="263" height="263">
 							</div>
 							<div class="product-body">
 
 								<p class="align-self-end ">
-									Current Price:
+									Giá hiện tại :
 								</p>
 
 								<h3 class="product-price">{{curr_price}} K</h3>
@@ -343,17 +346,16 @@
 								<h2 class="product-name"><a href="#">{{product_name}}</a></h2>
 								<div class="">
 									<p>
-										<i class="fas fa-users fa-lg text-info"> </i> {{countBidders}}
-										bidders
+										<i class="fas fa-gavel text-info"></i> </i>
+										{{countBidders}} lượt
+										<span>&nbsp;&nbsp;</span>
 										{{#if isWinned}}
-										<i class="fas fa-trophy " style="margin-left: 10px; color:#29d159;"></i>
+										<i class="fas fa-trophy " style="margin-left: 10px; color:grey;"></i>
 										{{winnerName}}
 
 										{{/if}}
-
-
 									</p>
-									<p>Buy now: <strong>{{imme_buy_price}} K</strong></p>
+									<p>Mua ngay: <strong>{{imme_buy_price}} K</strong></p>
 								</div>
 								<div class="product-btns">
 
@@ -361,9 +363,8 @@
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
 
-									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>&nbsp
-										Bid
-										now</button>
+									<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>&nbsp Ra
+										giá</button>
 								</div>
 							</div>
 						</div>
