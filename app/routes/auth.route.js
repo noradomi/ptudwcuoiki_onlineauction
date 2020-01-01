@@ -12,8 +12,6 @@ function isLoggedIn(req, res, next) {
 }
 
 router.get('/login', authController.login);
-
-<<<<<<< HEAD
 router.get('/reset-password',(req,res)=>{
 	res.render('../views/web/reset-password',{
 		layout:false,
@@ -38,7 +36,9 @@ router.post(
 		} else {
 			res.redirect('/');
 		}
-=======
+	}
+);
+
 router.post('/login', authController.validateLogin, authController.postLogin);
 
 router.get('/route', (req, res) => {
@@ -46,7 +46,6 @@ router.get('/route', (req, res) => {
 		res.redirect('/admin');
 	} else {
 		res.redirect('/');
->>>>>>> c27651e7eab27e8724943bf48f203a806890b032
 	}
 });
 
@@ -57,7 +56,8 @@ router.get('/route', (req, res) => {
 		res.redirect('/admin');
 	} else {
 		res.redirect('/');
-
+	}
+});
 
 router.get('/register', authController.register);
 

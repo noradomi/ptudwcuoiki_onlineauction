@@ -45,5 +45,13 @@ module.exports = function(sequelize, Sequelize) {
             type: sequelize.QueryTypes.SELECT
         });
     };
+
+    BidDetails.GetAllBiderOfProduct = function(proId){
+        let sql = `Select distinct u.email from bid_details b, users u where b.userId = u.id and b.productId = ${proId} `;
+        return sequelize.query(sql,{
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+
     return BidDetails;
 };

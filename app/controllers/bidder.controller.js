@@ -1,5 +1,10 @@
 const db = require('../models');
 const auth = require('../middleware/auth.middleware');
+const nodemailer = require('nodemailer');
+
+var User = db.user;
+var Product = db.product;
+var BidDetails = db.bid_details;
 
 module.exports.actWatchList = async (req, res, next) => {
 	// Kiểm tra có phải là bidder không
@@ -18,12 +23,31 @@ module.exports.actWatchList = async (req, res, next) => {
 	}
 };
 
-module.exports.bid = (req, res, next) => {
+module.exports.bid = async (req, res, next) => {
+
 	const userId = req.user.id;
 
 	const proId = req.params.proid;
 
 	const bidPrice = req.body.bidPrice;
+	
+	let user = await User.findByPk(userId);
+	let product = await Product.findByPk(proId);
+	let seller = await User.findByPk(product.sellerId);
+
+	var listbider = await BidDetails.GetAllBiderOfProduct(product.id);
+
+	let transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: 'onlineauction.hcmus@gmail.com',
+			pass: '12345678a@'
+		},
+		tls: {
+			// do not fail on invalid certs
+			rejectUnauthorized: false
+		}
+	});
 
 	// Lưu thông tin đấu giá vào bảng bid_details
 	db.bid_details.create({
@@ -61,7 +85,66 @@ module.exports.bid = (req, res, next) => {
 	// db.watchlist.actWatchList(userId, proId);
 	console.log('ĐÃ LƯU : Bid cho product ' + proId + ' boi bidder ' + userId);
 	res.redirect(`/product/productdetail/7`);
+
+	/*Mail system - Gui mail cho cac ben lien quan khi bid thanh cong */
+	
+	//Gui mail cho chinh nguoi bid
+
+	User.findOne({
+        where:{
+            id: req.user.id,
+        } 
+    }).then(function(user){
+        if(user)
+        {
+			var bider_email = user.email;
+			transporter.sendMail({
+				from: '"Online Auction" <onlineauction@gmail.com>',
+				to: `${bider_email}`,
+				subject: "Bid confirmation",
+				text: `You are now in the race for ${product.product_name} `,
+				html: `You have bid product <b> ${product.product_name}</b> with price <b> ${bidPrice} </b> successfully! `
+			  });
+        }
+        else
+        {
+            console.log('Bider.controller >>>>>>>>>>> Gui mail cho nguoi dau gia that bai');
+        }
+    });
+	
+	// Gui mail thong bao cho seller
+	var seller_email = seller.email;
+	console.log(seller_email);
+
+	transporter.sendMail({
+		from: '"Online Auction" <onlineauction@gmail.com>',
+		to: `${seller_email}`,
+		subject: "New bid for your product",
+		text: `New bid for ${product.product_name} `,
+		html: `Your product: <b> ${product.product_name}</b> just have a new bid with price <b> ${bidPrice}. </b> Check out now ! `
+	  });
+	
+	//Gui mail cho cac bider khac
+	var arraybidermail = []; //All other bider
+
+	listbider.forEach(l =>{
+		if(l !== user.email){
+			arraybidermail.push(l.email);
+		}
+	});
+
+	transporter.sendMail({
+		from: '"Online Auction" <onlineauction@gmail.com>',
+		to: `${listbider}`,
+		subject: "New bid for your product",
+		text: `New bid for ${arraybidermail.join(', ')} `,
+		html: `Your product: <b> ${product.product_name}</b> just have a new bid with price <b> ${bidPrice}. </b> Check out now ! `
+	  });
+
+	
+	
 };
+
 
 module.exports.watchlist = async (req, res, next) => {
 	// var user = {
