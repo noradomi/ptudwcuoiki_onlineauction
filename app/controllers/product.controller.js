@@ -79,18 +79,6 @@ module.exports.productdetail = async (req, res, next) => {
 
 		let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
 
-<<<<<<< HEAD
-		 if (HiggestBidder[0] !== undefined) {
-		 	HiggestBidder[0].rating =
-		 		(HiggestBidder[0].like_count /
-		 			(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
-		 		100;
-		 }
-		//HiggestBidder[0].rating =
-		//	(HiggestBidder[0].like_count /
-		//		(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
-		//	100;
-=======
 		if (HiggestBidder[0] !== undefined) {
 			HiggestBidder[0].rating =
 				(HiggestBidder[0].like_count /
@@ -102,7 +90,6 @@ module.exports.productdetail = async (req, res, next) => {
 		// 	(HiggestBidder[0].like_count /
 		// 		(HiggestBidder[0].like_count + HiggestBidder[0].report_count)) *
 		// 	100;
->>>>>>> ce49c8588c4beef86d5156f25ddde9c7c0e31944
 
 		let Pro = await db.product.findByPk(id);
 		Pro.isExprired = db.product.isExprired(Pro.expriry_date);
