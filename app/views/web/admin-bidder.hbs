@@ -16,7 +16,7 @@
 
                         <th>
                             <div class="table-data-feature">
-                                <a class="item" data-toggle="tooltip" data-placement="top" title="Thêm" href="#">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Thêm" href="/admin/user/add">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </div>
@@ -37,10 +37,10 @@
                         <td>{{status}}</td>
                         <td>
                             <div class="table-data-feature">
-                                <a class="item" data-toggle="tooltip" data-placement="top" title="Cập nhật" href="#">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Cập nhật" href="/admin/user/update?id={{id}}">
                                     <i class="fas fa-pen-square"></i>
                                 </a>
-                                <a class="item" data-toggle="tooltip" data-placement="top" title="Xóa" href="#"
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Xóa" href="/admin/user/delete?id={{id}}"
                                     onclick="return confirm('Bạn chắc chắn muốn xóa tài khoản: {{id}} - {{username}}?')">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>

@@ -1,6 +1,6 @@
 const models = require("../models");
 
-module.exports.category = async function(req, res) {
+module.exports.category = async function (req, res) {
     if (req.user.role === 2) {
         let Cats = await models.category.categoriesAndChild();
         let PTs = await models.product_type.findAllProT();
@@ -16,7 +16,7 @@ module.exports.category = async function(req, res) {
     }
 };
 
-module.exports.product = async(req, res) => {
+module.exports.product = async (req, res) => {
     if (req.user.role === 2) {
         let Products = await models.product.findAllPro();
         res.render("web/admin-product", {
@@ -30,7 +30,7 @@ module.exports.product = async(req, res) => {
     }
 };
 
-module.exports.deleteProduct = async(req, res, next) => {
+module.exports.deleteProduct = async (req, res, next) => {
     await models.product.delete(req.query.id);
     res.redirect("/admin/product/");
 };
@@ -49,7 +49,7 @@ module.exports.fillCategory = (req, res) => {
     }
 };
 
-module.exports.addCategory = async(req, res, next) => {
+module.exports.addCategory = async (req, res, next) => {
     await models.category.addCat(req.body.cat_name);
     res.redirect("/admin/category/");
 };
@@ -68,12 +68,12 @@ module.exports.fillUpdateCategory = async (req, res) => {
     }
 };
 
-module.exports.updateCategory = async(req, res, next) => {
+module.exports.updateCategory = async (req, res, next) => {
     await models.category.updateCat(req.query.id, req.body.cat_name);
     res.redirect("/admin/category/");
 };
 
-module.exports.deleteCategory = async(req, res, next) => {
+module.exports.deleteCategory = async (req, res, next) => {
     await models.category.delete(req.query.id);
     res.redirect("/admin/category/");
 };
@@ -94,7 +94,7 @@ module.exports.fillProductType = async (req, res) => {
     }
 };
 
-module.exports.addProductType = async(req, res, next) => {
+module.exports.addProductType = async (req, res, next) => {
     await models.product_type.add(req.body.pt_name, req.body.cat_id);
     res.redirect("/admin/category/");
 };
@@ -116,18 +116,18 @@ module.exports.fillUpdateProductType = async (req, res) => {
     }
 };
 
-module.exports.updateProductType = async(req, res, next) => {
+module.exports.updateProductType = async (req, res, next) => {
     await models.product_type.update(req.query.id, req.body.pt_name, req.body.cat_id);
     res.redirect("/admin/category/");
 };
 
-module.exports.deleteProductType = async(req, res, next) => {
+module.exports.deleteProductType = async (req, res, next) => {
 
     await models.product_type.delete(req.query.id);
     res.redirect("/admin/category/");
 };
 
-module.exports.findAllBidder = async(req, res, next) => {
+module.exports.findAllBidder = async (req, res, next) => {
     let Bidder = await models.bid_details.findAllBidder();
     res.render("web/admin-bidder", {
         layout: "admin-main.hbs",
@@ -135,9 +135,9 @@ module.exports.findAllBidder = async(req, res, next) => {
         user: [req.user],
         Bidder: Bidder
     });
-}
+};
 
-module.exports.findAllUserUpgrade = async(req, res, next) => {
+module.exports.findAllUserUpgrade = async (req, res, next) => {
     let UserUpgrade = await models.user.findUserUpgrade();
     res.render("web/admin-userupgrade", {
         layout: "admin-main.hbs",
@@ -145,14 +145,14 @@ module.exports.findAllUserUpgrade = async(req, res, next) => {
         user: [req.user],
         UserUpgrade: UserUpgrade
     });
-}
+};
 
-module.exports.upbiddertoseller = async(req, res, next) => {
+module.exports.upbiddertoseller = async (req, res, next) => {
     await models.user.upgradeBidderToSeller(req.query.id);
     res.redirect("/admin/userupgrade/");
 };
 
-module.exports.seller = async(req, res, next) => {
+module.exports.seller = async (req, res, next) => {
     let Sellers = await models.user.findSeller();
     res.render("web/admin-seller", {
         layout: "admin-main.hbs",
@@ -160,9 +160,9 @@ module.exports.seller = async(req, res, next) => {
         user: [req.user],
         Sellers: Sellers
     });
-}
+};
 
-module.exports.bidder = async(req, res, next) => {
+module.exports.bidder = async (req, res, next) => {
     let Bidders = await models.user.findBidder();
     res.render("web/admin-bidder", {
         layout: "admin-main.hbs",
@@ -170,4 +170,50 @@ module.exports.bidder = async(req, res, next) => {
         user: [req.user],
         Bidders: Bidders
     });
-}
+};
+
+module.exports.fillUser = (req, res) => {
+    if (req.user.role === 2) {
+        res.render("web/admin-fillUser", {
+            layout: "admin-main.hbs",
+            user: [req.user],
+            title: "THÊM NGƯỜI DÙNG"
+        });
+    } else {
+        res.redirect("/");
+    }
+};
+module.exports.addUser = async (req, res, next) => {
+    await models.user.addUser(req.body);
+    if (req.body.role == 1)
+        res.redirect("/admin/seller/");
+    else if (req.body.role == 0)
+    res.redirect("/admin/bidder/");
+    else res.redirect("/admin");
+};
+module.exports.fillUpdateUser = async (req, res) => {
+    if (req.user.role === 2) {
+        const User = await models.user.findById(req.query.id);
+        res.render("web/admin-fillUser", {
+            layout: "admin-main.hbs",
+            user: [req.user],
+            User: User,
+            title: "CẬP NHẬT NGƯỜI DÙNG"
+        });
+    } else {
+        res.redirect("/");
+    }
+};
+module.exports.updateUser = async (req, res, next) => {
+    await models.user.updateUser(req.query.id, req.body);
+    if (req.body.role == 1)
+        res.redirect("/admin/seller/");
+    else if (req.body.role == 0)
+    res.redirect("/admin/bidder/");
+    else res.redirect("/admin");
+};
+
+module.exports.deleteUser = async (req,res) => {
+    await models.user.delete(req.query.id);
+    res.redirect("/admin/seller/");
+};

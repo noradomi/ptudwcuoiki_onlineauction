@@ -34,4 +34,10 @@ router.get("/userupgrade", isLoggedIn, admincontroller.findAllUserUpgrade);
 router.get("/userupgrade/upgrade", admincontroller.upbiddertoseller);
 router.get("/seller", isLoggedIn, admincontroller.seller);
 router.get("/bidder", isLoggedIn, admincontroller.bidder);
+router.get("/user/add", isLoggedIn, admincontroller.fillUser);
+router.post("/user/add", admincontroller.addUser);
+router.get("/user/update", isLoggedIn, admincontroller.fillUpdateUser);
+router.post("/user/update", admincontroller.updateUser);
+router.get("/user/delete", isLoggedIn, admincontroller.deleteUser);
+
 module.exports = router;

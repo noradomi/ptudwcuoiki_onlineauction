@@ -38,7 +38,7 @@ module.exports = function(sequelize, Sequelize) {
 	};
 
 	Category.updateCat = async (cat_id, cat_name) => {
-		let sql = `UPDATE categories SET cat_name = '${cat_name}' WHERE id = '${cat_id}';`;
+		let sql = `UPDATE categories SET cat_name = '${cat_name}', updatedAt = now() WHERE id = '${cat_id}';`;
 		return sequelize.query(sql, {
 			type: sequelize.QueryTypes.UPDATE
 		});

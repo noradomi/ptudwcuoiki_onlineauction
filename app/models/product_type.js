@@ -28,9 +28,9 @@ module.exports = function(sequelize, Sequelize) {
 	ProductType.update = async (pt_id, pt_name, cat_id) => {
 		let sql;
 		if (cat_id == '')
-			sql = `UPDATE product_types SET protype_name = '${pt_name}', categoryId = null WHERE id = '${pt_id}'`;
+			sql = `UPDATE product_types SET protype_name = '${pt_name}', categoryId = null, updatedAt = now() WHERE id = '${pt_id}'`;
 		else
-			sql = `UPDATE product_types SET protype_name = '${pt_name}', categoryId = '${cat_id}' WHERE id = '${pt_id}'`;
+			sql = `UPDATE product_types SET protype_name = '${pt_name}', categoryId = '${cat_id}', updatedAt = now() WHERE id = '${pt_id}'`;
 		return sequelize.query(sql, {
 			type: sequelize.QueryTypes.UPDATE
 		});
