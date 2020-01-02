@@ -48,7 +48,13 @@ module.exports = function(sequelize, Sequelize) {
 		});
 	};
 	WatchList.findAllBidProduct = function(userId) {
-		let sql = `SELECT distinct (bd.productId),(select max(bd1.price) from bid_details bd1 where  bd1.productId = bd.productId) as price,p.*,bd.userId,u.firstname as winnerfn, u.lastname as winnerln FROM bid_details bd ,products p, users u WHERE  bd.userId = ${userId}  AND p.id = bd.productId AND p.winnerId = u.id ;`;
+		let now = new Date();
+		now.setTime(now.getTime() - now.getTimezoneOffset() * 60 * 1000);
+		nowDate = now
+			.toISOString()
+			.slice(0, 19)
+			.replace('T', ' ');
+		let sql = `SELECT distinct (bd.productId),(select max(bd1.price) from bid_details bd1 where  bd1.productId = bd.productId) as price,p.*,bd.userId,u.firstname as winnerfn, u.lastname as winnerln FROM bid_details bd ,products p, users u WHERE  bd.userId = ${userId}  AND p.id = bd.productId AND p.winnerId = u.id AND p.expriry_date > '${nowDate}';`;
 		return sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});

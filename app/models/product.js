@@ -232,8 +232,13 @@ module.exports = function(sequelize, Sequelize) {
 
 	// Top 5 sản phẩm có lượt ra giá nhiều nhất
 	Product.top5BiddedProducts = async function() {
-		let sql =
-			'SELECT P.*,U.LASTNAME AS lastname,U.FIRSTNAME AS firstname,  (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM USERS U RIGHT JOIN PRODUCTS P ON P.WINNERID = U.ID  JOIN BID_DETAILS B ON P.ID = B.PRODUCTID group by ID ORDER BY COUNT(P.ID) desc LIMIT 5';
+		let now = new Date();
+		now.setTime(now.getTime() - now.getTimezoneOffset() * 60 * 1000);
+		nowDate = now
+			.toISOString()
+			.slice(0, 19)
+			.replace('T', ' ');
+		let sql = `SELECT P.*,U.LASTNAME AS lastname,U.FIRSTNAME AS firstname,  (select count(*) from bid_details b where b.productId = P.id) as countBidders FROM USERS U RIGHT JOIN PRODUCTS P ON P.WINNERID = U.ID  JOIN BID_DETAILS B ON P.ID = B.PRODUCTID where P.expriry_date > '${nowDate}' group by ID ORDER BY COUNT(P.ID) desc LIMIT 5`;
 		let res = await sequelize.query(sql, {
 			type: sequelize.QueryTypes.SELECT
 		});

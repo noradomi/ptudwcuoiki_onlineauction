@@ -16,14 +16,15 @@
 		</div>
 		{{/if}}
 
-		{{#each user}}
+		{{#each userI}}
 
-		<div class="form-group button-cn">
+		<div class="form-group button-cn" id="upgrade">
 			<span class="col-md-3"></span>
 			<button type="button" class="btn btn-info" onclick="window.location.href= '/account/change-email'">Change
 				email</button>
 			<button type="button" class="btn btn-info" onclick="window.location.href='/account/change-password'">Change
 				password</button>
+			{{!-- <div id="upgrade" style="display: inline-block;"></div> --}}
 
 		</div>
 		<form class="form-horizontal" role="form" action="/account/edit-profile" method="POST">
@@ -65,24 +66,30 @@
 	{{#if isBidder}}
 
 	<script>
-		document.getElementsByClassName('button-cn')[0].append(`<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#panel">Nâng
-				cấp tài khoản </button>
-			<div class="container collapse" id="panel" style="margin-top:30px;width: 50%;">
+		document.getElementById('upgrade').innerHTML = `
+		<span class="col-md-3"></span>
+			<button type="button" class="btn btn-info" onclick="window.location.href= '/account/change-email'">Change
+				email</button>
+			<button type="button" class="btn btn-info" onclick="window.location.href='/account/change-password'">Change
+				password</button>
 
-				<div class="panel panel-info " id="">
-					<div class="panel-heading">
-						<h3 class="panel-title">Nâng cấp tài khoản</h3>
-					</div>
-					<div class="panel-body">
-						<p>Nâng cấp tài khoản của bạn thành seller. Yêu cầu sẽ gửi đến admin và chờ phê duyệt</<p>
-							<p><button class="btn btn-primary btn-lg pull-right" role="button"
-									id="upgradebiddertosellerbutton">Xác
-									nhận</button></p>
-					</div>
+		<button type="button" class="btn btn - info" data-toggle="collapse" data-target="#panel">Nâng
+				cấp tài khoản </button >
+		<div class="container collapse" id="panel" style="margin-top:30px;width: 50%;">
+
+			<div class="panel panel-info " id="">
+				<div class="panel-heading">
+					<h3 class="panel-title">Nâng cấp tài khoản</h3>
 				</div>
-
+				<div class="panel-body">
+					<p>Nâng cấp tài khoản của bạn thành seller. Yêu cầu sẽ gửi đến admin và chờ phê duyệt</<p>
+							<p><button class="btn btn-primary btn-lg pull-right" role="button"
+						id="upgradebiddertosellerbutton">Xác
+									nhận</button></p>
+				</div>
 			</div>
-`)
+
+		</div>`;
 	</script>
 
 	{{/if}}

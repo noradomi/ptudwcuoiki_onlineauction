@@ -118,6 +118,7 @@ module.exports.add = async (req, res, next) => {
 			initial_price: product_price,
 			description: product_description,
 			imme_buy_price: product_buynowprice,
+			curr_price: product_price,
 			step_cost: product_stepcost,
 			auto_extend: auto_extend,
 			productTypeId: product_typeID,

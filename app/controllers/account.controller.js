@@ -22,8 +22,12 @@ module.exports.account = (req, res) => {
 				Cat = await model.category.categoriesAndChild();
 
 				PTNotParent = await model.product_type.findAllProductTypeNotParent();
+				req.user.isloggedin = true;
 				res.render('web/account', {
-					user: user,
+					userI: user,
+					user: [req.user],
+					isBidder: req.user.role === 0,
+					isSeller: req.user.role === 1,
 					Cat: Cat,
 					PTNotParent: PTNotParent
 				});
@@ -164,7 +168,10 @@ module.exports.ShowPageChangePassword = (req, res) => {
 			Cat = await model.category.categoriesAndChild();
 
 			PTNotParent = await model.product_type.findAllProductTypeNotParent();
+			req.user.isloggedin = true;
+
 			res.render('web/change-password', {
+				user: [req.user],
 				messages: messages,
 				hasErrors: messages.length > 0,
 				user: user,
