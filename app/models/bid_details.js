@@ -88,9 +88,9 @@ module.exports = function(sequelize, Sequelize) {
         });
     };
 
-    BidDetails.GetAllBiderOfProduct = function(proId){
+    BidDetails.GetAllBiderOfProduct = function(proId) {
         let sql = `Select distinct u.email from bid_details b, users u where b.userId = u.id and b.productId = ${proId} `;
-        return sequelize.query(sql,{
+        return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
     };
@@ -102,8 +102,8 @@ module.exports = function(sequelize, Sequelize) {
         });
     };
 
-    BidDetails.findFirstBidOfUser = function(id) {
-        let sql = `SELECT * FROM bid_details WHERE userId = ${id} LIMIT 1`;
+    BidDetails.findFirstBidOfUser = function(id, pro_Id) {
+        let sql = `SELECT * FROM bid_details WHERE userId = ${id} AND productId = ${pro_Id} LIMIT 1`;
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
