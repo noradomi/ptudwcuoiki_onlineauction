@@ -1,4 +1,5 @@
 const models = require('../models');
+const nodemailer = require('nodemailer');
 const auth = require('../middleware/auth.middleware');
 
 module.exports.postproduct = async (req, res) => {
@@ -158,6 +159,10 @@ module.exports.deny_bid = async function(req, res, next) {
 	let bidderId = req.params.bidderId;
 	let price = req.body.price;
 
+	var bidder = await models.user.findByPk(bidderId);
+	var Product = await models.product.findByPk(proId);
+
+	/*
 	await models.bid_details.destroy({
 		where: {
 			productId: proId,
@@ -185,7 +190,34 @@ module.exports.deny_bid = async function(req, res, next) {
 			}
 		}
 	);
+	*/
 
+	// Gui mail cho nguoi bi kick khoi san pham
+
+	let transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: 'onlineauction.hcmus@gmail.com',
+			pass: '12345678a@'
+		},
+		tls: {
+			// do not fail on invalid certs
+			rejectUnauthorized: false
+		}
+	});
+
+	let info = await transporter.sendMail({
+		from: '"Online Auction" <onlineauction@gmail.com>',
+        to: `${bidder.email}`,
+        subject: "Bid Deny",
+        text: `The seller of ${Product.product_name} has been denied your bid `,
+        html: `Due to the denial of the seller, you are no longer able to bid <b> ${Product.product_name}</b>. Try another product !`
+	  });
+
+	console.log(info);
+	
+	transporter.close();
+	
 	console.log('Xóa thành công');
 	res.jsonp({ success: true });
 };
