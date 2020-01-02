@@ -65,10 +65,14 @@ module.exports.productdetail = async (req, res, next) => {
 		let Seller = await db.product.findProSeller(id);
 
 		if (Seller[0] !== undefined) {
-			Seller[0].rating =
-				(Seller[0].like_count /
-					(Seller[0].like_count + Seller[0].report_count)) *
-				100;
+			if (Seller[0].like_count === 0 && Seller[0].report_count === 0) {
+				Seller[0].rating = 0;
+			} else {
+				Seller[0].rating =
+					(Seller[0].like_count /
+						(Seller[0].like_count + Seller[0].report_count)) *
+					100;
+			}
 		}
 
 		if (HistoryBid.length > 0) {
@@ -78,13 +82,27 @@ module.exports.productdetail = async (req, res, next) => {
 		}
 
 		let HiggestBidder = await db.bid_details.findTheHighestBidder(id);
-
-		if (HiggestBidder[0] !== undefined) {
-			HiggestBidder[0].rating =
-				(HiggestBidder[0].like_count /
-					(HiggestBidder[0].like_count +
-						HiggestBidder[0].report_count)) *
-				100;
+		console.log(HiggestBidder);
+		if (HiggestBidder.length === 0) {
+			HiggestBidder.push({
+				firstname: 'Chưa có ai đấu giá',
+				rating: 0
+			});
+		} else {
+			if (HiggestBidder[0] !== undefined) {
+				if (
+					HiggestBidder[0].like_count === 0 &&
+					HiggestBidder[0].report_count === 0
+				) {
+					HiggestBidder[0].rating = 0;
+				} else {
+					HiggestBidder[0].rating =
+						(HiggestBidder[0].like_count /
+							(HiggestBidder[0].like_count +
+								HiggestBidder[0].report_count)) *
+						100;
+				}
+			}
 		}
 		// HiggestBidder[0].rating =
 		// 	(HiggestBidder[0].like_count /

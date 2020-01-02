@@ -90,7 +90,11 @@
 
 							{{#each Pro}}
 							<dt class="col-sm-4">Giá mua ngay :</dt>
-							<dd class="col-sm-8">{{imme_buy_price}} K</dd>
+							<dd class="col-sm-8">
+								<button href="#" class="btn btn-primary ratebtn buynow clickbuy"
+									pro-id="{{id}}">{{imme_buy_price}}
+									K</button>
+							</dd>
 							<dt class="col-sm-4">Ngày đăng :</dt>
 							<dd class="col-sm-8" id="timee{{id}}" start_date={{start_date}}>
 								<script>
@@ -126,11 +130,17 @@
 												K</span>
 										</span>
 										<script>
+
 											input = document.getElementsByClassName('input-number')[0];
-											if ({{ curr_price }} == 0) {
-												input.value = (parseInt({{ initial_price }}) + ' K');
-											
-											}
+											a = {{ curr_price }};
+											console.log(">>>>>>>>>> ", input);
+											if (input !== undefined) {
+												if (a == 0) {
+													input.value = (parseInt({{ initial_price }}) + ' K');
+											};
+											};
+
+
 										</script>
 									</div>
 								</div>
@@ -181,14 +191,14 @@
 										</span>
 									</div>
 									<button pro-id="{{id}}" type="button" class="primary-btn add-to-cart"
-										style="margin-right: 180px"><i class="fa fa-shopping-cart"></i> Bid
-										Now</button>
+										style="margin-right: 180px"><i class="fa fa-shopping-cart"></i> Đấu giá
+									</button>
 									<i class="fa fa-heart main-btn icon-btn pull-right" onclick="actOnPro(event);"
 										data-pro-id="{{id}}" data-islike="false">
 									</i>
 								</div>
-								<button class="main-btn icon-btn" style="width: auto; padding:0 10px" type="button"
-									data-toggle="collapse" data-target="#{{id}}" aria-expanded="false"
+								<button class="main-btn icon-btn" style="width: auto; padding:0 10px; margin-top: 20px"
+									type="button" data-toggle="collapse" data-target="#{{id}}" aria-expanded="false"
 									aria-controls="collapseExample">
 									ĐẤU GIÁ TỰ ĐỘNG
 								</button>
@@ -196,9 +206,9 @@
 								<tr>
 									<td colspan="6" class="hiddenRow product-tab">
 										<div class="accordian-body collapse" id="{{id}}">
-											<div class="col-md-7 pull-right" style="margin:20px 0">
+											<div class="col-md-7 pull-left" style="margin:20px 0">
 												<h4>MỜI NHẬP GIÁ TỐI ĐA</h4>
-												<input type="number" id="giatoida">
+												<input type="number" id="giatoida"> (* Giá >= {{initial_price}})
 											</div>
 										</div>
 									</td>
@@ -250,10 +260,10 @@
 				<div class="col-md-6">
 					<div class="product-body">
 
-						<div class="product-label">
+						{{!-- <div class="product-label">
 							<span>New</span>
 							<span class="sale">-20%</span>
-						</div>
+						</div> --}}
 						<h2 class="product-name">{{product_name}}</h2>
 
 						<div>
@@ -285,7 +295,9 @@
 
 							{{#each Pro}}
 							<dt class="col-sm-4">Giá mua ngay :</dt>
-							<dd class="col-sm-8">{{imme_buy_price}} K</dd>
+							<dd class="col-sm-8"><button href="#"
+									class="btn btn-primary ratebtn buynow">{{imme_buy_price}}
+									K</button></dd>
 							<dt class="col-sm-4">Ngày đăng :</dt>
 							<dd class="col-sm-8" id="timee{{id}}" start_date={{start_date}}>
 								<script>
@@ -378,10 +390,10 @@
 				<div class="col-md-6">
 					<div class="product-body">
 
-						<div class="product-label">
+						{{!-- <div class="product-label">
 							<span>New</span>
 							<span class="sale">-20%</span>
-						</div>
+						</div> --}}
 						<h2 class="product-name">{{product_name}}</h2>
 
 						<div>
@@ -407,13 +419,12 @@
 							{{#each HiggestBidder}}
 							<dt class="col-sm-4">Người thắng hiện tại :</dt>
 							<dd class="col-sm-4">{{firstname}} {{lastname}}</dd>
-							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn">{{rating}}
+							<dd class="col-sm-4"><button href="#" class="btn btn-primary ratebtn ">{{rating}}
 									%</button></dd>
 							{{/each}}
 
 							{{#each Pro}}
-							<dt class="col-sm-4">Giá mua ngay :</dt>
-							<dd class="col-sm-8">{{imme_buy_price}} K</dd>
+
 							<dt class="col-sm-4">Ngày đăng :</dt>
 							<dd class="col-sm-8" id="timee{{id}}" start_date={{start_date}}>
 								<script>
@@ -426,6 +437,10 @@
 									transferDateFormat3(`{{expriry_date}}`, {{ id }});
 								</script>
 							</dd>
+							<dt class="col-sm-4">Giá mua ngay :</dt>
+							<dd class="col-sm-8"><button href="#" class="btn btn-primary ratebtn buynow"
+									onclick="">{{imme_buy_price}}
+									K</button></dd>
 						</dl>
 						<div class="timer " id=time{{id}} style="margin-top: 20px;" expriry_date={{expriry_date}}>
 
@@ -455,10 +470,15 @@
 										</span>
 										<script>
 											input = document.getElementsByClassName('input-number')[0];
-											if ({{ curr_price }} == 0) {
-												input.value = (parseInt({{ initial_price }}) + ' K');
-											
+											a = {{ curr_price }};
+											if (input !== undefined) {
+												if (a
+													== 0) {
+													input.value = (parseInt({{ initial_price }}) + ' K');
+
 											}
+											}
+
 										</script>
 									</div>
 								</div>
@@ -483,9 +503,9 @@
 				<div class="col-md-12">
 					<div class="product-tab">
 						<ul class="tab-nav">
-							<li class="active"><a data-toggle="tab" href="#tab1">HISTORY BID</a></li>
+							<li class="active"><a data-toggle="tab" href="#tab1">Lịch sử đấu giá</a></li>
 
-							<li><a data-toggle="tab" href="#tab4">Detail Product</a></li>
+							<li><a data-toggle="tab" href="#tab4">Chi tiết sản phẩm</a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="tab1" class="tab-pane fade in active">
@@ -494,11 +514,11 @@
 									style="width: 90%;margin-left: 40px;">
 									<thead>
 										<tr>
-											<th>Bidder</th>
+											<th>Người đấu giá</th>
 
-											<th class="text-center">Price</th>
-											<th class="text-center">Bid Date</th>
-											<th class="text-center">Rating</th>
+											<th class="text-center">Giá</th>
+											<th class="text-center">Ngày giờ</th>
+											<th class="text-center">Điểm đánh giá</th>
 											<th class="text-right"></th>
 										</tr>
 									</thead>
@@ -544,9 +564,9 @@
 								<table class="table table-striped">
 									<thead>
 										<tr>
-											<th>Buyer</th>
-											<th>Time</th>
-											<th>Price</th>
+											<th>Người đấu giá</th>
+											<th>Ngày giờ</th>
+											<th>Giá</th>
 										</tr>
 									</thead>
 
@@ -672,7 +692,7 @@
 									transferDateFormat(`{{start_date}}`, `time{{id}}NEARLYENDED`);
 								</script>
 							</span>
-							<span class="sale text-center">New</span>
+							{{!-- <span class="sale text-center">New</span> --}}
 						</div>
 						<ul class="product-countdown" id="{{id}}NEARLYENDED" expriry_date="{{expriry_date}}">
 							<script>

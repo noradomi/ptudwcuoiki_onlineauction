@@ -23,30 +23,30 @@ module.exports.actWatchList = async(req, res, next) => {
     }
 };
 
-module.exports.bid = async (req, res, next) => {
+module.exports.bid = async(req, res, next) => {
     const userId = req.user.id;
     const proId = req.params.proid;
     const bidPrice = req.body.bidPrice;
     const maxPrice = req.body.maxPrice;
 
     let user = await User.findByPk(userId);
-	let product = await Product.findByPk(proId);
-	let seller = await User.findByPk(product.sellerId);
+    let product = await Product.findByPk(proId);
+    let seller = await User.findByPk(product.sellerId);
     var listbider = await BidDetails.GetAllBiderOfProduct(product.id);
-    
+
     console.log('MAXXXXXXX', maxPrice == '');
 
     let transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: 'onlineauction.hcmus@gmail.com',
-			pass: '12345678a@'
-		},
-		tls: {
-			// do not fail on invalid certs
-			rejectUnauthorized: false
-		}
-	});
+        service: 'gmail',
+        auth: {
+            user: 'onlineauction.hcmus@gmail.com',
+            pass: '12345678a@'
+        },
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false
+        }
+    });
 
     if (maxPrice == '') {
         // Lưu thông tin đấu giá vào bảng bid_details
@@ -86,97 +86,114 @@ module.exports.bid = async (req, res, next) => {
     });
 
     /*Mail system - Gui mail cho cac ben lien quan khi bid thanh cong */
-	
-	//Gui mail confirm bid
 
-	User.findOne({
-        where:{
-            id: req.user.id,
-        } 
-    }).then(function(user){
-        if(user)
-        {
-			var bider_email = user.email;
-			transporter.sendMail({
-				from: '"Online Auction" <onlineauction@gmail.com>',
-				to: `${bider_email}`,
-				subject: "Bid confirmation",
-				text: `You are now in the race for ${product.product_name} `,
-				html: `You have bid product <b> ${product.product_name}</b> with price <b> ${bidPrice} </b> successfully! `
-			  });
+    //Gui mail confirm bid
+
+    User.findOne({
+        where: {
+            id: req.user.id
         }
-        else
-        {
-            console.log('Bider.controller >>>>>>>>>>> Gui mail cho nguoi dau gia that bai');
+    }).then(function(user) {
+        if (user) {
+            var bider_email = user.email;
+            transporter.sendMail({
+                from: '"Online Auction" <onlineauction@gmail.com>',
+                to: `${bider_email}`,
+                subject: 'Bid confirmation',
+                text: `You are now in the race for ${product.product_name} `,
+                html: `You have bid product <b> ${product.product_name}</b> with price <b> ${bidPrice} </b> successfully! `
+            });
+        } else {
+            console.log(
+                'Bider.controller >>>>>>>>>>> Gui mail cho nguoi dau gia that bai'
+            );
         }
     });
-	
-	// Gui mail thong bao cho seller
-	var seller_email = seller.email;
 
-	transporter.sendMail({
-		from: '"Online Auction" <onlineauction@gmail.com>',
-		to: `${seller_email}`,
-		subject: "New bid for your product",
-		text: `New bid for ${product.product_name} `,
-		html: `Your product: <b> ${product.product_name}</b> just have a new bid with price <b> ${bidPrice}. </b> Check out now ! `
-	  });
-	
-	//Gui mail thong bao cho cac bider khac
+    // Gui mail thong bao cho seller
+    var seller_email = seller.email;
 
-	listbider.forEach(l =>{
-		if(l.email != user.email){
-			console.log(l.email);
-			transporter.sendMail({
-				from: '"Online Auction" <onlineauction@gmail.com>',
-				to: `${l.email}`,
-				subject: "You have been outbid. Bid again now !",
-				text: `Your bid for ${product.product_name} has been outbid`,
-				html: `You are no longer the high bidder on the following item: <b> ${product.product_name}.</b> The new price is: <b> ${bidPrice}. </b> Bid again now ! `
-			  });
-		}
-	});
+    transporter.sendMail({
+        from: '"Online Auction" <onlineauction@gmail.com>',
+        to: `${seller_email}`,
+        subject: 'New bid for your product',
+        text: `New bid for ${product.product_name} `,
+        html: `Your product: <b> ${product.product_name}</b> just have a new bid with price <b> ${bidPrice}. </b> Check out now ! `
+    });
+
+    //Gui mail thong bao cho cac bider khac
+
+    listbider.forEach(l => {
+        if (l.email != user.email) {
+            console.log(l.email);
+            transporter.sendMail({
+                from: '"Online Auction" <onlineauction@gmail.com>',
+                to: `${l.email}`,
+                subject: 'You have been outbid. Bid again now !',
+                text: `Your bid for ${product.product_name} has been outbid`,
+                html: `You are no longer the high bidder on the following item: <b> ${product.product_name}.</b> The new price is: <b> ${bidPrice}. </b> Bid again now ! `
+            });
+        }
+    });
 
     // db.watchlist.actWatchList(userId, proId);
     console.log('ĐÃ LƯU : Bid cho product ' + proId + ' boi bidder ' + userId);
-    res.redirect(`/product/productdetail/7`);
+    res.json({ success: true });
 };
 
 // TEST CHUC NANG 6.2
 module.exports.findBiddingUserId = async(req, res, next) => {
-
-
-
-
     //const userId = req.user.id;
     //const proId = req.params.proid;
     //let userBiddingId = await db.bid_details.top1BidingUserId(8);
 
     let allProductId = await db.bid_details.findAllProductInBid();
     for (var i = 0; i < allProductId.length; i++) {
-        console.log('PRODUCT ID IN BID DETAILS   :  ' + allProductId[i].productId);
-        let higgestBidder = await db.bid_details.findTheHighestBidder2(allProductId[i].productId);
-        console.log('PRICEEEEEEEEEEEEEEEE        :  ' + higgestBidder[0].userId);
-        let allUserId = await db.bid_details.findAllUserInBid(allProductId[i].productId);
-        // XET XEM TRONG SAN PHAM DANG XET CO PHAI LA NGUOI TOP KHONG, NEU KHONG THI DUA VAO GIA CUA 
+        console.log(
+            'PRODUCT ID IN BID DETAILS   :  ' + allProductId[i].productId
+        );
+        let higgestBidder = await db.bid_details.findTheHighestBidder2(
+            allProductId[i].productId
+        );
+        console.log(
+            'PRICEEEEEEEEEEEEEEEE        :  ' + higgestBidder[0].userId
+        );
+        let allUserId = await db.bid_details.findAllUserInBid(
+            allProductId[i].productId
+        );
+        // XET XEM TRONG SAN PHAM DANG XET CO PHAI LA NGUOI TOP KHONG, NEU KHONG THI DUA VAO GIA CUA
         //BIDDER VUA MOI BID DE TANG GIA LEN SAO CHO VUA DU NHUNG DIEU KIEN LA <= giatoida
         for (var j = 0; j < allUserId.length; j++) {
             if (allUserId[j].userId === higgestBidder[0].userId) {
-                //NEU DA LA CAO NHAT THI KHONG CAN CAP NHAT 
-                console.log(allUserId[j].userId + 'BANGGGGGGGGGGGGGGGGGGGGGG' + higgestBidder[0].userId);
+                //NEU DA LA CAO NHAT THI KHONG CAN CAP NHAT
+                console.log(
+                    allUserId[j].userId +
+                    'BANGGGGGGGGGGGGGGGGGGGGGG' +
+                    higgestBidder[0].userId
+                );
             } else {
                 //NEU KHONG PHAI CAO NHAT THI DUA VAO GIA TOI DA VA GIA RA CUA THANG DAU GIA KHAC
                 //HE THONG TU RA GIA
                 console.log('NOOOOOOOOO');
-                let max_Price = await db.bid_details.findMaxPriceUserInBid(allProductId[i].productId, allUserId[j].userId);
+                let max_Price = await db.bid_details.findMaxPriceUserInBid(
+                    allProductId[i].productId,
+                    allUserId[j].userId
+                );
                 console.log('MAX PRICE:    ' + max_Price[0].max_price);
                 if (higgestBidder[0].price < max_Price[0].max_price) {
-
-                    let higgestBidder2 = await db.bid_details.findTheHighestBidder2(allProductId[i].productId);
-                    let stepcost = await db.bid_details.findProStepCost(allProductId[i].productId);
-                    let newPrice = higgestBidder2[0].price + stepcost[0].step_cost;
+                    let higgestBidder2 = await db.bid_details.findTheHighestBidder2(
+                        allProductId[i].productId
+                    );
+                    let stepcost = await db.bid_details.findProStepCost(
+                        allProductId[i].productId
+                    );
+                    let newPrice =
+                        higgestBidder2[0].price + stepcost[0].step_cost;
                     if (newPrice >= max_Price[0].max_price) {
-                        console.log('THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' + max_Price[0].max_price);
+                        console.log(
+                            'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' +
+                            max_Price[0].max_price
+                        );
                         await db.bid_details.create({
                             time: new Date(),
                             price: max_Price[0].max_price,
@@ -199,7 +216,10 @@ module.exports.findBiddingUserId = async(req, res, next) => {
                             where: { id: allProductId[i].productId }
                         });
                     } else {
-                        console.log('THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' + newPrice);
+                        console.log(
+                            'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' +
+                            newPrice
+                        );
                         await db.bid_details.create({
                             time: new Date(),
                             price: newPrice,
@@ -222,28 +242,48 @@ module.exports.findBiddingUserId = async(req, res, next) => {
                             where: { id: allProductId[i].productId }
                         });
                     }
-
                 } else {
                     // XET THOI GIAN VAO CUA THANG DANG LA TOP BID XEM NO BID TRUOC HAY SAU BIDDER DANG XET
                     //time1 la thoi gian cua thang dang dung dau , time2 la thoi gian cua thang dang xet
-                    let higgestBidder3 = await db.bid_details.findTheHighestBidder2(allProductId[i].productId);
-                    let firstBidOfUser1 = await db.bid_details.findFirstBidOfUser(higgestBidder3[0].userId);
-                    let time1 = new Date(firstBidOfUser1[0].createdAt).getTime();
+                    let higgestBidder3 = await db.bid_details.findTheHighestBidder2(
+                        allProductId[i].productId
+                    );
+                    let firstBidOfUser1 = await db.bid_details.findFirstBidOfUser(
+                        higgestBidder3[0].userId, allProductId[i].productId
+                    );
+                    let time1 = new Date(
+                        firstBidOfUser1[0].createdAt
+                    ).getTime();
                     console.log('TIME1: ---------------    ' + time1);
                     //console.log('TIMETEST:  ' + new Date('2019-12-31 13:18:37').getTime());
-                    let firstBidOfUser2 = await db.bid_details.findFirstBidOfUser(allUserId[j].userId);
-                    let time2 = new Date(firstBidOfUser2[0].createdAt).getTime();
+                    let firstBidOfUser2 = await db.bid_details.findFirstBidOfUser(
+                        allUserId[j].userId, allProductId[i].productId
+                    );
+                    let time2 = new Date(
+                        firstBidOfUser2[0].createdAt
+                    ).getTime();
                     console.log('TIME2: ---------------   ' + time2);
-                    if (time1 > time2 && firstBidOfUser1[0].max_price === firstBidOfUser2[0].max_price) {
+                    if (
+                        time1 > time2 &&
+                        firstBidOfUser1[0].max_price ===
+                        firstBidOfUser2[0].max_price
+                    ) {
                         console.log('HAHAHAHAHAHAHAAHAHAHAHAHAHAHAHHAHAA DUMA');
                         //TH1: NEU NHU DA BID TOI LUC NHO HON GIA MAX MA GIA BID CUA MINH NHO THI CAP NHAT LAI
-                        //GIA DAU BANG GIA MAX 
-                        let stepcostt = await db.bid_details.findProStepCost(allProductId[i].productId);
+                        //GIA DAU BANG GIA MAX
+                        let stepcostt = await db.bid_details.findProStepCost(
+                            allProductId[i].productId
+                        );
                         let newPrice3 = firstBidOfUser2[0].max_price;
-                        let newPrice2 = higgestBidder3[0].price + stepcostt[0].step_cost;
+                        let newPrice2 =
+                            higgestBidder3[0].price + stepcostt[0].step_cost;
                         if (newPrice2 > firstBidOfUser2[0].max_price) {
-                            console.log('GIA MOI CAP NHAT SE BANG GIA MAX PRICE');
-                            console.log('THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ');
+                            console.log(
+                                'GIA MOI CAP NHAT SE BANG GIA MAX PRICE'
+                            );
+                            console.log(
+                                'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE '
+                            );
                             await db.bid_details.create({
                                 time: new Date(),
                                 price: newPrice3,
@@ -267,7 +307,6 @@ module.exports.findBiddingUserId = async(req, res, next) => {
                         }
                     }
                 }
-
             }
             // console.log(allUserId[j].userId);
         }
@@ -435,9 +474,14 @@ module.exports.feedbacks = async function(req, res, next) {
 
         let info = await db.user.findByPk(req.user.id);
 
-        info.rating =
-            (info.like_count * 100) / (info.like_count + info.report_count);
-        info.report_rate = 100 - info.rating;
+        if (info.like_count === 0 && info.report_count === 0) {
+            info.rating = 0;
+            info.report_rate;
+        } else {
+            info.rating =
+                (info.like_count * 100) / (info.like_count + info.report_count);
+            info.report_rate = 100 - info.rating;
+        }
 
         Cat = await db.category.categoriesAndChild();
         let PTNotParent = await db.product_type.findAllProductTypeNotParent();
@@ -454,4 +498,81 @@ module.exports.feedbacks = async function(req, res, next) {
     } else {
         res.redirect('/');
     }
+};
+
+// Mua ngay
+module.exports.buynow = async(req, res, next) => {
+    const userId = req.user.id;
+    const proId = req.params.proid;
+
+    console.log('>>>>>>>>>', proId);
+
+    let user = await User.findByPk(userId);
+    let product = await Product.findByPk(proId);
+    let seller = await User.findByPk(product.sellerId);
+    var listbider = await BidDetails.GetAllBiderOfProduct(product.id);
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'onlineauction.hcmus@gmail.com',
+            pass: '12345678a@'
+        },
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false
+        }
+    });
+
+    let now = new Date();
+    now.setTime(now.getTime() - now.getTimezoneOffset() * 60 * 1000);
+    await db.bid_details.create({
+        time: now,
+        price: product.imme_buy_price,
+
+        productId: proId,
+        userId: userId
+    });
+
+    db.product.Buynow(proId, userId);
+
+    /*Mail system - Gui mail cho cac ben lien quan khi bid thanh cong */
+
+    //Gui mail confirm bid
+
+    User.findOne({
+        where: {
+            id: req.user.id
+        }
+    }).then(function(user) {
+        if (user) {
+            var bider_email = user.email;
+            transporter.sendMail({
+                from: '"Online Auction" <onlineauction@gmail.com>',
+                to: `${bider_email}`,
+                subject: 'Bid confirmation',
+                text: `You are now in the race for ${product.product_name} `,
+                html: `You have buy now <b> ${product.product_name}</b> with price <b> ${product.imme_buy_price} </b> successfully! `
+            });
+        } else {
+            console.log(
+                'Bider.controller >>>>>>>>>>> Gui mail cho nguoi dau gia that bai'
+            );
+        }
+    });
+
+    // Gui mail thong bao cho seller
+    var seller_email = seller.email;
+
+    transporter.sendMail({
+        from: '"Online Auction" <onlineauction@gmail.com>',
+        to: `${seller_email}`,
+        subject: 'New bid for your product',
+        text: `New bid for ${product.product_name} `,
+        html: `Your product: <b> ${product.product_name}</b> just bought with price <b> ${product.imme_buy_price}. </b> Check out now ! `
+    });
+
+    // db.watchlist.actWatchList(userId, proId);
+    console.log('ĐÃ LƯU : Bid cho product ' + proId + ' boi bidder ' + userId);
+    res.json({ buynow: true });
 };

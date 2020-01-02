@@ -16,14 +16,14 @@ $('.add-to-cart').on('click', function(e) {
         size: 'large',
         buttons: {
             cancel: {
-                label: "I'm a cancel button!",
+                label: "Hủy",
                 className: 'btn-danger',
                 callback: function() {
                     console.log('Custom cancel clicked');
                 }
             },
             ok: {
-                label: "I'm an OK button!",
+                label: "Xác nhận",
                 className: 'btn-info',
                 callback: function() {
                     $.ajax({
@@ -37,10 +37,10 @@ $('.add-to-cart').on('click', function(e) {
                                 // 	'Bạn đã bị seller từ chối ra giá sản phẩm này.'
                                 // );
                                 alertify.alert(
-                                    'Có biến',
-                                    'Bạn đã bị seller từ chối ra giá sản phẩm này.!',
+                                    'Có lỗi',
+                                    'Bạn đã bị người bán từ chối ra giá sản phẩm này.!',
                                     function() {
-                                        alertify.success('Ok');
+                                        alertify.success('Xin thử lại');
                                     }
                                 );
                                 return;
@@ -48,15 +48,57 @@ $('.add-to-cart').on('click', function(e) {
                             if (data['notEnoughRP']) {
                                 // Không đủ điểm đánh giá > 80%
                                 alertify.alert(
-                                    'Có biến',
+                                    'Có lỗi',
                                     'Bạn không đủ điểm đánh giá để tham gia đấu giá.!',
                                     function() {
-                                        alertify.success('Cố gắng lên');
+                                        alertify.success('Xin thử lại');
                                     }
                                 );
                                 return;
                             }
                             localStorage.setItem('Status', true);
+                            location.reload(true);
+                        }
+                    });
+
+                    // setTimeout(function() {
+                    // 	bootbox.alert(
+                    // 		'Giá đấu của bạn đã được ghi nhận! F5 để xem kết quả'
+                    // 	);
+                    // }, 900);
+                }
+            }
+        }
+    });
+});
+
+
+$('.clickbuy').on('click', function(e) {
+    let proId = $(this).attr('pro-id');
+
+    bootbox.dialog({
+        title: 'XÁC NHẬN',
+        message: '<p>Bạn muốn ngay sản phẩm này ?</p>',
+        size: 'large',
+        buttons: {
+            cancel: {
+                label: "Hủy",
+                className: 'btn-danger',
+                callback: function() {
+                    console.log('Custom cancel clicked');
+                }
+            },
+            ok: {
+                label: "Xác nhận",
+                className: 'btn-info',
+                callback: function() {
+                    $.ajax({
+                        url: '/bidders/buynow/' + proId,
+                        method: 'POST',
+                        success: function(data) {
+                            // console.log('Custom OK clicked ' + proId);
+                         
+                            localStorage.setItem('BuyNow', true);
                             location.reload(true);
                         }
                     });

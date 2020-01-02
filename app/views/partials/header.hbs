@@ -31,6 +31,9 @@
                             {{/if}}
 
                             {{/each}}
+                            {{#each PTNotParent}}
+                            <option value={{id}}>{{protype_name}}</option>
+                            {{/each}}
                         </select>
                         <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
@@ -66,16 +69,17 @@
                     {{else}}
                     <div class="btn-auth">
                         <div>
-                            <a href="/auth/register" class=" signup">Sign up</a>
+                            <a href="/auth/register" class=" signup">Đăng kí</a>
 
-                            <a href="/auth/login" class=" login">Login</a>
+                            <a href="/auth/login" class=" login">Đăng nhập</a>
                         </div>
                     </div>
                     {{/if}}
                     {{/each}}
 
                     <script>
-                        document.getElementsByClassName('custom-menu')[0].innerHTML = `
+                        if (document.getElementsByClassName('custom-menu')[0] != undefined) {
+                            document.getElementsByClassName('custom-menu')[0].innerHTML = `
                             <li><a href="/account"><i class="fa fa-user-o"></i> Tài Khoản Của Tôi</a></li>
                                 {{#if isBidder}}
                         <li><a href="/bidders/watchlist"><i class="fa fa-heart-o"></i>Watchlists</a></li>
@@ -88,6 +92,8 @@
                              {{/if}}
 
                                 <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i>Đăng Xuất</a></li>`;
+                        }
+
                     </script>
 
 
