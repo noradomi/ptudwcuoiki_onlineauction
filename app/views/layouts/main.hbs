@@ -134,6 +134,13 @@
 
     <script>
 
+        $('#test').on('click', function (e) {
+             alert("DA GUI YEU CAU XIN LEN SELLER !!!!");
+             $.post('/account/upgrade');
+        });
+         $('#upgradebiddertosellerbutton').on('click', function (e) {
+            alert("DA GUI YEU CAU XIN LEN SELLER !!!!");
+        });
         ///30 s he thong se tu bid 1 lan 
         setInterval(function () {
             $.post('/bidders/TEST');
@@ -149,10 +156,7 @@
         $('#buttonminuspoint').on('click', function (e) {
             $.post('/account/minuspoint');
         });
-        $('#upgradebiddertosellerbutton').on('click', function (e) {
-            $.post('/account/upgrade');
-            alert("DA GUI YEU CAU XIN LEN SELLER !!!!");
-        });
+       
     </script>
 
 </body>

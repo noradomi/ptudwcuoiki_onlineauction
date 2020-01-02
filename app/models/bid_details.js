@@ -20,13 +20,13 @@ module.exports = function(sequelize, Sequelize) {
         }
     });
     BidDetails.findAllHistory = function(id) {
-        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id order by price desc`;
+        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id order by b.id desc`;
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
     };
     BidDetails.findTheHighestBidder = function(id) {
-        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id ORDER BY b.price DESC LIMIT 1 `;
+        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id ORDER BY b.id DESC LIMIT 1 `;
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
@@ -103,10 +103,22 @@ module.exports = function(sequelize, Sequelize) {
     };
 
     BidDetails.findFirstBidOfUser = function(id, pro_Id) {
-        let sql = `SELECT * FROM bid_details WHERE userId = ${id} AND productId = ${pro_Id} LIMIT 1`;
+        let sql = `SELECT * FROM bid_details WHERE userId = ${id} AND productId = ${pro_Id}`;
         return sequelize.query(sql, {
             type: sequelize.QueryTypes.SELECT
         });
     };
+    BidDetails.findFirstBidderBidPro = function(pro_Id) {
+        let sql = `SELECT * FROM bid_details WHERE productId = ${pro_Id} `;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    }
+    BidDetails.findFirstBidderBidPro2 = function(id) {
+        let sql = `SELECT * FROM bid_details b,users s WHERE b.productId = ${id} AND b.userId = s.id ORDER BY b.id DESC`;
+        return sequelize.query(sql, {
+            type: sequelize.QueryTypes.SELECT
+        });
+    }
     return BidDetails;
 };

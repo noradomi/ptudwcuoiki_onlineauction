@@ -164,7 +164,7 @@ module.exports.findBiddingUserId = async(req, res, next) => {
         // XET XEM TRONG SAN PHAM DANG XET CO PHAI LA NGUOI TOP KHONG, NEU KHONG THI DUA VAO GIA CUA
         //BIDDER VUA MOI BID DE TANG GIA LEN SAO CHO VUA DU NHUNG DIEU KIEN LA <= giatoida
         for (var j = 0; j < allUserId.length; j++) {
-            if (allUserId[j].userId === higgestBidder[0].userId) {
+            if (allUserId[j].userId == higgestBidder[0].userId) {
                 //NEU DA LA CAO NHAT THI KHONG CAN CAP NHAT
                 console.log(
                     allUserId[j].userId +
@@ -179,124 +179,36 @@ module.exports.findBiddingUserId = async(req, res, next) => {
                     allProductId[i].productId,
                     allUserId[j].userId
                 );
-                console.log('MAX PRICE:    ' + max_Price[0].max_price);
-                if (higgestBidder[0].price < max_Price[0].max_price) {
-                    let higgestBidder2 = await db.bid_details.findTheHighestBidder2(
-                        allProductId[i].productId
-                    );
-                    let stepcost = await db.bid_details.findProStepCost(
-                        allProductId[i].productId
-                    );
-                    let newPrice =
-                        higgestBidder2[0].price + stepcost[0].step_cost;
-                    if (newPrice >= max_Price[0].max_price) {
-                        console.log(
-                            'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' +
-                            max_Price[0].max_price
-                        );
-                        await db.bid_details.create({
-                            time: new Date(),
-                            price: max_Price[0].max_price,
-                            max_price: max_Price[0].max_price,
-                            productId: allProductId[i].productId,
-                            userId: allUserId[j].userId
-                        });
-                        await db.product.update({
-                            curr_price: max_Price[0].max_price
-                        }, {
-                            returning: false,
-                            where: { id: allProductId[i].productId }
-                        });
-
-                        // Cập nhật thông tin người thắng hiện tại
-                        await db.product.update({
-                            winnerId: allUserId[j].userId
-                        }, {
-                            returning: false,
-                            where: { id: allProductId[i].productId }
-                        });
-                    } else {
-                        console.log(
-                            'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' +
-                            newPrice
-                        );
-                        await db.bid_details.create({
-                            time: new Date(),
-                            price: newPrice,
-                            max_price: max_Price[0].max_price,
-                            productId: allProductId[i].productId,
-                            userId: allUserId[j].userId
-                        });
-                        await db.product.update({
-                            curr_price: newPrice
-                        }, {
-                            returning: false,
-                            where: { id: allProductId[i].productId }
-                        });
-
-                        // Cập nhật thông tin người thắng hiện tại
-                        await db.product.update({
-                            winnerId: allUserId[j].userId
-                        }, {
-                            returning: false,
-                            where: { id: allProductId[i].productId }
-                        });
-                    }
-                } else {
-                    // XET THOI GIAN VAO CUA THANG DANG LA TOP BID XEM NO BID TRUOC HAY SAU BIDDER DANG XET
-                    //time1 la thoi gian cua thang dang dung dau , time2 la thoi gian cua thang dang xet
-                    let higgestBidder3 = await db.bid_details.findTheHighestBidder2(
-                        allProductId[i].productId
-                    );
-                    let firstBidOfUser1 = await db.bid_details.findFirstBidOfUser(
-                        higgestBidder3[0].userId, allProductId[i].productId
-                    );
-                    let time1 = new Date(
-                        firstBidOfUser1[0].createdAt
-                    ).getTime();
-                    console.log('TIME1: ---------------    ' + time1);
-                    //console.log('TIMETEST:  ' + new Date('2019-12-31 13:18:37').getTime());
-                    let firstBidOfUser2 = await db.bid_details.findFirstBidOfUser(
-                        allUserId[j].userId, allProductId[i].productId
-                    );
-                    let time2 = new Date(
-                        firstBidOfUser2[0].createdAt
-                    ).getTime();
-                    console.log('TIME2: ---------------   ' + time2);
-                    if (
-                        time1 > time2 &&
-                        firstBidOfUser1[0].max_price ===
-                        firstBidOfUser2[0].max_price
-                    ) {
-                        console.log('HAHAHAHAHAHAHAAHAHAHAHAHAHAHAHHAHAA DUMA');
-                        //TH1: NEU NHU DA BID TOI LUC NHO HON GIA MAX MA GIA BID CUA MINH NHO THI CAP NHAT LAI
-                        //GIA DAU BANG GIA MAX
-                        let stepcostt = await db.bid_details.findProStepCost(
+                if (max_Price[0].max_price != null) {
+                    console.log('MAX PRICE:    ' + max_Price[0].max_price);
+                    if (higgestBidder[0].price < max_Price[0].max_price) {
+                        let higgestBidder2 = await db.bid_details.findTheHighestBidder2(
                             allProductId[i].productId
                         );
-                        let newPrice3 = firstBidOfUser2[0].max_price;
-                        let newPrice2 =
-                            higgestBidder3[0].price + stepcostt[0].step_cost;
-                        if (newPrice2 > firstBidOfUser2[0].max_price) {
+                        let stepcost = await db.bid_details.findProStepCost(
+                            allProductId[i].productId
+                        );
+                        let newPrice =
+                            higgestBidder2[0].price + stepcost[0].step_cost;
+                        if (newPrice >= max_Price[0].max_price) {
                             console.log(
-                                'GIA MOI CAP NHAT SE BANG GIA MAX PRICE'
-                            );
-                            console.log(
-                                'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE '
+                                'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' +
+                                max_Price[0].max_price
                             );
                             await db.bid_details.create({
                                 time: new Date(),
-                                price: newPrice3,
+                                price: max_Price[0].max_price,
                                 max_price: max_Price[0].max_price,
                                 productId: allProductId[i].productId,
                                 userId: allUserId[j].userId
                             });
                             await db.product.update({
-                                curr_price: newPrice3
+                                curr_price: max_Price[0].max_price
                             }, {
                                 returning: false,
                                 where: { id: allProductId[i].productId }
                             });
+
                             // Cập nhật thông tin người thắng hiện tại
                             await db.product.update({
                                 winnerId: allUserId[j].userId
@@ -304,6 +216,101 @@ module.exports.findBiddingUserId = async(req, res, next) => {
                                 returning: false,
                                 where: { id: allProductId[i].productId }
                             });
+                        } else {
+                            console.log(
+                                'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE ' +
+                                newPrice
+                            );
+                            await db.bid_details.create({
+                                time: new Date(),
+                                price: newPrice,
+                                max_price: max_Price[0].max_price,
+                                productId: allProductId[i].productId,
+                                userId: allUserId[j].userId
+                            });
+                            await db.product.update({
+                                curr_price: newPrice
+                            }, {
+                                returning: false,
+                                where: { id: allProductId[i].productId }
+                            });
+
+                            // Cập nhật thông tin người thắng hiện tại
+                            await db.product.update({
+                                winnerId: allUserId[j].userId
+                            }, {
+                                returning: false,
+                                where: { id: allProductId[i].productId }
+                            });
+                        }
+                    } else {
+                        // XET THOI GIAN VAO CUA THANG DANG LA TOP BID XEM NO BID TRUOC HAY SAU BIDDER DANG XET
+                        //time1 la thoi gian cua thang dang dung dau , time2 la thoi gian cua thang dang xet
+                        let higgestBidder3 = await db.bid_details.findTheHighestBidder2(
+                            allProductId[i].productId
+                        );
+                        let firstBidOfUser1 = await db.bid_details.findFirstBidOfUser(
+                            higgestBidder3[0].userId, allProductId[i].productId
+                        );
+
+                        let time1 = new Date(
+                            firstBidOfUser1[0].createdAt
+                        ).getTime();
+                        console.log('TIME1: ---------------    ' + time1);
+                        //console.log('TIMETEST:  ' + new Date('2019-12-31 13:18:37').getTime());
+                        let firstBidOfUser2 = await db.bid_details.findFirstBidOfUser(
+                            allUserId[j].userId, allProductId[i].productId
+                        );
+                        let time2 = new Date(
+                            firstBidOfUser2[0].createdAt
+                        ).getTime();
+                        let firstBidOfPro = await db.bid_details.findFirstBidderBidPro(allProductId[i].productId);
+                        let firstBidOfPro2 = await db.bid_details.findFirstBidderBidPro2(allProductId[i].productId);
+                        console.log('TIME2: ---------------   ' + time2);
+                        if (time1 > time2 && firstBidOfUser1[0].max_price === firstBidOfUser2[0].max_price) {
+                            console.log('HIGHEST ID: ' + higgestBidder3[0].userId);
+                            console.log('FIRST ID: ' + firstBidOfPro[0].userId);
+                            if (firstBidOfPro2[0].userId == firstBidOfPro[0].userId) {
+                                console.log('HUHUHUHUHU');
+                            } else {
+                                console.log('HAHAHAHAHAHAHAAHAHAHAHAHAHAHAHHAHAA ');
+                                //TH1: NEU NHU DA BID TOI LUC NHO HON GIA MAX MA GIA BID CUA MINH NHO THI CAP NHAT LAI
+                                //GIA DAU BANG GIA MAX
+                                let stepcostt = await db.bid_details.findProStepCost(
+                                    allProductId[i].productId
+                                );
+                                let newPrice3 = firstBidOfUser2[0].max_price;
+                                let newPrice2 =
+                                    higgestBidder3[0].price + stepcostt[0].step_cost;
+                                if (newPrice2 > firstBidOfUser2[0].max_price) {
+                                    console.log(
+                                        'GIA MOI CAP NHAT SE BANG GIA MAX PRICE'
+                                    );
+                                    console.log(
+                                        'THEM VAO BID DETAILS 1 GIAO DICH BID MOI VOI: PRICE '
+                                    );
+                                    await db.bid_details.create({
+                                        time: new Date(),
+                                        price: newPrice3,
+                                        max_price: max_Price[0].max_price,
+                                        productId: allProductId[i].productId,
+                                        userId: allUserId[j].userId
+                                    });
+                                    await db.product.update({
+                                        curr_price: newPrice3
+                                    }, {
+                                        returning: false,
+                                        where: { id: allProductId[i].productId }
+                                    });
+                                    // Cập nhật thông tin người thắng hiện tại
+                                    await db.product.update({
+                                        winnerId: allUserId[j].userId
+                                    }, {
+                                        returning: false,
+                                        where: { id: allProductId[i].productId }
+                                    });
+                                }
+                            }
                         }
                     }
                 }
