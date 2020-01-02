@@ -40,10 +40,16 @@ db.product.belongsTo(db.user, { as: 'Seller', foreignKey: 'sellerId' });
 db.product.belongsTo(db.user, { as: 'Winner', foreignKey: 'winnerId' });
 
 // Category
-db.category.hasMany(db.product_type, { as: 'ProductTypes' });
+db.category.hasMany(db.product_type, {
+	as: 'ProductTypes',
+	foreignKey: 'categoryId'
+});
 
 // ProductType
-db.product_type.belongsTo(db.category, { as: 'Category' });
+db.product_type.belongsTo(db.category, {
+	as: 'Category',
+	foreignKey: 'categoryId'
+});
 db.product_type.hasMany(db.product);
 
 // User

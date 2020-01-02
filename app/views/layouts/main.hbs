@@ -122,6 +122,12 @@
                 localStorage.clear();
             }
 
+
+            if (localStorage.getItem("BuyNow")) {
+                alertify.success('Đã mua ngay thành công.');
+                localStorage.clear();
+            }
+
         });
     </script>
 
@@ -129,14 +135,14 @@
     <script>
 
         ///30 s he thong se tu bid 1 lan 
-        setInterval(function() {
-                        $.post('/bidders/TEST');
-                }, 30000);
+        setInterval(function () {
+            $.post('/bidders/TEST');
+        }, 30000);
         //TEST
-        setInterval(function() {
-                  window.location.reload();
-                }, 100000);
-        
+        setInterval(function () {
+            window.location.reload();
+        }, 100000);
+
         $('#buttonaddpoint').on('click', function (e) {
             $.post('/account/addpoint');
         });

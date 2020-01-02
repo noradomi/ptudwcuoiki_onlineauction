@@ -8,11 +8,13 @@ const auth = require('../middleware/auth.middleware');
 router.post('/watchlist/:proid', bidderController.actWatchList);
 
 router.post(
-    '/bid/:proid',
-    auth.enoughRatingPoint,
-    auth.isNotInBlackList,
-    bidderController.bid
+	'/bid/:proid',
+	auth.enoughRatingPoint,
+	auth.isNotInBlackList,
+	bidderController.bid
 );
+
+router.post('/buynow/:proid', bidderController.buynow);
 
 router.get('/watchlist', bidderController.watchlist);
 router.get('/mybid', bidderController.mybid);

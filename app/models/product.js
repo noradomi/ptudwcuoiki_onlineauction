@@ -71,7 +71,7 @@ module.exports = function(sequelize, Sequelize) {
 	Product.searchAllByFTS = async function(query, ptId) {
 		let sql;
 		if (query != '') {
-			sql = ` WHERE MATCH(product_name) AGAINST ('${query}*' IN BOOLEAN MODE)`;
+			sql = `SELECT p.*, u.lastname as lastname, u.firstname as firstname FROM products p left join users u on p.winnerId = u.id WHERE MATCH(product_name) AGAINST ('${query}' IN NATURAL LANGUAGE MODE)`;
 			if (parseInt(ptId) !== 0) {
 				sql += ` AND productTypeId = ${ptId}`;
 			}
@@ -318,6 +318,21 @@ module.exports = function(sequelize, Sequelize) {
 		}
 		console.log('Không tự extend');
 		return;
+	};
+
+	Product.Buynow = async function(proId, bidderId) {
+		let now = new Date();
+		now.setTime(now.getTime() - now.getTimezoneOffset() * 60 * 1000);
+		nowDate = now
+			.toISOString()
+			.slice(0, 19)
+			.replace('T', ' ');
+		let sql = `update products set expriry_date = '${nowDate}', winnerId = ${bidderId}, curr_price = imme_buy_price where id = ${proId}`;
+		let res = await sequelize.query(sql, {
+			type: sequelize.QueryTypes.UPDATE
+		});
+
+		return res;
 	};
 
 	return Product;

@@ -88,6 +88,13 @@ module.exports = function(sequelize, Sequelize) {
         });
     };
 
+    BidDetails.GetAllBiderOfProduct = function(proId){
+        let sql = `Select distinct u.email from bid_details b, users u where b.userId = u.id and b.productId = ${proId} `;
+        return sequelize.query(sql,{
+            type: sequelize.QueryTypes.SELECT
+        });
+    };
+
     BidDetails.findProStepCost = function(id) {
         let sql = `SELECT  step_cost FROM products WHERE id = ${id}`;
         return sequelize.query(sql, {
